@@ -182,18 +182,31 @@ class OpenEHRController(
 
     private fun processPrimative(item: Questionnaire.QuestionnaireItemComponent?, items: MutableList<Questionnaire.QuestionnaireItemComponent>,  carchetype: CARCHETYPEROOTImpl?,primative: CPRIMITIVEOBJECTImpl) {
         if (item != null && primative.item != null && primative.rmTypeName != null) {
-            item.text = primative.rmTypeName
+           when (primative.rmTypeName) {
+               "INTEGER" -> item.type = Questionnaire.QuestionnaireItemType.INTEGER
+               "REAL" -> item.type = Questionnaire.QuestionnaireItemType.DECIMAL
+               "BOOLEAN" -> item.type = Questionnaire.QuestionnaireItemType.BOOLEAN
+               "STRING" -> item.type = Questionnaire.QuestionnaireItemType.STRING
+               else -> { // Note the block
+                   throw UnprocessableEntityException("Unsupported type " + primative.rmTypeName)
+               }
+           }
         }
     }
 
     private fun processCodePhrase(item: Questionnaire.QuestionnaireItemComponent?, items: MutableList<Questionnaire.QuestionnaireItemComponent>, carchetype: CARCHETYPEROOTImpl?, code: CCODEPHRASEImpl) {
         if (item !== null) {
             if (code.codeListArray !== null) {
-
+                item.type= Questionnaire.QuestionnaireItemType.CHOICE
                 for (concept in code.codeListArray) {
+                    var coding = getCoding(concept,carchetype)
+                    var code = Coding().setCode(concept).setDisplay(getDisplay(concept, carchetype))
+                    if (coding.size >0 ) {
+                        code.setSystem(coding[0].system)
+                        code.setCode(coding[0].code)
+                    }
                     item.answerOption.add(Questionnaire.QuestionnaireItemAnswerOptionComponent().setValue(
-                        Coding().setCode(concept).setDisplay(getDisplay(concept, carchetype)))
-                    )
+                      code))
                     // removed setSystem(OPEN_EHR_CODESYSTEM). as this didn't make sense
                 }
             }
