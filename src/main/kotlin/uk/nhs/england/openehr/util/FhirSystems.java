@@ -35,6 +35,8 @@ public final class FhirSystems {
 
     public static final String SNOMED_CT = "http://snomed.info/sct";
 
+    public static final String LOINC = "http://loinc.org";
+
     public static final String DMandD= "https://dmd.nhs.uk";
 
     public static final String ISO_EHR_EVENTS = "http://terminology.hl7.org/CodeSystem/iso-21089-lifecycle";
@@ -51,6 +53,7 @@ public final class FhirSystems {
     public static final String UNITS_OF_MEASURE = "http://unitsofmeasure.org";
     public static final String OPEN_EHR_CODESYSTEM = "http://openehr.org/CodeSystem";
     public static final String OPEN_EHR_ARCHETYPE = "http://openehr.org/Archetype";
+    public static final String OPEN_EHR_DATATYPE = "http://openehr.org/Datatype";
 
     public static final String stripBrace(String str) {
         return str.replace("{","").replace("}","");
