@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOGS" value="./logs" />
+
+    <appender name="ConsoleDefault"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="Console"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %-5level %C{1.}: %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="ConsoleCACHE"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                CACHE: %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="ConsoleJSON"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!-- LOG everything at INFO level -->
+    <root level="info">
+       <!-- <appender-ref ref="RollingFile" /> -->
+        <appender-ref ref="Console" />
+    </root>
+
+    <!-- LOG "com.baeldung*" at TRACE level -->
+    <logger name="FHIRAudit" level="trace" additivity="false">
+        <appender-ref ref="ConsoleJSON" />
+    </logger>
+
+    <logger name="CACHE" level="trace" additivity="false">
+        <appender-ref ref="ConsoleCACHE" />
+    </logger>
+
+</configuration>
