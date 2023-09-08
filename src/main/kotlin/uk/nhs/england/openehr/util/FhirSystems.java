@@ -47,6 +47,11 @@ public final class FhirSystems {
 
     public static final String V3_PARTICIPANT_TYPE = "http://terminology.hl7.org/CodeSystem/v3-ParticipationType";
 
+    public static final String SDC_UNIT_OPTION = "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption";
+    public static final String UNITS_OF_MEASURE = "http://unitsofmeasure.org";
+    public static final String OPEN_EHR_CODESYSTEM = "http://openehr.org/CodeSystem";
+    public static final String OPEN_EHR_ARCHETYPE = "http://openehr.org/Archetype";
+
     public static final String stripBrace(String str) {
         return str.replace("{","").replace("}","");
     }
