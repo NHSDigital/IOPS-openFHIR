@@ -21,6 +21,7 @@
         <swagger_version>2.1.12</swagger_version>
         <parser_version>2.0.30</parser_version>
         <jackson_databind_version>2.15.2</jackson_databind_version>
+        <ehrbase-sdk.version>1.18.0</ehrbase-sdk.version>
     </properties>
 
     <dependencies>
@@ -97,6 +98,26 @@
             <artifactId>hapi-fhir-validation-resources-r4</artifactId>
             <version>${fhir.version}</version>
         </dependency>
+
+        <!-- openEHR support -->
+        <!-- https://mvnrepository.com/artifact/com.nedap.healthcare.archie/openehr-rm -->
+        <dependency>
+            <groupId>com.nedap.healthcare.archie</groupId>
+            <artifactId>openehr-rm</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ehrbase.openehr.sdk</groupId>
+            <artifactId>client</artifactId>
+            <version>${ehrbase-sdk.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
 
         <dependency>
             <groupId>io.github.microutils</groupId>

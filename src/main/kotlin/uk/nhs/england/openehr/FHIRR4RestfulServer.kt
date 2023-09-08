@@ -9,6 +9,7 @@ import uk.nhs.england.openehr.configuration.FHIRServerProperties
 import uk.nhs.england.openehr.configuration.MessageProperties
 import uk.nhs.england.openehr.interceptor.AWSAuditEventLoggingInterceptor
 import uk.nhs.england.openehr.interceptor.CapabilityStatementInterceptor
+import uk.nhs.england.openehr.provider.QuestionnaireProvider
 import java.util.*
 import javax.servlet.annotation.WebServlet
 
@@ -17,7 +18,8 @@ class FHIRR4RestfulServer(
     @Qualifier("R4") fhirContext: FhirContext,
     public val fhirServerProperties: FHIRServerProperties,
     val messageProperties: MessageProperties,
-    val sqs : AmazonSQS
+    val sqs : AmazonSQS,
+  //  val questionnaireProvider: QuestionnaireProvider
 
     ) : RestfulServer(fhirContext) {
 
@@ -26,6 +28,7 @@ class FHIRR4RestfulServer(
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 
+     //   registerProvider(questionnaireProvider)
 
         registerInterceptor(CapabilityStatementInterceptor(this.fhirContext,fhirServerProperties))
 
