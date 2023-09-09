@@ -387,7 +387,13 @@ class OpenEHRController(
 
         if (cattribute is CMULTIPLEATTRIBUTEImpl) {
             var attribute: CMULTIPLEATTRIBUTEImpl = cattribute
-
+            if (attribute.cardinality !== null && item != null) {
+                if (attribute.cardinality.interval !== null) {
+                    if (attribute.cardinality.interval.lower > 0) item.required = true
+                    if (attribute.cardinality.interval.upper > 1) item.repeats = true
+                    if (attribute.cardinality.interval.upperUnbounded) item.repeats = true
+                }
+            }
             if (attribute.childrenArray != null) {
 
                 for (children in attribute.childrenArray) {
