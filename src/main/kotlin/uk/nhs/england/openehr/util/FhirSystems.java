@@ -53,6 +53,8 @@ public final class FhirSystems {
 
     public static final String SDC_PERIOD = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod";
     public static final String SDC_EXTRACT = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract";
+
+    public static final String SDC_ORDINAL_VALUE = "http://hl7.org/fhir/StructureDefinition/ordinalValue";
     public static final String UNITS_OF_MEASURE = "http://unitsofmeasure.org";
     public static final String OPEN_EHR_CODESYSTEM = "http://openehr.org/CodeSystem";
 
