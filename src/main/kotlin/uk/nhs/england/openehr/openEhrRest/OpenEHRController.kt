@@ -97,23 +97,64 @@ class OpenEHRController(
         var item = citem
         if (attribute.nodeId !== null) {
             // This adds in a new child
-            var itemId = attribute.nodeId + "-" + Random.nextInt(0, 9999).toString()
-            if (citem !== null) itemId = citem.linkId + "/" + itemId
+            if (attribute.rmTypeName !== null) {
+                if (
+                        attribute.rmTypeName.equals("ELEMENT")
+                    //    || attribute.rmTypeName.equals("ITEM_TREE")
+                    ) {
+                var itemId = attribute.nodeId + "-" + Random.nextInt(0, 9999).toString()
+                if (citem !== null) itemId = citem.linkId + "/" + itemId
 
-            item = Questionnaire.QuestionnaireItemComponent().setLinkId( itemId)
-            var name = "CCOMPLEXOBJECT"
-            if (attribute.rmTypeName !== null) name = name + "/" + attribute.rmTypeName
-            item.extension.add(Extension().setUrl(OPEN_EHR_DATATYPE).setValue(StringType().setValue(name)))
+                item = Questionnaire.QuestionnaireItemComponent().setLinkId( itemId)
+                var name = "CCOMPLEXOBJECT"
+                if (attribute.rmTypeName !== null) name = name + "/" + attribute.rmTypeName
+                item.extension.add(Extension().setUrl(OPEN_EHR_DATATYPE).setValue(StringType().setValue(name)))
 
-            item.code = getCoding(attribute.nodeId, carchetype)
-            item.text = getDisplay(attribute.nodeId, carchetype)
-            item.type = Questionnaire.QuestionnaireItemType.STRING
-            items.add(item)
+                item.code = getCoding(attribute.nodeId, carchetype)
+                item.text = getDisplay(attribute.nodeId, carchetype)
+                item.type = Questionnaire.QuestionnaireItemType.STRING
+                items.add(item)
+            } else {
+                System.out.println(attribute.rmTypeName)
+                }
+            }
         }
-        if (item != null && attribute.attributesArray !== null) {
-            item.type = Questionnaire.QuestionnaireItemType.GROUP
-            for (attribute in attribute.attributesArray) {
-                processAttribute(item, item.item,  carchetype, attribute)
+        if (item != null) {
+            if (attribute.attributesArray !== null) {
+                if (item.type != null) {
+             //       System.out.println("ComplexAttribute " + item.type)
+
+                } else {
+                    item.type = Questionnaire.QuestionnaireItemType.GROUP
+                }
+                for (attribute in attribute.attributesArray) {
+                    processAttribute(item, item.item, carchetype, attribute)
+                }
+            }
+            if (attribute.rmTypeName.equals("ITEM_TREE")) {
+                item.type = Questionnaire.QuestionnaireItemType.GROUP
+            }
+            if (attribute.rmTypeName.equals("DV_TEXT")) {
+                // TODO add range in here ?
+                if (item.type != null)  {
+                    when(item.type) {
+                        Questionnaire.QuestionnaireItemType.GROUP -> {
+                            item.type = Questionnaire.QuestionnaireItemType.TEXT
+                        }
+                        Questionnaire.QuestionnaireItemType.CHOICE -> {
+                            item.type = Questionnaire.QuestionnaireItemType.OPENCHOICE
+                        }
+                        else -> {
+                       //     System.out.println("Not changed DV_TEXT  - "+ item.type)
+                        }
+                    }
+                }
+            }
+            if (attribute.rmTypeName.equals("DV_COUNT")) {
+                item.type = Questionnaire.QuestionnaireItemType.INTEGER
+            }
+            if (attribute.rmTypeName.equals("DV_CODED_TEXT")) {
+                item.type = Questionnaire.QuestionnaireItemType.OPENCHOICE
             }
         }
     }
@@ -165,7 +206,7 @@ class OpenEHRController(
         carchetype: CARCHETYPEROOTImpl?,
         single: CSINGLEATTRIBUTEImpl
     ) {
-        System.out.println(single.stringValue)
+     //   System.out.println(single.stringValue)
         if (item != null && single.childrenArray !== null) {
             for (attribute in single.childrenArray) {
                // processAttribute(item, item.item, attribute)
@@ -176,7 +217,8 @@ class OpenEHRController(
 
     private fun processOrdinal(item: Questionnaire.QuestionnaireItemComponent?, items: MutableList<Questionnaire.QuestionnaireItemComponent>, carchetype: CARCHETYPEROOTImpl?, ordinal: CDVORDINALImpl) {
         if (item != null) {
-            System.out.println(ordinal.stringValue)
+            item.type = Questionnaire.QuestionnaireItemType.CHOICE
+           // System.out.println(ordinal.stringValue)
         }
     }
 
@@ -198,19 +240,28 @@ class OpenEHRController(
         if (item !== null) {
             if (code.codeListArray !== null) {
                 item.type= Questionnaire.QuestionnaireItemType.CHOICE
-                for (concept in code.codeListArray) {
-                    var coding = getCoding(concept,carchetype)
-                    var code = Coding().setCode(concept).setDisplay(getDisplay(concept, carchetype))
-                    if (coding.size >0 ) {
-                        code.setSystem(coding[0].system)
-                        code.setCode(coding[0].code)
+                    for (concept in code.codeListArray) {
+                        if (code.terminologyId.value.equals("openehr")) {
+                            item.answerValueSet = OPEN_EHR_VALUESET + "/" + concept
+                        } else {
+                            var coding = getCoding(concept, carchetype)
+                            var code = Coding().setCode(concept).setDisplay(getDisplay(concept, carchetype))
+                            if (coding.size > 0) {
+                                code.setSystem(coding[0].system)
+                                code.setCode(coding[0].code)
+                            } else {
+                                System.out.println(concept)
+                            }
+                            item.answerOption.add(
+                                Questionnaire.QuestionnaireItemAnswerOptionComponent().setValue(
+                                    code
+                                )
+                            )
+                        }
+                        // removed setSystem(OPEN_EHR_CODESYSTEM). as this didn't make sense
                     }
-                    item.answerOption.add(Questionnaire.QuestionnaireItemAnswerOptionComponent().setValue(
-                      code))
-                    // removed setSystem(OPEN_EHR_CODESYSTEM). as this didn't make sense
                 }
             }
-        }
     }
 
     private fun getDisplay(code: String, archetype: CARCHETYPEROOTImpl?) : String {
@@ -259,7 +310,7 @@ class OpenEHRController(
                                      archetype:  ARCHETYPESLOTImpl) {
         var item = citem
 
-
+/* I think this is needed for internal definitions
         if (archetype.nodeId !== null) {
             // This adds in a new child
             var itemId = archetype.nodeId + "-" + Random.nextInt(0, 9999).toString()
@@ -271,9 +322,10 @@ class OpenEHRController(
             item.text = getDisplay(archetype.nodeId, carchetype)
 
             item.type = Questionnaire.QuestionnaireItemType.DISPLAY
+           // if (!archetype.rmTypeName.equals("CLUSTER")) System.out.println("Slot - " + archetype.rmTypeName)
             items.add(item)
         }
-
+*/
 
     }
 

@@ -52,6 +52,8 @@ public final class FhirSystems {
     public static final String SDC_UNIT_OPTION = "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption";
     public static final String UNITS_OF_MEASURE = "http://unitsofmeasure.org";
     public static final String OPEN_EHR_CODESYSTEM = "http://openehr.org/CodeSystem";
+
+    public static final String OPEN_EHR_VALUESET = "http://openehr.org/ValueSet";
     public static final String OPEN_EHR_ARCHETYPE = "http://openehr.org/Archetype";
     public static final String OPEN_EHR_DATATYPE = "http://openehr.org/Datatype";
 
