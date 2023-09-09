@@ -111,11 +111,31 @@ class OpenEHRController(
                 item.extension.add(Extension().setUrl(OPEN_EHR_DATATYPE).setValue(StringType().setValue(name)))
 
                 item.code = getCoding(attribute.nodeId, carchetype)
+                    var addSDC = false
+                for(concept in item.code) {
+                    if (concept.system !== null && (
+                            concept.system.equals(SNOMED_CT) || concept.system.equals(LOINC)
+                            )) addSDC = true
+                }
+                    if (addSDC) {
+                        item.extension.add(Extension()
+                            .setUrl(SDC_PERIOD)
+                            .setValue(Duration()
+                                .setValue(2)
+                                .setCode("wk")
+                                .setUnit("weeks")
+                                .setSystem(UNITS_OF_MEASURE))
+                        )
+                        item.extension.add(Extension()
+                            .setUrl(SDC_EXTRACT)
+                            .setValue(BooleanType().setValue(true))
+                        )
+                    }
                 item.text = getDisplay(attribute.nodeId, carchetype)
                 item.type = Questionnaire.QuestionnaireItemType.STRING
                 items.add(item)
             } else {
-                System.out.println(attribute.rmTypeName)
+               // System.out.println(attribute.rmTypeName)
                 }
             }
         }
