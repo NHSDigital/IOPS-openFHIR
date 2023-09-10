@@ -435,27 +435,42 @@ class openEHRtoFHIR {
     }
 
     private fun processPrimative(item: Questionnaire.QuestionnaireItemComponent?,
-                                 primative: CPRIMITIVEOBJECTImpl,
+                                 primative: CPRIMITIVEOBJECTImpl
                                 ) {
         if (item != null && primative.item != null && primative.rmTypeName != null) {
-            if (primative.item != null){
-                if (primative.item is CSTRINGImpl) {
-                    val str = primative.item as CSTRINGImpl
-                    if (str.listArray !== null && str.listArray.size>0) {
-                        item.text = str.listArray[0]
+            if (item.type === Questionnaire.QuestionnaireItemType.GROUP) {
+                if (primative.item != null){
+                    if (primative.item is CSTRINGImpl) {
+                        val str = primative.item as CSTRINGImpl
+                        if (str.listArray !== null && str.listArray.size>0) {
+                            item.text = str.listArray[0]
+                        }
                     }
                 }
-            }
-            when (primative.rmTypeName) {
-                "INTEGER" -> item.type = Questionnaire.QuestionnaireItemType.INTEGER
-                "REAL" -> item.type = Questionnaire.QuestionnaireItemType.DECIMAL
-                "BOOLEAN" -> item.type = Questionnaire.QuestionnaireItemType.BOOLEAN
-                "STRING" -> {
-                    item.type = Questionnaire.QuestionnaireItemType.STRING
+            } else {
+                when (primative.rmTypeName) {
+                    "INTEGER" -> item.type = Questionnaire.QuestionnaireItemType.INTEGER
+                    "REAL" -> item.type = Questionnaire.QuestionnaireItemType.DECIMAL
+                    "BOOLEAN" -> item.type = Questionnaire.QuestionnaireItemType.BOOLEAN
+                    "STRING" -> {
+                        item.type = Questionnaire.QuestionnaireItemType.STRING
 
+                    }
+
+                    else -> { // Note the block
+                        throw UnprocessableEntityException("Unsupported type " + primative.rmTypeName)
+                    }
                 }
-                else -> { // Note the block
-                    throw UnprocessableEntityException("Unsupported type " + primative.rmTypeName)
+                if (primative.item != null){
+                    if (primative.item is CSTRINGImpl) {
+                        val str = primative.item as CSTRINGImpl
+                        if (str.listArray !== null && str.listArray.size>0) {
+                            for (answer in str.listArray) {
+                                item.addAnswerOption(Questionnaire.QuestionnaireItemAnswerOptionComponent().setValue(
+                                    StringType().setValue(answer)))
+                            }
+                        }
+                    }
                 }
             }
         }
