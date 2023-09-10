@@ -2,12 +2,14 @@ package uk.nhs.england.openehr.model
 
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException
 import org.hl7.fhir.r4.model.*
+import org.hl7.fhir.r4.model.Questionnaire.QuestionnaireItemComponent
 import org.openehr.schemas.v1.ARCHETYPE
 import org.openehr.schemas.v1.CATTRIBUTE
 import org.openehr.schemas.v1.CDVQUANTITY
 import org.openehr.schemas.v1.OPERATIONALTEMPLATE
 import org.openehr.schemas.v1.impl.*
 import uk.nhs.england.openehr.util.FhirSystems
+import uk.nhs.england.openehr.util.FhirSystems.OPENEHR_TEMPLATE
 import kotlin.random.Random
 
 class openEHRtoFHIR {
@@ -22,7 +24,7 @@ class openEHRtoFHIR {
     constructor(template: OPERATIONALTEMPLATE) {
         this.template = template
         if (template.templateId !== null) {
-            this.questionnaire.url = "https://example.fhir.openehr.org/Questionnaire/" + template.templateId.value
+            this.questionnaire.url = OPENEHR_TEMPLATE + "/" + template.templateId.value
             questionnaire.url = questionnaire.url.replace(" ", "")
             questionnaire.title = template.templateId.value
         }
@@ -46,13 +48,29 @@ class openEHRtoFHIR {
         }
         if (template.definition !== null && template.definition.attributesArray !== null) {
             for (attribute in template.definition.attributesArray) {
-                if (attribute.rmAttributeName !== null && attribute.rmAttributeName.equals("content")) {
-                    processAttribute(null, questionnaire.item, attribute)
+                if (attribute.rmAttributeName !== null) {
+                    if (attribute.rmAttributeName.equals("content")) {
+                        processAttribute(null, questionnaire.item, attribute)
+                    }
+                    if (attribute.rmAttributeName.equals("context")) {
+                        var item = QuestionnaireItemComponent().setLinkId("context")
+                            .setType(Questionnaire.QuestionnaireItemType.GROUP)
+                            .setText("Other context")
+                            .setRequired(false)
+
+                        processAttribute(item, questionnaire.item, attribute)
+                        // if no context then don't include
+                        if (item.item.size>0) questionnaire.item.add(item)
+                    }
+                    if (attribute.rmAttributeName.equals("name")) {
+                        processName(attribute)
+                    }
                 }
                 //            processAttribute(questionnaire.item,attribute)
             }
         }
     }
+
     constructor(archetype: ARCHETYPE) {
         this.archeType = archetype
 
@@ -63,6 +81,9 @@ class openEHRtoFHIR {
         }
         if (archetype.uid !== null) {
             questionnaire.identifier.add(Identifier().setValue(archetype.uid.value))
+        }
+        if (archetype.concept !== null) {
+            questionnaire.title = getDisplay(archetype.concept.toString())
         }
         if (archetype.description !== null) {
             if (archetype.description.detailsArray !== null) {
@@ -85,6 +106,40 @@ class openEHRtoFHIR {
             }
         }
     }
+
+
+    private fun processName(attribute: CATTRIBUTE) {
+        /// WTF
+        if (attribute.childrenArray !== null) {
+            for (child in attribute.childrenArray) {
+                if (child is CCOMPLEXOBJECTImpl) {
+                    val complex: CCOMPLEXOBJECTImpl = child
+                    if (complex.attributesArray !== null) {
+                        for (attrib in complex.attributesArray) {
+                            if (attrib is CSINGLEATTRIBUTEImpl) {
+                                val single: CSINGLEATTRIBUTEImpl = attrib
+                                if (single.childrenArray !== null) {
+                                    for (singlechild in single.childrenArray) {
+                                        if (singlechild is CPRIMITIVEOBJECTImpl) {
+                                            val primative : CPRIMITIVEOBJECTImpl = singlechild
+                                            if (primative.item !== null && primative.item is CSTRINGImpl) {
+                                                val str = primative.item as CSTRINGImpl
+                                                if (str.listArray !== null && str.listArray.size>0) {
+                                                    questionnaire.title = str.listArray[0]
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     private fun processAttribute(
         citem: Questionnaire.QuestionnaireItemComponent?,
@@ -167,7 +222,7 @@ class openEHRtoFHIR {
                 item = Questionnaire.QuestionnaireItemComponent().setLinkId(itemId)
 
                 item.extension.add(
-                    Extension().setUrl(FhirSystems.OPEN_EHR_DATATYPE).setValue(StringType().setValue("CARCHETYPEROOT"))
+                    Extension().setUrl(FhirSystems.OPENEHR_DATATYPE_EXT).setValue(StringType().setValue("CARCHETYPEROOT"))
                 )
 
                 item.code = getCoding(rootArchetype!!.nodeId)
@@ -180,8 +235,8 @@ class openEHRtoFHIR {
 
                 if (rootArchetype!!.archetypeId !== null) {
                     item.extension.add(
-                        Extension().setUrl(FhirSystems.OPEN_EHR_ARCHETYPE)
-                            .setValue(StringType().setValue(rootArchetype!!.archetypeId.value))
+                        Extension().setUrl(FhirSystems.OPENEHR_ARCHETYPE_EXT)
+                            .setValue(UriType().setValue(OPENEHR_TEMPLATE + "/" + rootArchetype!!.archetypeId.value))
                     )
                 }
                 if (this.rootArchetype!!.attributesArray !== null) {
@@ -213,7 +268,7 @@ class openEHRtoFHIR {
                     item = Questionnaire.QuestionnaireItemComponent().setLinkId( itemId)
                     var name = "CCOMPLEXOBJECT"
                     if (attribute.rmTypeName !== null) name = name + "/" + attribute.rmTypeName
-                    item.extension.add(Extension().setUrl(FhirSystems.OPEN_EHR_DATATYPE).setValue(StringType().setValue(name)))
+                    item.extension.add(Extension().setUrl(FhirSystems.OPENEHR_DATATYPE_EXT).setValue(StringType().setValue(name)))
 
                     item.code = getCoding(attribute.nodeId)
                     var addSDC = false
@@ -240,7 +295,7 @@ class openEHRtoFHIR {
                     item.type = Questionnaire.QuestionnaireItemType.STRING
                     items.add(item)
                 } else {
-                    System.out.println(attribute.rmTypeName)
+                 //   System.out.println(attribute.rmTypeName)
                 }
             }
         }
@@ -264,8 +319,7 @@ class openEHRtoFHIR {
         if (item != null) {
             if (attribute.rmTypeName.equals("ITEM_TREE")) {
                 item.type = Questionnaire.QuestionnaireItemType.GROUP
-            }
-            if (attribute.rmTypeName.equals("DV_TEXT")) {
+            } else if (attribute.rmTypeName.equals("DV_TEXT")) {
                 // TODO add range in here ?
                 if (item.type != null)  {
                     when(item.type) {
@@ -280,26 +334,45 @@ class openEHRtoFHIR {
                         }
                     }
                 }
-            }
-            if (attribute.rmTypeName.equals("DV_COUNT")) {
+            } else if (attribute.rmTypeName.equals("DV_COUNT")) {
                 item.type = Questionnaire.QuestionnaireItemType.INTEGER
-            }
-            if (attribute.rmTypeName.equals("DV_CODED_TEXT")) {
+            } else if (attribute.rmTypeName.equals("DV_CODED_TEXT")) {
                 item.type = Questionnaire.QuestionnaireItemType.OPENCHOICE
+            } else if (attribute.rmTypeName.equals("DV_DATE_TIME")) {
+                item.type = Questionnaire.QuestionnaireItemType.DATETIME
+            } else if (attribute.rmTypeName.equals("DV_BOOLEAN")) {
+                item.type = Questionnaire.QuestionnaireItemType.BOOLEAN
+            } else if (attribute.rmTypeName.equals("DV_IDENTIFIER")) {
+                item.type = Questionnaire.QuestionnaireItemType.STRING
+            } else if (attribute.rmTypeName.equals("CLUSTER")
+                || attribute.rmTypeName.equals("ELEMENT")
+                || attribute.rmTypeName.equals("EVENT")
+                || attribute.rmTypeName.equals("EVENT_CONTEXT")
+                || attribute.rmTypeName.equals("ACTIVITY")
+                || attribute.rmTypeName.equals("HISTORY")
+                || attribute.rmTypeName.equals("ISM_TRANSITION")
+            ) {
+              // Ignore  item.type = Questionnaire.QuestionnaireItemType.DATETIME
+            } else {
+                System.out.println("Complex Object - Unknown data type " + attribute.rmTypeName)
             }
+
+
         }
     }
 
 
     private fun processSingleObject(
-        item: Questionnaire.QuestionnaireItemComponent?,
+        item: QuestionnaireItemComponent?,
         single: CSINGLEATTRIBUTEImpl
 
     ) {
         //   System.out.println(single.stringValue)
         if (item != null && single.childrenArray !== null) {
             for (attribute in single.childrenArray) {
-                // processAttribute(item, item.item, attribute)
+                if (attribute is CPRIMITIVEOBJECTImpl) {
+                    processPrimative(item,  attribute)
+                }
             }
         }
     }
@@ -324,7 +397,7 @@ class openEHRtoFHIR {
                 }
             }
             if (quantity.property !== null && quantity.property.terminologyId !== null && quantity.property.codeString !== null) {
-                item.code.add(Coding().setSystem(FhirSystems.OPEN_EHR_CODESYSTEM).setCode(quantity.property.codeString))
+                item.code.add(Coding().setSystem(FhirSystems.OPENEHR_CODESYSTEM).setCode(quantity.property.codeString))
             }
         }
 
@@ -343,7 +416,7 @@ class openEHRtoFHIR {
                         && ord.symbol.definingCode.codeString !== null) {
                         code.code = ord.symbol.definingCode.codeString
                         if (archeType != null) {
-                            code.system = FhirSystems.OPEN_EHR_CODESYSTEM + "/" + archeType!!.archetypeId.value
+                            code.system = FhirSystems.OPENEHR_CODESYSTEM + "/" + archeType!!.archetypeId.value
                         }
                         code.display = getDisplay(ord.symbol.definingCode.codeString)
                     }
@@ -365,11 +438,22 @@ class openEHRtoFHIR {
                                  primative: CPRIMITIVEOBJECTImpl,
                                 ) {
         if (item != null && primative.item != null && primative.rmTypeName != null) {
+            if (primative.item != null){
+                if (primative.item is CSTRINGImpl) {
+                    val str = primative.item as CSTRINGImpl
+                    if (str.listArray !== null && str.listArray.size>0) {
+                        item.text = str.listArray[0]
+                    }
+                }
+            }
             when (primative.rmTypeName) {
                 "INTEGER" -> item.type = Questionnaire.QuestionnaireItemType.INTEGER
                 "REAL" -> item.type = Questionnaire.QuestionnaireItemType.DECIMAL
                 "BOOLEAN" -> item.type = Questionnaire.QuestionnaireItemType.BOOLEAN
-                "STRING" -> item.type = Questionnaire.QuestionnaireItemType.STRING
+                "STRING" -> {
+                    item.type = Questionnaire.QuestionnaireItemType.STRING
+
+                }
                 else -> { // Note the block
                     throw UnprocessableEntityException("Unsupported type " + primative.rmTypeName)
                 }
@@ -384,7 +468,7 @@ class openEHRtoFHIR {
                 item.type= Questionnaire.QuestionnaireItemType.CHOICE
                 for (concept in code.codeListArray) {
                     if (code.terminologyId.value.equals("openehr")) {
-                        item.answerValueSet = FhirSystems.OPEN_EHR_VALUESET + "/" + concept
+                        item.answerValueSet = FhirSystems.OPENEHR_VALUESET + "/" + concept
                     } else {
                         var coding = getCoding(concept)
                         var code = Coding().setCode(concept).setDisplay(getDisplay(concept))
@@ -392,7 +476,7 @@ class openEHRtoFHIR {
                             code.setSystem(coding[0].system)
                             code.setCode(coding[0].code)
                         } else {
-                            System.out.println(concept)
+                       // TODO Revisit and see if can be fixed     System.out.println("Unable to find " + concept)
                         }
                         item.answerOption.add(
                             Questionnaire.QuestionnaireItemAnswerOptionComponent().setValue(
@@ -432,7 +516,7 @@ class openEHRtoFHIR {
 
 
     private fun getDisplay(code: String) : String {
-        var display =""
+        var display = code
         if (this.archeType != null && this.archeType!!.ontology != null && this.archeType!!.ontology.termDefinitionsArray !== null) {
             for (terms in this.archeType!!.ontology.termDefinitionsArray) {
                 for (items in terms.itemsArray) {
@@ -493,7 +577,7 @@ class openEHRtoFHIR {
                                 if (item.id.equals("text")) {
                                     code.add(
                                         Coding().setCode(nodeId).setDisplay(item.stringValue).setSystem(
-                                            FhirSystems.OPEN_EHR_CODESYSTEM + "/" + archeType!!.archetypeId.value))
+                                            FhirSystems.OPENEHR_CODESYSTEM + "/" + archeType!!.archetypeId.value))
                                 }
                             }
                         }

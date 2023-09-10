@@ -38,8 +38,6 @@ class OpenEHRController(
 
         ): String {
 
-
-
         val document: ArchetypeDocument
         document = try {
             ArchetypeDocument.Factory.parse(ByteArrayInputStream(archetypXML.toByteArray(StandardCharsets.UTF_8)))

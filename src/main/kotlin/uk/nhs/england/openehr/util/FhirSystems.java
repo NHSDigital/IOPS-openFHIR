@@ -56,11 +56,13 @@ public final class FhirSystems {
 
     public static final String SDC_ORDINAL_VALUE = "http://hl7.org/fhir/StructureDefinition/ordinalValue";
     public static final String UNITS_OF_MEASURE = "http://unitsofmeasure.org";
-    public static final String OPEN_EHR_CODESYSTEM = "http://openehr.org/CodeSystem";
+    public static final String OPENEHR_CODESYSTEM = "http://openehr.org/CodeSystem";
 
-    public static final String OPEN_EHR_VALUESET = "http://openehr.org/ValueSet";
-    public static final String OPEN_EHR_ARCHETYPE = "http://openehr.org/Archetype";
-    public static final String OPEN_EHR_DATATYPE = "http://openehr.org/Datatype";
+    public static final String OPENEHR_VALUESET = "http://openehr.org/ValueSet";
+    public static final String OPENEHR_ARCHETYPE_EXT = "http://openehr.org/Archetype";
+
+    public static final String OPENEHR_TEMPLATE = "https://example.fhir.openehr.org/Questionnaire";
+    public static final String OPENEHR_DATATYPE_EXT = "http://openehr.org/Datatype";
 
     public static final String stripBrace(String str) {
         return str.replace("{","").replace("}","");
