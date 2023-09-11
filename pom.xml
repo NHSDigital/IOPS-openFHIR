@@ -11,7 +11,7 @@
     <groupId>uk.nhs.england</groupId>
     <artifactId>fhir-openehr</artifactId>
     <version>6.8.0</version>
-    <name>fhir-openehr</name>
+    <name>openFHIR</name>
     <description>IOPS FHIR openEHR</description>
 
     <properties>

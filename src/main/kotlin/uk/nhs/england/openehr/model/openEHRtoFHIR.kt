@@ -80,7 +80,7 @@ class openEHRtoFHIR {
         this.archeType = archetype
 
         if (archetype.archetypeId !== null) {
-            questionnaire.url = "https://example.fhir.openehr.org/Questionnaire/" + archetype.archetypeId.value
+            questionnaire.url = OPENEHR_TEMPLATE +"/" + archetype.archetypeId.value
             questionnaire.url = questionnaire.url.replace(" ", "")
             questionnaire.title = archetype.archetypeId.value
         }
@@ -420,6 +420,14 @@ class openEHRtoFHIR {
                                     .setCode(list.units)
                                 )
                         )
+                        if (list.magnitude !== null) {
+                            if (list.magnitude.lower !== null) {
+                                item.extension.add(Extension(SDC_QTY_MIN).setValue(Quantity().setUnit(list.units).setValue(list.magnitude.lower.toDouble())))
+                            }
+                            if (list.magnitude.upper !== null) {
+                                item.extension.add(Extension(SDC_QTY_MAX).setValue(Quantity().setUnit(list.units).setValue(list.magnitude.upper.toDouble())))
+                            }
+                        }
                     }
                 }
             }
@@ -497,12 +505,29 @@ class openEHRtoFHIR {
                             }
                         }
                     }
+                    if (primative.item is CREALImpl) {
+                        var real = primative.item as CREALImpl
+                        if (real.range != null) {
+                            if (real.range.lower !== null) {
+
+                            }
+                            if (real.range.lower !== null) {
+                                item.extension.add(Extension(SDC_QTY_MIN).setValue(Quantity().setValue(real.range.lower.toDouble())))
+                            }
+                            if (real.range.upper !== null) {
+                                item.extension.add(Extension(SDC_QTY_MAX).setValue(Quantity().setValue(real.range.upper.toDouble())))
+                            }
+                        }
+                    }
                 }
                 if (item.type === Questionnaire.QuestionnaireItemType.GROUP) {
                     // check if this is used
                     when (primative.rmTypeName) {
                         "INTEGER" -> item.type = Questionnaire.QuestionnaireItemType.INTEGER
-                        "REAL" -> item.type = Questionnaire.QuestionnaireItemType.DECIMAL
+                        "REAL" -> {
+                            item.type = Questionnaire.QuestionnaireItemType.DECIMAL
+                            primative.item
+                        }
                         "BOOLEAN" -> item.type = Questionnaire.QuestionnaireItemType.BOOLEAN
                         "STRING" -> {
                             item.type = Questionnaire.QuestionnaireItemType.STRING

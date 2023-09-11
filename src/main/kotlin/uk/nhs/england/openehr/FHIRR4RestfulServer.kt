@@ -13,13 +13,13 @@ import uk.nhs.england.openehr.provider.QuestionnaireProvider
 import java.util.*
 import javax.servlet.annotation.WebServlet
 
-@WebServlet("/FHIR/R4/*", loadOnStartup = 1, displayName = "FHIR Facade")
+@WebServlet("/openFHIR/R4/*", loadOnStartup = 1, displayName = "openFHIR")
 class FHIRR4RestfulServer(
     @Qualifier("R4") fhirContext: FhirContext,
     public val fhirServerProperties: FHIRServerProperties,
     val messageProperties: MessageProperties,
     val sqs : AmazonSQS,
-  //  val questionnaireProvider: QuestionnaireProvider
+    val questionnaireProvider: QuestionnaireProvider
 
     ) : RestfulServer(fhirContext) {
 
@@ -28,7 +28,7 @@ class FHIRR4RestfulServer(
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 
-     //   registerProvider(questionnaireProvider)
+        registerProvider(questionnaireProvider)
 
         registerInterceptor(CapabilityStatementInterceptor(this.fhirContext,fhirServerProperties))
 

@@ -1,7 +1,9 @@
 package uk.nhs.england.openehr.configuration
 
 import ca.uhn.fhir.context.FhirContext
+import ca.uhn.fhir.parser.LenientErrorHandler
 import ca.uhn.fhir.parser.StrictErrorHandler
+
 import ca.uhn.fhir.rest.client.api.IGenericClient
 import com.amazonaws.services.sqs.AmazonSQS
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder
