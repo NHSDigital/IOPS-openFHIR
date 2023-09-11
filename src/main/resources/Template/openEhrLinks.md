@@ -16,3 +16,7 @@ https://ckm.apperta.org/ckm/templates/1051.57.279
 Ward Round 
 
 https://ckm.apperta.org/ckm/templates/1051.57.205
+
+Laboratory panel report 
+
+https://ckm.openehr.org/ckm/archetypes/1013.1.2192

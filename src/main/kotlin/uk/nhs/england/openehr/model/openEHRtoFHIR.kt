@@ -9,13 +9,13 @@ import org.openehr.schemas.v1.CDVQUANTITY
 import org.openehr.schemas.v1.OPERATIONALTEMPLATE
 import org.openehr.schemas.v1.impl.*
 import uk.nhs.england.openehr.util.FhirSystems
-import uk.nhs.england.openehr.util.FhirSystems.OPENEHR_TEMPLATE
+import uk.nhs.england.openehr.util.FhirSystems.*
 import kotlin.random.Random
 
 class openEHRtoFHIR {
     var template: OPERATIONALTEMPLATE? = null
     var archeType: ARCHETYPE? = null;
-    var rootArchetype : CARCHETYPEROOTImpl? = null;
+    //var rootArchetype : CARCHETYPEROOTImpl? = null;
     val questionnaire = Questionnaire()
     init {
         questionnaire.status= Enumerations.PublicationStatus.DRAFT
@@ -33,7 +33,12 @@ class openEHRtoFHIR {
         }
         if (template.description !== null) {
             if (template.description.detailsArray !== null) {
-                questionnaire.purpose = template.description.detailsArray[0].purpose
+                for (details in template.description.detailsArray) {
+                    if (details.language === null || (details.language.codeString.equals("en"))) {
+                        questionnaire.purpose = details.purpose
+                        questionnaire.description = details.use
+                    }
+                }
             }
             if (template.description.originalAuthorArray !== null && template.description.originalAuthorArray.size > 0) {
                 for (author in template.description.originalAuthorArray) {
@@ -50,7 +55,7 @@ class openEHRtoFHIR {
             for (attribute in template.definition.attributesArray) {
                 if (attribute.rmAttributeName !== null) {
                     if (attribute.rmAttributeName.equals("content")) {
-                        processAttribute(null, questionnaire.item, attribute)
+                        processAttribute(null, questionnaire.item, attribute,null)
                     }
                     if (attribute.rmAttributeName.equals("context")) {
                         var item = QuestionnaireItemComponent().setLinkId("context")
@@ -58,7 +63,7 @@ class openEHRtoFHIR {
                             .setText("Other context")
                             .setRequired(false)
 
-                        processAttribute(item, questionnaire.item, attribute)
+                        processAttribute(item, questionnaire.item, attribute, null)
                         // if no context then don't include
                         if (item.item.size>0) questionnaire.item.add(item)
                     }
@@ -83,11 +88,16 @@ class openEHRtoFHIR {
             questionnaire.identifier.add(Identifier().setValue(archetype.uid.value))
         }
         if (archetype.concept !== null) {
-            questionnaire.title = getDisplay(archetype.concept.toString())
+            questionnaire.title = getDisplay(archetype.concept.toString(),null)
         }
         if (archetype.description !== null) {
             if (archetype.description.detailsArray !== null) {
-                questionnaire.purpose = archetype.description.detailsArray[0].purpose
+                for (details in archetype.description.detailsArray) {
+                    if (details.language === null || (details.language.codeString.equals("en"))) {
+                        questionnaire.purpose = details.purpose
+                        questionnaire.description = details.use
+                    }
+                }
             }
             if (archetype.description.originalAuthorArray !== null && archetype.description.originalAuthorArray.size > 0) {
                 for (author in archetype.description.originalAuthorArray) {
@@ -102,7 +112,7 @@ class openEHRtoFHIR {
         }
         if (archetype.definition !== null && archetype.definition.attributesArray !== null) {
             for (attribute in archetype.definition.attributesArray) {
-                processAttribute( null, questionnaire.item,  attribute)
+                processAttribute( null, questionnaire.item,  attribute, null)
             }
         }
     }
@@ -144,9 +154,10 @@ class openEHRtoFHIR {
     private fun processAttribute(
         citem: Questionnaire.QuestionnaireItemComponent?,
         items: MutableList<Questionnaire.QuestionnaireItemComponent>,
-        cattribute: CATTRIBUTE
+        cattribute: CATTRIBUTE,
+        crootArchetype : CARCHETYPEROOTImpl?
     ) {
-
+        var rootArchetype = crootArchetype
         var item = citem
         if (cattribute is CMULTIPLEATTRIBUTEImpl) {
             var attribute: CMULTIPLEATTRIBUTEImpl = cattribute
@@ -161,10 +172,9 @@ class openEHRtoFHIR {
 
                 for (children in attribute.childrenArray) {
                     if (children is CARCHETYPEROOTImpl) {
-                        this.rootArchetype = children
-                        processArchetypeRoot(item, items)
+                        processArchetypeRoot(item, items,children)
                     } else if (children is CCOMPLEXOBJECTImpl) {
-                        processComplexObject(item, items, children)
+                        processComplexObject(item, items, children, rootArchetype)
                     } else if (children is ARCHETYPESLOTImpl) {
                         processArchetypeSlot(item, children)
                     }
@@ -181,23 +191,23 @@ class openEHRtoFHIR {
 
                 for (children in attribute.childrenArray) {
                     if (children is CARCHETYPEROOTImpl) {
-                        this.rootArchetype = children
-                        processArchetypeRoot( item, items)
+
+                        processArchetypeRoot( item, items, children)
                     } else if (children is CCOMPLEXOBJECTImpl) {
-                        processComplexObject( item, items, children)
+                        processComplexObject( item, items, children, rootArchetype)
                     } else if (children is CSINGLEATTRIBUTEImpl) {
                         processSingleObject(item, children)
                     } else if (children is CDVQUANTITY) {
                         processQuantity(item, children)
 
                     } else if (children is CCODEPHRASEImpl) {
-                        processCodePhrase(item, children)
+                        processCodePhrase(item, children, rootArchetype)
                     }
                     else if (children is CPRIMITIVEOBJECTImpl) {
                         processPrimative(item, children)
                     }
                     else if (children is CDVORDINALImpl) {
-                        processOrdinal(item,  children)
+                        processOrdinal(item,  children, rootArchetype)
                     }
                     else {
                         System.out.println(children.javaClass)
@@ -207,11 +217,13 @@ class openEHRtoFHIR {
         } else {
             System.out.println(cattribute.javaClass)
         }
+
     }
 
     private fun processArchetypeRoot(
         citem: Questionnaire.QuestionnaireItemComponent?,
-        items: MutableList<Questionnaire.QuestionnaireItemComponent>
+        items: MutableList<Questionnaire.QuestionnaireItemComponent>,
+        rootArchetype : CARCHETYPEROOTImpl?
     ) {
         var item = citem
         if (rootArchetype !== null) {
@@ -225,8 +237,8 @@ class openEHRtoFHIR {
                     Extension().setUrl(FhirSystems.OPENEHR_DATATYPE_EXT).setValue(StringType().setValue("CARCHETYPEROOT"))
                 )
 
-                item.code = getCoding(rootArchetype!!.nodeId)
-                item.text = getDisplay(rootArchetype!!.nodeId)
+                item.code = getCoding(rootArchetype.nodeId,rootArchetype)
+                item.text = getDisplay(rootArchetype.nodeId,rootArchetype)
                 item.type = Questionnaire.QuestionnaireItemType.STRING
                 items.add(item)
             }
@@ -239,20 +251,25 @@ class openEHRtoFHIR {
                             .setValue(UriType().setValue(OPENEHR_TEMPLATE + "/" + rootArchetype!!.archetypeId.value))
                     )
                 }
-                if (this.rootArchetype!!.attributesArray !== null) {
+                if (rootArchetype!!.attributesArray !== null) {
                     item.type = Questionnaire.QuestionnaireItemType.GROUP
                     for (attribute in rootArchetype!!.attributesArray) {
-                        processAttribute(item, item.item, attribute)
+                        processAttribute(item, item.item, attribute,rootArchetype)
                     }
                 }
             }
         }
+        if (item != null && item.type == Questionnaire.QuestionnaireItemType.GROUP && !item.hasItem()) {
+
+            item.type = Questionnaire.QuestionnaireItemType.DISPLAY
+        }
     }
 
     private fun processComplexObject(
-        citem: Questionnaire.QuestionnaireItemComponent?,
-        items: MutableList<Questionnaire.QuestionnaireItemComponent>,
+        citem: QuestionnaireItemComponent?,
+        items: MutableList<QuestionnaireItemComponent>,
         attribute: CCOMPLEXOBJECTImpl,
+        rootArchetype : CARCHETYPEROOTImpl?
     ) {
         var item = citem
         if (attribute.nodeId !== null) {
@@ -260,7 +277,7 @@ class openEHRtoFHIR {
             if (attribute.rmTypeName !== null) {
                 if (
                     attribute.rmTypeName.equals("ELEMENT")
-                //    || attribute.rmTypeName.equals("ITEM_TREE")
+                   || attribute.rmTypeName.equals("CLUSTER")
                 ) {
                     var itemId = attribute.nodeId + "-" + Random.nextInt(0, 9999).toString()
                     if (citem !== null) itemId = citem.linkId + "/" + itemId
@@ -270,7 +287,7 @@ class openEHRtoFHIR {
                     if (attribute.rmTypeName !== null) name = name + "/" + attribute.rmTypeName
                     item.extension.add(Extension().setUrl(FhirSystems.OPENEHR_DATATYPE_EXT).setValue(StringType().setValue(name)))
 
-                    item.code = getCoding(attribute.nodeId)
+                    item.code = getCoding(attribute.nodeId,rootArchetype)
                     var addSDC = false
                     for(concept in item.code) {
                         if (concept.system !== null && (
@@ -291,8 +308,12 @@ class openEHRtoFHIR {
                             .setValue(BooleanType().setValue(true))
                         )
                     }
-                    item.text = getDisplay(attribute.nodeId)
-                    item.type = Questionnaire.QuestionnaireItemType.STRING
+                    item.text = getDisplay(attribute.nodeId,rootArchetype)
+                    if (attribute.rmTypeName.equals("CLUSTER")) {
+                        item.type = Questionnaire.QuestionnaireItemType.GROUP
+                    } else {
+                        item.type = Questionnaire.QuestionnaireItemType.STRING
+                    }
                     items.add(item)
                 } else {
                  //   System.out.println(attribute.rmTypeName)
@@ -308,11 +329,11 @@ class openEHRtoFHIR {
                     item.type = Questionnaire.QuestionnaireItemType.GROUP
                 }
                 for (attr in attribute.attributesArray) {
-                    processAttribute(item, item.item,  attr)
+                    processAttribute(item, item.item, attr, rootArchetype)
                 }
             } else {
                 for (attr in attribute.attributesArray) {
-                    processAttribute(item, items,  attr)
+                    processAttribute(item, items, attr,rootArchetype)
                 }
             }
         }
@@ -324,7 +345,8 @@ class openEHRtoFHIR {
                 if (item.type != null)  {
                     when(item.type) {
                         Questionnaire.QuestionnaireItemType.GROUP -> {
-                            item.type = Questionnaire.QuestionnaireItemType.TEXT
+                           // item.type = Questionnaire.QuestionnaireItemType.TEXT
+                            //System.out.println("Is a GROUP - DV_TEXT")
                         }
                         Questionnaire.QuestionnaireItemType.CHOICE -> {
                             item.type = Questionnaire.QuestionnaireItemType.OPENCHOICE
@@ -344,6 +366,10 @@ class openEHRtoFHIR {
                 item.type = Questionnaire.QuestionnaireItemType.BOOLEAN
             } else if (attribute.rmTypeName.equals("DV_IDENTIFIER")) {
                 item.type = Questionnaire.QuestionnaireItemType.STRING
+            } else if (attribute.rmTypeName.equals("DV_PROPORTION")) {
+                item.type = Questionnaire.QuestionnaireItemType.DECIMAL
+            } else if (attribute.rmTypeName.equals("POINT_EVENT")) {
+                System.out.println("Not processing POINT EVENT")
             } else if (attribute.rmTypeName.equals("CLUSTER")
                 || attribute.rmTypeName.equals("ELEMENT")
                 || attribute.rmTypeName.equals("EVENT")
@@ -356,6 +382,7 @@ class openEHRtoFHIR {
             } else {
                 System.out.println("Complex Object - Unknown data type " + attribute.rmTypeName)
             }
+
 
 
         }
@@ -404,7 +431,8 @@ class openEHRtoFHIR {
     }
 
     private fun processOrdinal(item: Questionnaire.QuestionnaireItemComponent?,
-                               ordinal: CDVORDINALImpl) {
+                               ordinal: CDVORDINALImpl,
+                               rootArchetype : CARCHETYPEROOTImpl?) {
         if (item != null) {
             item.type = Questionnaire.QuestionnaireItemType.CHOICE
             if (ordinal.listArray != null) {
@@ -418,7 +446,7 @@ class openEHRtoFHIR {
                         if (archeType != null) {
                             code.system = FhirSystems.OPENEHR_CODESYSTEM + "/" + archeType!!.archetypeId.value
                         }
-                        code.display = getDisplay(ord.symbol.definingCode.codeString)
+                        code.display = getDisplay(ord.symbol.definingCode.codeString, rootArchetype)
                     }
                     // TODO add value as score
                     var answerOption = Questionnaire.QuestionnaireItemAnswerOptionComponent().setValue(
@@ -438,46 +466,81 @@ class openEHRtoFHIR {
                                  primative: CPRIMITIVEOBJECTImpl
                                 ) {
         if (item != null && primative.item != null && primative.rmTypeName != null) {
-            if (item.type === Questionnaire.QuestionnaireItemType.GROUP) {
+            if (item.type === Questionnaire.QuestionnaireItemType.GROUP
+                || item.type === Questionnaire.QuestionnaireItemType.QUANTITY
+                || item.type === Questionnaire.QuestionnaireItemType.STRING) {
                 if (primative.item != null){
                     if (primative.item is CSTRINGImpl) {
                         val str = primative.item as CSTRINGImpl
                         if (str.listArray !== null && str.listArray.size>0) {
-                            item.text = str.listArray[0]
+                            for (answer in str.listArray) {
+                                val type = getStringCoded(answer)
+                                if (type is StringType) {
+                                    item.text = type.value
+                                }
+                                if (type is Coding) {
+                                    item.text = type.display
+                                    item.code.add(type)
+                                }
+                            }
                         }
                     }
                 }
             } else {
-                when (primative.rmTypeName) {
-                    "INTEGER" -> item.type = Questionnaire.QuestionnaireItemType.INTEGER
-                    "REAL" -> item.type = Questionnaire.QuestionnaireItemType.DECIMAL
-                    "BOOLEAN" -> item.type = Questionnaire.QuestionnaireItemType.BOOLEAN
-                    "STRING" -> {
-                        item.type = Questionnaire.QuestionnaireItemType.STRING
-
-                    }
-
-                    else -> { // Note the block
-                        throw UnprocessableEntityException("Unsupported type " + primative.rmTypeName)
-                    }
-                }
                 if (primative.item != null){
                     if (primative.item is CSTRINGImpl) {
                         val str = primative.item as CSTRINGImpl
                         if (str.listArray !== null && str.listArray.size>0) {
                             for (answer in str.listArray) {
                                 item.addAnswerOption(Questionnaire.QuestionnaireItemAnswerOptionComponent().setValue(
-                                    StringType().setValue(answer)))
+                                    getStringCoded(answer)))
                             }
                         }
                     }
                 }
+                if (item.type === Questionnaire.QuestionnaireItemType.GROUP) {
+                    // check if this is used
+                    when (primative.rmTypeName) {
+                        "INTEGER" -> item.type = Questionnaire.QuestionnaireItemType.INTEGER
+                        "REAL" -> item.type = Questionnaire.QuestionnaireItemType.DECIMAL
+                        "BOOLEAN" -> item.type = Questionnaire.QuestionnaireItemType.BOOLEAN
+                        "STRING" -> {
+                            item.type = Questionnaire.QuestionnaireItemType.STRING
+
+                        }
+
+                        else -> { // Note the block
+                            throw UnprocessableEntityException("Unsupported type " + primative.rmTypeName)
+                        }
+                    }
+                }
+
             }
         }
     }
 
+    private fun getStringCoded(answer : String) : Type? {
+        var coded = answer.split("::")
+        if (coded.size<2) {
+            return StringType().setValue(answer)
+        } else {
+            var code = Coding().setCode(coded[1]).setDisplay(coded[2])
+            when (coded[0]) {
+                "LOINC" -> {
+                    code.system = LOINC
+                }
+                "SNOMED-CT(2003)", "SNOMED-CT" -> {
+                    code.system = SNOMED_CT
+                }
+            }
+            return code
+        }
+    }
+
+
     private fun processCodePhrase(item: Questionnaire.QuestionnaireItemComponent?,
-                                  code: CCODEPHRASEImpl) {
+                                  code: CCODEPHRASEImpl,
+                                  rootArchetype : CARCHETYPEROOTImpl?) {
         if (item !== null) {
             if (code.codeListArray !== null) {
                 item.type= Questionnaire.QuestionnaireItemType.CHOICE
@@ -485,8 +548,8 @@ class openEHRtoFHIR {
                     if (code.terminologyId.value.equals("openehr")) {
                         item.answerValueSet = FhirSystems.OPENEHR_VALUESET + "/" + concept
                     } else {
-                        var coding = getCoding(concept)
-                        var code = Coding().setCode(concept).setDisplay(getDisplay(concept))
+                        var coding = getCoding(concept, rootArchetype)
+                        var code = Coding().setCode(concept).setDisplay(getDisplay(concept,rootArchetype))
                         if (coding.size > 0) {
                             code.setSystem(coding[0].system)
                             code.setCode(coding[0].code)
@@ -530,8 +593,9 @@ class openEHRtoFHIR {
 
 
 
-    private fun getDisplay(code: String) : String {
+    private fun getDisplay(code: String, rootArchetype : CARCHETYPEROOTImpl?) : String {
         var display = code
+
         if (this.archeType != null && this.archeType!!.ontology != null && this.archeType!!.ontology.termDefinitionsArray !== null) {
             for (terms in this.archeType!!.ontology.termDefinitionsArray) {
                 for (items in terms.itemsArray) {
@@ -543,7 +607,7 @@ class openEHRtoFHIR {
                     }
                 }
             }
-        }
+        } else
         if (rootArchetype != null && rootArchetype!!.termDefinitionsArray !== null) {
             for (term in rootArchetype!!.termDefinitionsArray) {
                 if (code.equals(term.code)) {
@@ -555,11 +619,14 @@ class openEHRtoFHIR {
                     }
                 }
             }
+        } else {
+            System.out.println("Should be impossible")
         }
         return display
     }
 
-    private fun getCoding(nodeId: String ) : List<Coding> {
+    private fun getCoding(nodeId: String,rootArchetype : CARCHETYPEROOTImpl? ) : List<Coding> {
+
         val code = ArrayList<Coding>()
         if (archeType != null && archeType!!.ontology != null) {
             if (archeType!!.ontology.termBindingsArray != null) {
@@ -585,9 +652,10 @@ class openEHRtoFHIR {
                 }
             }
             if (archeType!!.ontology.termDefinitionsArray != null) {
-                for (termBinding in archeType!!.ontology.termDefinitionsArray) {
-                    if (termBinding.itemsArray != null) {
-                        for (codes in termBinding.itemsArray) {
+                for (termDefinition in archeType!!.ontology.termDefinitionsArray) {
+                    if (termDefinition.language == null || termDefinition.language.equals("en"))
+                    if (termDefinition.itemsArray != null) {
+                        for (codes in termDefinition.itemsArray) {
                             if (codes.code.equals(nodeId)) for (item in codes.itemsArray) {
                                 if (item.id.equals("text")) {
                                     code.add(
@@ -600,23 +668,25 @@ class openEHRtoFHIR {
                 }
             }
         }
-        if (rootArchetype != null && rootArchetype!!.termBindingsArray != null) {
+        else if (rootArchetype != null && rootArchetype!!.termBindingsArray != null) {
             for (termBinding in rootArchetype!!.termBindingsArray) {
                 if (termBinding.terminology.equals("LOINC")) {
                     if (termBinding.itemsArray != null) {
                         for (codes in termBinding.itemsArray) {
-                            if (codes.code.equals(nodeId)) code.add(Coding().setSystem(FhirSystems.LOINC).setCode(codes.value.codeString))
+                            if (codes.code.equals(nodeId)) code.add(Coding().setSystem(LOINC).setCode(codes.value.codeString))
                         }
                     }
                 }
                 if (termBinding.terminology.equals("SNOMED-CT")) {
                     if (termBinding.itemsArray != null) {
                         for (codes in termBinding.itemsArray) {
-                            if (codes.code.equals(nodeId)) code.add(Coding().setSystem(FhirSystems.SNOMED_CT).setCode(codes.value.codeString))
+                            if (codes.code.equals(nodeId)) code.add(Coding().setSystem(SNOMED_CT).setCode(codes.value.codeString))
                         }
                     }
                 }
             }
+        } else {
+            System.out.println("Should be impossible")
         }
         return code
     }
