@@ -437,10 +437,10 @@ class openEHRtoFHIR {
                         )
                         if (list.magnitude !== null) {
                             if (list.magnitude.lower !== null) {
-                                item.extension.add(Extension(SDC_QTY_MIN).setValue(Quantity().setUnit(list.units).setValue(list.magnitude.lower.toDouble())))
+                                item.extension.add(Extension(SDC_QTY_MIN).setValue(Quantity().setCode(list.units).setValue(list.magnitude.lower.toDouble())))
                             }
                             if (list.magnitude.upper !== null) {
-                                item.extension.add(Extension(SDC_QTY_MAX).setValue(Quantity().setUnit(list.units).setValue(list.magnitude.upper.toDouble())))
+                                item.extension.add(Extension(SDC_QTY_MAX).setValue(Quantity().setCode(list.units).setValue(list.magnitude.upper.toDouble())))
                             }
                         }
                     }
@@ -529,7 +529,7 @@ class openEHRtoFHIR {
                             if (real.range.lower !== null) {
                                 item.extension.add(Extension(SDC_QTY_MIN).setValue(Quantity().setValue(real.range.lower.toDouble())))
                             }
-                            if (real.range.upper !== null) {
+                            if (real.range.upper !== null && real.range.upper > 0) {
                                 item.extension.add(Extension(SDC_QTY_MAX).setValue(Quantity().setValue(real.range.upper.toDouble())))
                             }
                         }
