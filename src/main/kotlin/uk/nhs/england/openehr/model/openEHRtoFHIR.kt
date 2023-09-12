@@ -229,9 +229,19 @@ class openEHRtoFHIR {
         if (rootArchetype !== null) {
             if (rootArchetype !== null && rootArchetype!!.nodeId !== null) {
                 // This adds in a new child
+
+                /* OLD
                 var itemId = rootArchetype!!.nodeId + "-" + Random.nextInt(0, 9999).toString()
                 if (citem !== null) itemId = citem.linkId + "/" + itemId
                 item = Questionnaire.QuestionnaireItemComponent().setLinkId(itemId)
+
+                 */
+
+                var itemId = rootArchetype.nodeId
+                if (rootArchetype.archetypeId !== null) itemId = rootArchetype.archetypeId.value
+                if (citem !== null) itemId = citem.linkId + "/" + itemId
+                item = Questionnaire.QuestionnaireItemComponent().setLinkId(itemId)
+
 
                 item.extension.add(
                     Extension().setUrl(FhirSystems.OPENEHR_DATATYPE_EXT).setValue(StringType().setValue("CARCHETYPEROOT"))
@@ -279,7 +289,12 @@ class openEHRtoFHIR {
                     attribute.rmTypeName.equals("ELEMENT")
                    || attribute.rmTypeName.equals("CLUSTER")
                 ) {
+                    /* OLD
                     var itemId = attribute.nodeId + "-" + Random.nextInt(0, 9999).toString()
+                    if (citem !== null) itemId = citem.linkId + "/" + itemId
+                    */
+
+                    var itemId = attribute.nodeId
                     if (citem !== null) itemId = citem.linkId + "/" + itemId
 
                     item = Questionnaire.QuestionnaireItemComponent().setLinkId( itemId)
