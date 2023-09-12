@@ -10,7 +10,6 @@ import org.openehr.schemas.v1.OPERATIONALTEMPLATE
 import org.openehr.schemas.v1.impl.*
 import uk.nhs.england.openehr.util.FhirSystems
 import uk.nhs.england.openehr.util.FhirSystems.*
-import kotlin.random.Random
 
 class openEHRtoFHIR {
     var template: OPERATIONALTEMPLATE? = null
@@ -37,6 +36,19 @@ class openEHRtoFHIR {
                     if (details.language === null || (details.language.codeString.equals("en"))) {
                         questionnaire.purpose = details.purpose
                         questionnaire.description = details.use
+
+                        if (details.misuse !== null) {
+                            questionnaire.description = questionnaire.description + "\n\n#####Misuse\n\n"+details.misuse
+                        }
+                        if (details.keywordsArray !== null) {
+                            questionnaire.description = questionnaire.description + "\n\n#####Keywords\n\n"
+                            var keywords = ""
+                            for(txt in details.keywordsArray) {
+                                if (keywords.equals("")) keywords = txt
+                                else keywords += ", " + txt
+                            }
+                            questionnaire.description = questionnaire.description + keywords
+                        }
                     }
                 }
             }
@@ -169,32 +181,32 @@ class openEHRtoFHIR {
                 }
             }
             if (attribute.childrenArray != null) {
-
+                var index=0
                 for (children in attribute.childrenArray) {
                     if (children is CARCHETYPEROOTImpl) {
                         processArchetypeRoot(item, items,children)
                     } else if (children is CCOMPLEXOBJECTImpl) {
-                        processComplexObject(item, items, children, rootArchetype)
+                        processComplexObject(item, items, children, rootArchetype, index)
                     } else if (children is ARCHETYPESLOTImpl) {
                         processArchetypeSlot(item, children)
                     }
                     else {
                         System.out.println(children.javaClass)
                     }
-
+                    index++
                 }
             }
         } else if (cattribute is CSINGLEATTRIBUTEImpl) {
             var attribute: CSINGLEATTRIBUTEImpl = cattribute
 
             if (attribute.childrenArray != null) {
-
+                var index=0
                 for (children in attribute.childrenArray) {
                     if (children is CARCHETYPEROOTImpl) {
 
                         processArchetypeRoot( item, items, children)
                     } else if (children is CCOMPLEXOBJECTImpl) {
-                        processComplexObject( item, items, children, rootArchetype)
+                        processComplexObject(item, items, children, rootArchetype, index)
                     } else if (children is CSINGLEATTRIBUTEImpl) {
                         processSingleObject(item, children)
                     } else if (children is CDVQUANTITY) {
@@ -212,6 +224,7 @@ class openEHRtoFHIR {
                     else {
                         System.out.println(children.javaClass)
                     }
+                    index++;
                 }
             }
         } else {
@@ -279,7 +292,8 @@ class openEHRtoFHIR {
         citem: QuestionnaireItemComponent?,
         items: MutableList<QuestionnaireItemComponent>,
         attribute: CCOMPLEXOBJECTImpl,
-        rootArchetype : CARCHETYPEROOTImpl?
+        rootArchetype: CARCHETYPEROOTImpl?,
+        index: Int
     ) {
         var item = citem
         if (attribute.nodeId !== null) {
@@ -288,6 +302,7 @@ class openEHRtoFHIR {
                 if (
                     attribute.rmTypeName.equals("ELEMENT")
                    || attribute.rmTypeName.equals("CLUSTER")
+                    || attribute.rmTypeName.equals("SECTION")
                 ) {
                     /* OLD
                     var itemId = attribute.nodeId + "-" + Random.nextInt(0, 9999).toString()
@@ -295,7 +310,7 @@ class openEHRtoFHIR {
                     */
 
                     var itemId = attribute.nodeId
-                    if (citem !== null) itemId = citem.linkId + "/" + itemId
+                    if (citem !== null) itemId = citem.linkId + "/" + itemId + "/" + index
 
                     item = Questionnaire.QuestionnaireItemComponent().setLinkId( itemId)
                     var name = "CCOMPLEXOBJECT"
@@ -387,6 +402,7 @@ class openEHRtoFHIR {
                 System.out.println("Not processing POINT EVENT")
             } else if (attribute.rmTypeName.equals("CLUSTER")
                 || attribute.rmTypeName.equals("ELEMENT")
+                || attribute.rmTypeName.equals("SECTION")
                 || attribute.rmTypeName.equals("EVENT")
                 || attribute.rmTypeName.equals("EVENT_CONTEXT")
                 || attribute.rmTypeName.equals("ACTIVITY")
