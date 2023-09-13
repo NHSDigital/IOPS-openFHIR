@@ -26,3 +26,5 @@ Don't know what the other downloads are for at present
 ## GitHub Repos
 
 **Terminology** https://github.com/openEHR/specifications-TERM
+
+**Archetypes and Temaplates** https://github.com/openEHR/CKM-mirror This can possibly be used as a source. Format of resources may need some conversion.
