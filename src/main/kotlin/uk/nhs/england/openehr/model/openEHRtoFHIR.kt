@@ -16,12 +16,14 @@ class openEHRtoFHIR {
     var archeType: ARCHETYPE? = null;
     //var rootArchetype : CARCHETYPEROOTImpl? = null;
     val questionnaire = Questionnaire()
+    var codeSystems : List<CodeSystem> = ArrayList()
     init {
         questionnaire.status= Enumerations.PublicationStatus.DRAFT
     }
 
-    constructor(template: OPERATIONALTEMPLATE) {
+    constructor(template: OPERATIONALTEMPLATE,codeSystems : List<CodeSystem>) {
         this.template = template
+        this.codeSystems = codeSystems
         if (template.templateId !== null) {
             this.questionnaire.url = OPENEHR_TEMPLATE + "/" + template.templateId.value
             questionnaire.url = questionnaire.url.replace(" ", "")
@@ -88,9 +90,9 @@ class openEHRtoFHIR {
         }
     }
 
-    constructor(archetype: ARCHETYPE) {
+    constructor(archetype: ARCHETYPE,codeSystems : List<CodeSystem>) {
         this.archeType = archetype
-
+        this.codeSystems = codeSystems
         if (archetype.archetypeId !== null) {
             questionnaire.url = OPENEHR_TEMPLATE +"/" + archetype.archetypeId.value
             questionnaire.url = questionnaire.url.replace(" ", "")
@@ -463,7 +465,8 @@ class openEHRtoFHIR {
                 }
             }
             if (quantity.property !== null && quantity.property.terminologyId !== null && quantity.property.codeString !== null) {
-                item.code.add(Coding().setSystem(FhirSystems.OPENEHR_CODESYSTEM).setCode(quantity.property.codeString))
+                item.code.add(
+                    getOpenEHRCoding(quantity.property.codeString))
             }
         }
 
@@ -745,6 +748,18 @@ class openEHRtoFHIR {
             System.out.println("Should be impossible")
         }
         return code
+    }
+    fun getOpenEHRCoding(code: String) : Coding {
+        for (codesystem in this.codeSystems) {
+            if (codesystem.hasConcept()) {
+                for (concept in codesystem.concept) {
+                    if (concept.hasCode() && concept.code.equals(code)) {
+                        return Coding().setCode(code).setDisplay(concept.display).setSystem(codesystem.url)
+                    }
+                }
+            }
+        }
+        return Coding().setCode(code).setSystem(OPENEHR_CODESYSTEM)
     }
 
 

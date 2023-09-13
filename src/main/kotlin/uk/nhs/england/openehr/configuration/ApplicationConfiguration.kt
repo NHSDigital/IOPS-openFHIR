@@ -9,6 +9,8 @@ import com.amazonaws.services.sqs.AmazonSQS
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder
 import com.amazonaws.services.sqs.model.AmazonSQSException
 import com.amazonaws.services.sqs.model.CreateQueueRequest
+import org.apache.commons.io.IOUtils
+import org.hl7.fhir.r4.model.CodeSystem
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.web.servlet.FilterRegistrationBean
@@ -17,6 +19,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import uk.nhs.england.openehr.FHIRFacade
 import uk.nhs.england.openehr.interceptor.CognitoAuthInterceptor
 import uk.nhs.england.openehr.util.CorsFilter
 import javax.servlet.Filter
@@ -82,5 +85,22 @@ open class ApplicationConfiguration(val messageProperties: MessageProperties) {
             logger.info("AWS SQS Queue "+ messageProperties.getAwsQueueName() + " already exists");
         }
         return sqs;
+    }
+    @Bean
+    fun getTerminonology(ctx : FhirContext) : List<CodeSystem> {
+        var codeSystems = ArrayList<CodeSystem>()
+
+        val files: List<String> =
+            IOUtils.readLines(FHIRFacade::class.java.getClassLoader().getResourceAsStream("TERM/"), Charsets.UTF_8)
+        for (file in files) {
+            System.out.println(file)
+            if (file.startsWith("codesystem")) {
+                val text =
+                    IOUtils.toString(FHIRFacade::class.java.getResourceAsStream("/TERM/"+file), Charsets.UTF_8)
+                val resource = ctx.newXmlParser().parseResource(text)
+                if (resource is CodeSystem) codeSystems.add(resource)
+            }
+        }
+        return codeSystems
     }
 }

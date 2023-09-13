@@ -28,7 +28,8 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class QuestionnaireProvider (@Qualifier("R4") private val fhirContext: FhirContext
+class QuestionnaireProvider (@Qualifier("R4") private val fhirContext: FhirContext,
+    private val codeSystem: List<CodeSystem>
 ) :IResourceProvider {
     /**
      * The getResourceType method comes from IResourceProvider, and must
@@ -56,7 +57,7 @@ class QuestionnaireProvider (@Qualifier("R4") private val fhirContext: FhirConte
 
         if (document.archetype !== null) {
             val archetype = document.archetype
-            val openEHRtoFHIR = openEHRtoFHIR(document.archetype)
+            val openEHRtoFHIR = openEHRtoFHIR(document.archetype, this.codeSystem)
             return openEHRtoFHIR.questionnaire
         }
         return null
@@ -77,7 +78,7 @@ class QuestionnaireProvider (@Qualifier("R4") private val fhirContext: FhirConte
 
         if (document.template !== null) {
             val template = document.template
-            val openEHRtoFHIR = openEHRtoFHIR(document.template)
+            val openEHRtoFHIR = openEHRtoFHIR(document.template, this.codeSystem)
             return openEHRtoFHIR.questionnaire
         }
         return null
