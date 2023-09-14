@@ -25,6 +25,7 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
 
 
     var FORMS = "Structured Data Capture"
+    var DIAGNOSTICS = "Diagnostics"
     var TERMINOLOGY = "Terminology"
     var CONFORMANCE = "Conformance"
 
@@ -40,7 +41,9 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
                     .title(fhirServerProperties.server.name)
                     .version(fhirServerProperties.server.version)
                     .description(
-                    ""        )
+                    "This API is prototyping openEHR and FHIR conversion. \n" +
+                            "It is not complete, nor is it intended to be. \n\n" +
+                            "[GitHub](https://github.com/NHSDigital/IOPS-FHIR-openEHR)" )
                     .termsOfService("http://swagger.io/terms/")
                     .license(License().name("Apache 2.0").url("http://springdoc.org"))
             )
@@ -57,12 +60,19 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         )
         oas.addTagsItem(
             io.swagger.v3.oas.models.tags.Tag()
+                .name(DIAGNOSTICS)
+                .description(
+                    "[HL7 FHIR Diagnostics Module](https://www.hl7.org/fhir/R4/clinicalsummary-module.html) \n"
+
+                            + " [IHE Mobile Query Existing Data PCC-44](https://build.fhir.org/ig/IHE/QEDm/branches/master/PCC-44.html#23441211-simple-observations-option-search-parameters)")
+        )
+        oas.addTagsItem(
+            io.swagger.v3.oas.models.tags.Tag()
                 .name(TERMINOLOGY)
                 .description("[HL7 FHIR R4 Terminology](https://hl7.org/fhir/R4/terminology-module.html) \n"
                     + "[openEHR Terminology](https://specifications.openehr.org/releases/TERM/latest) \n"
                 )
         )
-
 
 
         oas.path("/openFHIR/R4/metadata",PathItem()
@@ -106,7 +116,7 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
             .post(
                 Operation()
                     .addTagsItem(FORMS)
-                    .summary("Form Data Extraction")
+                    .summary("Form Data Extraction. Converts a FHIR QuestionnaireResponse into FHIR Resources")
                     .description("[Form Data Extraction](http://hl7.org/fhir/uv/sdc/extraction.html) Allows data captured in a QuestionnaireResponse to be extracted and used to create or update other FHIR resources - allowing the data to be more easily searched, compared and used by other FHIR systems")
                     .responses(getApiResponses())
                     .requestBody(RequestBody().content(Content()
@@ -123,6 +133,49 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
 
         oas.path("/openFHIR/R4/QuestionnaireResponse/\$extract",questionnaireResponseExtractItem)
 
+        val examplesQuestionnaireResponseCompositon = LinkedHashMap<String,Example?>()
+
+        val questionnaireResponseCompositonItem = PathItem()
+            .post(
+                Operation()
+                    .addTagsItem(FORMS)
+                    .summary("NOT YET IMPLEMENTED Convert a FHIR Questionnaire into an openEHR Composition")
+                    .responses(getApiResponses())
+                    .requestBody(RequestBody().content(Content()
+                        .addMediaType("application/fhir+json",
+                            MediaType()
+                                .examples(examplesQuestionnaireResponseCompositon )
+                                .schema(StringSchema()))
+                        .addMediaType("application/fhir+xml",
+                            MediaType()
+                                .schema(StringSchema()))
+                    )))
+
+
+
+        oas.path("/openFHIR/R4/QuestionnaireResponse/\$convertComposition",questionnaireResponseCompositonItem)
+
+        val examplesQuestionnaireResponse = LinkedHashMap<String,Example?>()
+
+        val questionnaireResponseItem = PathItem()
+            .post(
+                Operation()
+                    .addTagsItem(FORMS)
+                    .summary("NOT YET IMPLEMENTED Store a FHIR QuestionnaireResponse")
+                    .responses(getApiResponses())
+                    .requestBody(RequestBody().content(Content()
+                        .addMediaType("application/fhir+json",
+                            MediaType()
+                                .examples(examplesQuestionnaireResponse )
+                                .schema(StringSchema()))
+                        .addMediaType("application/fhir+xml",
+                            MediaType()
+                                .schema(StringSchema()))
+                    )))
+
+
+
+        oas.path("/openFHIR/R4/QuestionnaireResponse/",questionnaireResponseItem)
 
         // Questionnaire
 
@@ -264,7 +317,74 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
                                 .schema(StringSchema()))
                     )))
         )
+        // Observation
+        var observationItem = PathItem()
+            .get(
+                Operation()
+                    .addTagsItem(DIAGNOSTICS)
+                    .summary("Read Endpoint")
+                    .responses(getApiResponses())
+                    .addParametersItem(Parameter()
+                        .name("id")
+                        .`in`("path")
+                        .required(false)
+                        .style(Parameter.StyleEnum.SIMPLE)
+                        .description("The ID of the resource")
+                        .schema(StringSchema())
+                    )
+            )
+        oas.path("/openFHIR/R4/Observation/{id}",observationItem)
 
+        observationItem = PathItem()
+            .get(
+                Operation()
+                    .addTagsItem( DIAGNOSTICS)
+                    .summary("Observation Option Search Parameters")
+                    .responses(getApiResponses())
+                    .addParametersItem(Parameter()
+                        .name("patient")
+                        .`in`("query")
+                        .required(false)
+                        .style(Parameter.StyleEnum.SIMPLE)
+                        .description("The subject that the observation is about (if patient)")
+                        .example("aab1dbe3-9bae-4dd2-a0e0-1d67158c0365")
+                        .schema(StringSchema())
+                    )
+                    .addParametersItem(Parameter()
+                        .name("patient:identifier")
+                        .`in`("query")
+                        .required(false)
+                        .style(Parameter.StyleEnum.SIMPLE)
+                        .description("Who/what is the subject of the observation. `https://fhir.nhs.uk/Id/nhs-number|{nhsNumber}` ")
+                        .schema(StringSchema())
+                    )
+                    .addParametersItem(Parameter()
+                        .name("category")
+                        .`in`("query")
+                        .required(false)
+                        .style(Parameter.StyleEnum.SIMPLE)
+                        .description("The classification of the type of observation")
+                        .schema(StringSchema())
+                    )
+                    .addParametersItem(Parameter()
+                        .name("code")
+                        .`in`("query")
+                        .required(false)
+                        .style(Parameter.StyleEnum.SIMPLE)
+                        .example("http://snomed.info/sct|386725007")
+                        .description("The code of the observation type")
+                        .schema(StringSchema())
+                    )
+                    .addParametersItem(Parameter()
+                        .name("date")
+                        .`in`("query")
+                        .required(false)
+                        .style(Parameter.StyleEnum.SIMPLE)
+                        .description("Obtained date/time. If the obtained element is a period, a date that falls in the period")
+                        .schema(StringSchema())
+                    )
+            )
+        oas.path("/openFHIR/R4/Observation",observationItem)
 
         return oas
     }

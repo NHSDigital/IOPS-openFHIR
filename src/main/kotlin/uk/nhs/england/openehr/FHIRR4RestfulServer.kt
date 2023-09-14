@@ -10,8 +10,10 @@ import uk.nhs.england.openehr.configuration.MessageProperties
 import uk.nhs.england.openehr.interceptor.AWSAuditEventLoggingInterceptor
 import uk.nhs.england.openehr.interceptor.CapabilityStatementInterceptor
 import uk.nhs.england.openehr.provider.CodeSystemProvider
+import uk.nhs.england.openehr.provider.ObservationProvider
 import uk.nhs.england.openehr.provider.QuestionnaireProvider
 import uk.nhs.england.openehr.provider.QuestionnaireResponseProvider
+
 import java.util.*
 import javax.servlet.annotation.WebServlet
 
@@ -23,7 +25,8 @@ class FHIRR4RestfulServer(
     val sqs : AmazonSQS,
     val questionnaireProvider: QuestionnaireProvider,
     val questionnaireResponseProvider: QuestionnaireResponseProvider,
-    val codeSystemProvider: CodeSystemProvider
+    val codeSystemProvider: CodeSystemProvider,
+    val observationProvider: ObservationProvider
 
     ) : RestfulServer(fhirContext) {
 
@@ -34,6 +37,7 @@ class FHIRR4RestfulServer(
 
         registerProvider(questionnaireProvider)
         registerProvider(questionnaireResponseProvider)
+        registerProvider(observationProvider)
         registerProvider(codeSystemProvider)
 
         registerInterceptor(CapabilityStatementInterceptor(this.fhirContext,fhirServerProperties))
