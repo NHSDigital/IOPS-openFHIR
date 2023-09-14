@@ -23,6 +23,8 @@ Don't know what the other downloads are for at present
 
 **Laboratory panel report** https://ckm.openehr.org/ckm/archetypes/1013.1.2192
 
+**PHQ** https://ckm.openehr.org/ckm/archetypes/1013.1.1645
+
 ## GitHub Repos
 
 **Terminology** https://github.com/openEHR/specifications-TERM

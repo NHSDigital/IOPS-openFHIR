@@ -8,6 +8,7 @@ import org.hl7.fhir.r4.model.*
 import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent
 import org.springframework.stereotype.Component
 import uk.nhs.england.openehr.awsProvider.AWSQuestionnaire
+import uk.nhs.england.openehr.util.FhirSystems
 import java.util.*
 
 
@@ -33,32 +34,50 @@ class QuestionnaireResponseProvider(
         if (questionnaire == null || questionnaire.size==0) {
             var result = awsQuestionnaire.read(IdType().setValue(questionnaireResponse.questionnaire))
             if (result !== null && result.resource !== null) {
-                processItem(bundle, result.resource as Questionnaire, questionnaireResponse, questionnaireResponse.item)
+                processItem(bundle, result.resource as Questionnaire, questionnaireResponse, questionnaireResponse.item, null)
             } else {
                 throw UnprocessableEntityException("Questionnaire not found")
             }
         } else {
-            processItem(bundle, questionnaire[0], questionnaireResponse, questionnaireResponse.item)
+            processItem(bundle, questionnaire[0], questionnaireResponse, questionnaireResponse.item, null)
         }
         return bundle;
     }
 
-    private fun processItem(bundle: Bundle, questionnaire: Questionnaire, questionnaireResponse: QuestionnaireResponse, items: List<QuestionnaireResponse.QuestionnaireResponseItemComponent>) {
+    private fun processItem(bundle: Bundle, questionnaire: Questionnaire, questionnaireResponse: QuestionnaireResponse, items: List<QuestionnaireResponse.QuestionnaireResponseItemComponent>, parentObservation : Observation?) {
+        var mainObservation = parentObservation
+        var isOpenEHR = false
         for(item in items) {
             var questionItem = getItem(questionnaire, item.linkId)
             var generateObservation = false;
             if (questionItem.hasExtension()) {
+                var tempIsOpenEHR = false
                 for (extension in questionItem.extension) {
                     if (extension.url.equals("http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract")
                         && extension.value is BooleanType) {
                         generateObservation = (extension.value as BooleanType).value
                     }
+                    if (extension.url.equals(FhirSystems.OPENEHR_DATATYPE_EXT)) {
+                        tempIsOpenEHR = true
+                    }
                 }
+                if (generateObservation) isOpenEHR = tempIsOpenEHR
             }
             if (generateObservation && questionItem.hasCode() && item.answerFirstRep != null) {
 
                 for (answer in item.answer) {
+
                     var observation = Observation()
+                    var entry = BundleEntryComponent()
+                    var uuid = UUID.randomUUID();
+                    entry.fullUrl = "urn:uuid:" + uuid.toString()
+                    entry.resource = observation
+                    entry.request.url = "Observation"
+                    entry.request.method = Bundle.HTTPVerb.POST
+                    bundle.entry.add(entry)
+
+                    if (isOpenEHR) mainObservation = observation
+
                     observation.status = Observation.ObservationStatus.FINAL;
                     observation.derivedFrom.add(Reference().setReference(questionnaireResponse.id))
                     if (questionnaireResponse.hasIdentifier()) {
@@ -96,20 +115,35 @@ class QuestionnaireResponseProvider(
                             observation.setValue(answer.value)
                         }
                     }
+                    //
+                    if (item.hasItem()) {
+                        processItem(bundle, questionnaire, questionnaireResponse, item.item, observation)
+                    }
 
+                }
+            } else {
+                // Need to capture the mapping here
+                if (mainObservation !== null && questionItem.hasDefinition()) {
+                    when (questionItem.definition) {
+                        "Observation.note" -> {
+                            if (item.hasAnswer() && item.answer.size>0 && item.answerFirstRep.hasValueStringType()) mainObservation.addNote(Annotation().setText(item.answerFirstRep.valueStringType.value))
+                        }
+                        "Observation.interpretation" -> {
+                            if (item.hasAnswer() && item.answer.size>0 && item.answerFirstRep.hasValueStringType()) {
+                                mainObservation.addInterpretation(CodeableConcept().setText(item.answerFirstRep.valueStringType.value))
+                            }
+                        }
+                        else -> {
+                            System.out.println(questionItem.definition)
+                        }
 
-                    var entry = BundleEntryComponent()
-                    var uuid = UUID.randomUUID();
-                    entry.fullUrl = "urn:uuid:" + uuid.toString()
-                    entry.resource = observation
-                    entry.request.url = "Observation"
-                    entry.request.method = Bundle.HTTPVerb.POST
-                    bundle.entry.add(entry)
+                    }
+                }
+                if (item.hasItem()) {
+                    processItem(bundle, questionnaire, questionnaireResponse, item.item, mainObservation)
                 }
             }
-            if (item.hasItem()) {
-                processItem(bundle, questionnaire, questionnaireResponse, item.item)
-            }
+
         }
     }
 

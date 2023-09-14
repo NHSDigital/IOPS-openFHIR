@@ -1,22 +1,10 @@
 package uk.nhs.england.openehr.util
 
 
-import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
-import io.swagger.models.Xml
-import io.swagger.v3.oas.models.media.XML
-import org.apache.commons.io.IOUtils
-import org.apache.xmlbeans.XmlException
-import org.openehr.schemas.v1.TemplateDocument
-import org.w3c.dom.Document
 import org.w3c.dom.Node
-import uk.nhs.england.openehr.model.openEHRtoFHIR
-import java.io.ByteArrayInputStream
-import java.io.IOException
-import java.nio.charset.StandardCharsets
-import javax.xml.parsers.DocumentBuilderFactory
 
 
 class OpenAPIExample {
@@ -31,26 +19,26 @@ class OpenAPIExample {
         return ObjectMapper().readTree(sb.toString())
 
     }
-    public fun loadXMLExample(fileName :String): Node? {
+    public fun loadXMLExampleAsJson(fileName :String): JsonNode {
 
         val classLoader = javaClass.classLoader
         val inputStream = classLoader.getResourceAsStream(fileName)
 
-        val document: TemplateDocument
-        document = try {
-            TemplateDocument.Factory.parse(
-               inputStream
-            )
-        } catch (e: XmlException) {
-            throw UnprocessableEntityException(e.message)
-        } catch (e: IOException) {
-            throw UnprocessableEntityException(e.message)
-        }
+        val xmlMapper = XmlMapper()
+        val node: JsonNode = xmlMapper.readTree(inputStream)
+        //val jsonMapper = ObjectMapper()
+        //val json = jsonMapper.writeValueAsString(node)
+        return node
+    }
+    public fun loadXMLExampleAsXml(fileName :String): XmlMapper {
 
-        if (document.template !== null) {
-            return document.domNode
-        }
-        return null
+        val classLoader = javaClass.classLoader
+        val inputStream = classLoader.getResourceAsStream(fileName)
+
+        val xmlMapper = XmlMapper()
+        val node = xmlMapper.readTree(inputStream)
+
+        return xmlMapper
     }
 
 }

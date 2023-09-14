@@ -111,6 +111,10 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         // QuestionnaireResponse
 
         val examplesQuestionnaireResponseExtract = LinkedHashMap<String,Example?>()
+        examplesQuestionnaireResponseExtract.put("IDCR - Vital Signs Encounter.v1 based example",
+            Example().value(OpenAPIExample().loadJSONExample("QuestionnaireResponse/IDCR-Example-1.json"))
+        )
+
 
         val questionnaireResponseExtractItem = PathItem()
             .post(
@@ -179,15 +183,22 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
 
         // Questionnaire
 
-        val examplesQuestionnaireConvertTemplate = LinkedHashMap<String,Example?>()
-/*
-        examplesQuestionnaireConvertTemplate.put("IDCR - Vital Signs Encounter.v1 https://ckm.apperta.org/ckm/templates/1051.57.141",
-            Example().value(OpenAPIExample().loadXMLExample("Template/" + "IDCR - Vital Signs Encounter.v1.xml"))
+        val examplesQuestionnaireConvertTemplateJSON = LinkedHashMap<String,Example?>()
+
+        examplesQuestionnaireConvertTemplateJSON.put("IDCR - Vital Signs Encounter.v1 https://ckm.apperta.org/ckm/templates/1051.57.141",
+            Example().value(OpenAPIExample().loadXMLExampleAsJson("Template/" + "IDCR - Vital Signs Encounter.v1.xml"))
         )
-        examplesQuestionnaireConvertTemplate.put("ReSPECT-3.v0 (DHCW or NHS Scotland?) https://ckm.apperta.org/ckm/templates/1051.57.279",
-            Example().value(OpenAPIExample().loadXMLExample("Template/" + "ReSPECT-3.v0.xml"))
+        examplesQuestionnaireConvertTemplateJSON.put("ReSPECT-3.v0 (DHCW or NHS Scotland?) https://ckm.apperta.org/ckm/templates/1051.57.279",
+            Example().value(OpenAPIExample().loadXMLExampleAsJson("Template/" + "ReSPECT-3.v0.xml"))
         )
-*/
+
+        val examplesQuestionnaireConvertTemplateXML = LinkedHashMap<String,Example?>()
+        /*
+        examplesQuestionnaireConvertTemplateXML.put("IDCR - Vital Signs Encounter.v1 https://ckm.apperta.org/ckm/templates/1051.57.141",
+            Example().value(OpenAPIExample().loadXMLExampleAsXml("Template/" + "IDCR - Vital Signs Encounter.v1.xml"))
+        )
+        */
+
         val questionnaireConvertTemplate = PathItem()
             .post(
                 Operation()
@@ -198,9 +209,15 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
                     .requestBody(RequestBody().content(Content()
                         .addMediaType("application/xml",
                             MediaType()
-                                .examples(examplesQuestionnaireConvertTemplate)
+                                .example(Example().value("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"))
+                     //           .examples(examplesQuestionnaireConvertTemplateXML)
                                 .schema(StringSchema())
                         )
+                      /*  .addMediaType("application/json",
+                            MediaType()
+                                .examples(examplesQuestionnaireConvertTemplateJSON)
+                                .schema(StringSchema())
+                        )*/
                     )))
 
 

@@ -1,14 +1,13 @@
 package uk.nhs.england.openehr.configuration
 
 import ca.uhn.fhir.context.FhirContext
-import ca.uhn.fhir.parser.LenientErrorHandler
 import ca.uhn.fhir.parser.StrictErrorHandler
-
 import ca.uhn.fhir.rest.client.api.IGenericClient
 import com.amazonaws.services.sqs.AmazonSQS
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder
 import com.amazonaws.services.sqs.model.AmazonSQSException
 import com.amazonaws.services.sqs.model.CreateQueueRequest
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.apache.commons.io.IOUtils
 import org.hl7.fhir.r4.model.CodeSystem
 import org.slf4j.LoggerFactory
@@ -16,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -23,6 +23,7 @@ import uk.nhs.england.openehr.FHIRFacade
 import uk.nhs.england.openehr.interceptor.CognitoAuthInterceptor
 import uk.nhs.england.openehr.util.CorsFilter
 import javax.servlet.Filter
+
 
 @Configuration
 open class ApplicationConfiguration(val messageProperties: MessageProperties) {
@@ -34,6 +35,11 @@ open class ApplicationConfiguration(val messageProperties: MessageProperties) {
         return fhirContext
     }
 
+    @Bean
+    @Primary
+    fun customObjectMapper(): ObjectMapper {
+        return ObjectMapper()
+    }
 
     @Bean
     open fun restTemplate(): RestTemplate {
