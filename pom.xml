@@ -12,7 +12,7 @@
     <artifactId>fhir-openehr</artifactId>
     <version>6.8.0</version>
     <name>openFHIR</name>
-    <description>IOPS FHIR openEHR</description>
+    <description>IOPS openFHIR</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -187,7 +187,7 @@
     </dependencies>
 
     <build>
-        <finalName>fhir-openehr</finalName>
+        <finalName>openFHIR</finalName>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <plugins>

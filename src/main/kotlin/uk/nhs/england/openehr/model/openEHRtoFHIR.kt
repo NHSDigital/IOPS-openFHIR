@@ -291,13 +291,13 @@ class openEHRtoFHIR {
     }
 
     private fun processComplexObject(
-        citem: QuestionnaireItemComponent?,
+        parentitem: QuestionnaireItemComponent?,
         items: MutableList<QuestionnaireItemComponent>,
         attribute: CCOMPLEXOBJECTImpl,
         rootArchetype: CARCHETYPEROOTImpl?,
         index: Int
     ) {
-        var item = citem
+        var item = parentitem
         if (attribute.nodeId !== null) {
             // This adds in a new child
             if (attribute.rmTypeName !== null) {
@@ -312,7 +312,7 @@ class openEHRtoFHIR {
                     */
 
                     var itemId = attribute.nodeId
-                    if (citem !== null) itemId = citem.linkId + "/" + itemId + "/" + index
+                    if (parentitem !== null) itemId = parentitem.linkId + "/" + itemId + "/" + index
 
                     item = Questionnaire.QuestionnaireItemComponent().setLinkId( itemId)
                     var name = "CCOMPLEXOBJECT"
@@ -333,14 +333,34 @@ class openEHRtoFHIR {
                                 .setValue(2)
                                 .setCode("wk")
                                 .setUnit("weeks")
-                                .setSystem(FhirSystems.UNITS_OF_MEASURE))
+                                .setSystem(UNITS_OF_MEASURE))
                         )
                         item.extension.add(Extension()
-                            .setUrl(FhirSystems.SDC_EXTRACT)
+                            .setUrl(SDC_EXTRACT)
                             .setValue(BooleanType().setValue(true))
                         )
+                        item.extension.add(Extension()
+                            .setUrl(SDC_EXTRACT_CONTEXT)
+                            .setValue(CodeType().setValue("Observation"))
+                        )
+                        item.definition="Observation.code"
+                        if (parentitem != null) {
+                            parentitem.definition = "Observation"
+                        }
                     }
                     item.text = getDisplay(attribute.nodeId,rootArchetype)
+                    if (attribute.rmTypeName.equals("ELEMENT") && parentitem !== null && parentitem.definition !== null) {
+                        if (parentitem.definition.equals("Observation")) {
+                            when (item.text) {
+                                "Interpretation", "interpretation" -> {
+                                    item.definition = "Observation.interpretation"
+                                }
+                                "Comment", "Comments" -> {
+                                    item.definition = "Observation.note"
+                                }
+                            }
+                        }
+                    }
                     if (attribute.rmTypeName.equals("CLUSTER")) {
                         item.type = Questionnaire.QuestionnaireItemType.GROUP
                     } else {

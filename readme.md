@@ -6,7 +6,7 @@ This assumes openEHR systems is an EPR repository in a system.
 
 ## Template 
 
-When browsing CKM the export format required is **opeperational template** or OET.
+When browsing CKM the export format required is **operational template** or OET.
 Don't know what the other downloads are for at present
 
 **IDCR - Vital Signs Encounter.v1** https://ckm.apperta.org/ckm/templates/1051.57.141

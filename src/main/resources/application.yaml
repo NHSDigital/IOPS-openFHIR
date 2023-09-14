@@ -14,8 +14,8 @@ management:
 
 fhir:
   server:
-    name: openEHR Services
-    baseUrl: https://3cdzg7kbj4.execute-api.eu-west-2.amazonaws.com/poc/events
+    name: openFHIR (openEHR to FHIR)
+    baseUrl: http://localhost:9006
     version: 6.8.0
     authorize: https://launch.smarthealthit.org/v/r4/auth/authorize
     token: https://launch.smarthealthit.org/v/r4/auth/token

@@ -1,0 +1,2724 @@
+{
+  "resourceType": "Questionnaire",
+  "url": "https://fhir.openehr.example.org/Questionnaire/IDCR-VitalSignsEncounter.v1",
+  "identifier": [
+    {
+      "value": "17789e76-0b97-4952-94a6-7da467d51ec5"
+    }
+  ],
+  "title": "Vital Signs Observations",
+  "status": "draft",
+  "contact": [
+    {
+      "name": "Not Specified"
+    },
+    {
+      "name": "Alexander Davey"
+    },
+    {
+      "name": "Tony Shannon"
+    },
+    {
+      "name": "John Meredith"
+    },
+    {
+      "name": "Shane McKee"
+    },
+    {
+      "name": "Ian McNicoll"
+    },
+    {
+      "name": "Hildi McNicoll"
+    },
+    {
+      "name": "Paul Miller"
+    },
+    {
+      "name": "Jason Scott"
+    },
+    {
+      "name": "Susan Veitch"
+    }
+  ],
+  "description": "null\n\n#####Keywords\n\n",
+  "purpose": "The primary purpose is to support a typical face to face contact with a patient during which vital signs such as blood pressure, temperature, pulse rate etc are measured and recorded, including overall vital sign scores such as NEWS and Glasgow Coma Scale. The template can also be used for patient-reported vital signs and could be populated via external devices as well.",
+  "item": [
+    {
+      "linkId": "context",
+      "text": "Other context",
+      "type": "group",
+      "required": false,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-CLUSTER.xds_metadata.v0"
+            }
+          ],
+          "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0",
+          "text": "XDS Metadata",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0001/0",
+              "text": "Author specialty",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0002/1",
+              "text": "Class code",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0003/2",
+              "text": "Document type",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0004/3",
+              "text": "Confidentiality code",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0007/4",
+              "text": "Health care facility type",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0009/5",
+              "text": "Practice setting code",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0011/6",
+              "text": "Event code",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0010/7",
+              "text": "Document_media",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "code": "video/H263-1998",
+                    "display": "video/H263-1998"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "video/H263-2000",
+                    "display": "video/H263-2000"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "video/MPV",
+                    "display": "video/MPV"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "video/quicktime",
+                    "display": "video/quicktime"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "text/calendar",
+                    "display": "text/calendar"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "text/directory",
+                    "display": "text/directory"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "text/html",
+                    "display": "text/html"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "text/plain",
+                    "display": "text/plain"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "text/rtf",
+                    "display": "text/rtf"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "text/sgml",
+                    "display": "text/sgml"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "text/tab-separated-values",
+                    "display": "text/tab-separated-values"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "text/uri-list",
+                    "display": "text/uri-list"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "text/xml",
+                    "display": "text/xml"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "text/xml-external-parsed-entity",
+                    "display": "text/xml-external-parsed-entity"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "image/png",
+                    "display": "image/png"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "image/jpeg",
+                    "display": "image/jpeg"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "application/msword",
+                    "display": "application/msword"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "application/pdf",
+                    "display": "application/pdf"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/DVI4",
+                    "display": "audio/DVI4"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/G722",
+                    "display": "audio/G722"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/G723",
+                    "display": "audio/G723"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/G726-16",
+                    "display": "audio/G726-16"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/G726-24",
+                    "display": "audio/G726-24"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/G726-32",
+                    "display": "audio/G726-32"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/G726-40",
+                    "display": "audio/G726-40"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/G728",
+                    "display": "audio/G728"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/L8",
+                    "display": "audio/L8"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/L16",
+                    "display": "audio/L16"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/LPC",
+                    "display": "audio/LPC"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/G729",
+                    "display": "audio/G729"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/G729D",
+                    "display": "audio/G729D"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/G729E",
+                    "display": "audio/G729E"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/mpeg",
+                    "display": "audio/mpeg"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/mpeg4-generic",
+                    "display": "audio/mpeg4-generic"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/L20",
+                    "display": "audio/L20"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/L24",
+                    "display": "audio/L24"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "audio/telephone-event",
+                    "display": "audio/telephone-event"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "video/BT656",
+                    "display": "video/BT656"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "video/CelB",
+                    "display": "video/CelB"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "video/H261",
+                    "display": "video/H261"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "video/H263",
+                    "display": "video/H263"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "application/rtf",
+                    "display": "application/rtf"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "application/dicom",
+                    "display": "application/dicom"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://fhir.openehr.example.org/Archetype",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-SECTION.vital_signs.v0"
+        }
+      ],
+      "linkId": "openEHR-EHR-SECTION.vital_signs.v0",
+      "text": "Vital signs",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.respiration.v1"
+            }
+          ],
+          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1",
+          "text": "Respirations",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "/min"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+                  "valueQuantity": {
+                    "value": 0.0,
+                    "code": "/min"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+                  "valueQuantity": {
+                    "value": 200.0,
+                    "code": "/min"
+                  }
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0004/0",
+              "code": [
+                {
+                  "system": "https://specifications.openehr.org/fhir/codesystem-property",
+                  "code": "382",
+                  "display": "Frequency"
+                }
+              ],
+              "text": "Rate",
+              "type": "quantity"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0005/1",
+              "text": "Rhythm",
+              "type": "open-choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "code": "at0006",
+                    "display": "Regular"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0007",
+                    "display": "Irregular"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0016/2",
+              "text": "Depth",
+              "type": "open-choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "code": "at0017",
+                    "display": "Normal"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0018",
+                    "display": "Shallow"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0019",
+                    "display": "Deep"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0025",
+                    "display": "Variable"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0024/3",
+              "text": "Description",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0009/4",
+              "text": "Clinical interpretation",
+              "type": "open-choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "code": "at0012",
+                    "display": "Kussmaul's respiration"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0030",
+                    "display": "Cheyne-Stokes respiration"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0031",
+                    "display": "Ataxic respiration"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0033",
+                    "display": "Apneustic respiration"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0034",
+                    "display": "Cluster breathing"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0044",
+                    "display": "Apnoea"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0054",
+                    "display": "Prolonged expiratory phase"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0059",
+                    "display": "Tachypnoea"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0060",
+                    "display": "Bradypnoea"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0061",
+                    "display": "Normal"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.pulse_oximetry.v1"
+            }
+          ],
+          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1",
+          "definition": "Observation",
+          "text": "Pulse oximetry",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+                  "valueDuration": {
+                    "value": 2,
+                    "unit": "weeks",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "wk"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+                  "valueCode": "Observation"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/at0006/0",
+              "definition": "Observation.code",
+              "code": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "431314004"
+                },
+                {
+                  "system": "http://loinc.org",
+                  "code": "59408-5"
+                }
+              ],
+              "text": "SpO₂",
+              "type": "decimal"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/at0058/3",
+              "definition": "Observation.interpretation",
+              "text": "Interpretation",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/at0036/4",
+              "definition": "Observation.note",
+              "text": "Comment",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CARCHETYPEROOT"
+                },
+                {
+                  "url": "http://fhir.openehr.example.org/Archetype",
+                  "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-CLUSTER.inspired_oxygen.v1"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1",
+              "text": "Inspired oxygen",
+              "type": "group",
+              "required": true,
+              "repeats": true,
+              "item": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://openehr.example.org/Datatype",
+                      "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "ml/min"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+                      "valueQuantity": {
+                        "value": 0.0,
+                        "code": "ml/min"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+                      "valueQuantity": {
+                        "value": 50000.0,
+                        "code": "ml/min"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "l/min"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+                      "valueQuantity": {
+                        "value": 0.0,
+                        "code": "l/min"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+                      "valueQuantity": {
+                        "value": 50.0,
+                        "code": "l/min"
+                      }
+                    }
+                  ],
+                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/at0051/0",
+                  "code": [
+                    {
+                      "system": "https://specifications.openehr.org/fhir/codesystem-property",
+                      "code": "126",
+                      "display": "Flow rate, volume"
+                    }
+                  ],
+                  "text": "Flow rate",
+                  "type": "quantity"
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://openehr.example.org/Datatype",
+                      "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                    }
+                  ],
+                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/at0057/1",
+                  "text": "On air",
+                  "type": "boolean"
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://openehr.example.org/Datatype",
+                      "valueString": "CARCHETYPEROOT"
+                    },
+                    {
+                      "url": "http://fhir.openehr.example.org/Archetype",
+                      "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-CLUSTER.device.v1"
+                    }
+                  ],
+                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/openEHR-EHR-CLUSTER.device.v1",
+                  "text": "Medical Device",
+                  "type": "group",
+                  "required": true,
+                  "repeats": true,
+                  "item": [
+                    {
+                      "extension": [
+                        {
+                          "url": "http://openehr.example.org/Datatype",
+                          "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                        }
+                      ],
+                      "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/openEHR-EHR-CLUSTER.device.v1/at0001/0",
+                      "text": "Device",
+                      "type": "string"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.pulse.v1"
+            }
+          ],
+          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1",
+          "text": "Pulse/Heart beat",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "/min"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+                  "valueQuantity": {
+                    "value": 0.0,
+                    "code": "/min"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+                  "valueQuantity": {
+                    "value": 0.0,
+                    "code": "/min"
+                  }
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at0004/0",
+              "code": [
+                {
+                  "system": "https://specifications.openehr.org/fhir/codesystem-property",
+                  "code": "382",
+                  "display": "Frequency"
+                }
+              ],
+              "text": "Rate",
+              "type": "quantity",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "code": "at1027",
+                    "display": "Heart Rate"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at0005/1",
+              "text": "Regular?",
+              "type": "open-choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "code": "at0006",
+                    "display": "Regular"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at1028",
+                    "display": "Irregular"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1055/2",
+              "text": "Irregular type",
+              "type": "open-choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "code": "at0007",
+                    "display": "Regularly Irregular"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0008",
+                    "display": "Irregularly Irregular"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1030/3",
+              "text": "Character",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1023/4",
+              "text": "Clinical interpretation",
+              "type": "open-choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "code": "at1057",
+                    "display": "Clinical interpretation"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1059/5",
+              "text": "Comment",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.body_temperature.v2"
+            }
+          ],
+          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.body_temperature.v2",
+          "definition": "Observation",
+          "text": "Body temperature",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+                  "valueDuration": {
+                    "value": 2,
+                    "unit": "weeks",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "wk"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+                  "valueCode": "Observation"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "Cel"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+                  "valueQuantity": {
+                    "value": 0.0,
+                    "code": "Cel"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+                  "valueQuantity": {
+                    "value": 100.0,
+                    "code": "Cel"
+                  }
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.body_temperature.v2/at0004/0",
+              "definition": "Observation.code",
+              "code": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "386725007"
+                },
+                {
+                  "system": "https://specifications.openehr.org/fhir/codesystem-property",
+                  "code": "127",
+                  "display": "Temperature"
+                }
+              ],
+              "text": "Temperature",
+              "type": "quantity"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.body_temperature.v2/at0063/1",
+              "definition": "Observation.note",
+              "text": "Comment",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.blood_pressure.v1"
+            }
+          ],
+          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1",
+          "definition": "Observation",
+          "code": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "163020007"
+            }
+          ],
+          "text": "Blood Pressure",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+                  "valueDuration": {
+                    "value": 2,
+                    "unit": "weeks",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "wk"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+                  "valueCode": "Observation"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mm[Hg]"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+                  "valueQuantity": {
+                    "value": 0.0,
+                    "code": "mm[Hg]"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+                  "valueQuantity": {
+                    "value": 1000.0,
+                    "code": "mm[Hg]"
+                  }
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1/at0004/0",
+              "definition": "Observation.code",
+              "code": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "163030003"
+                },
+                {
+                  "system": "https://specifications.openehr.org/fhir/codesystem-property",
+                  "code": "125",
+                  "display": "Pressure"
+                }
+              ],
+              "text": "Systolic",
+              "type": "quantity"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+                  "valueDuration": {
+                    "value": 2,
+                    "unit": "weeks",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "wk"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+                  "valueCode": "Observation"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mm[Hg]"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+                  "valueQuantity": {
+                    "value": 0.0,
+                    "code": "mm[Hg]"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+                  "valueQuantity": {
+                    "value": 1000.0,
+                    "code": "mm[Hg]"
+                  }
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1/at0005/1",
+              "definition": "Observation.code",
+              "code": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "163031004"
+                },
+                {
+                  "system": "https://specifications.openehr.org/fhir/codesystem-property",
+                  "code": "125",
+                  "display": "Pressure"
+                }
+              ],
+              "text": "Diastolic",
+              "type": "quantity"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1/at0033/2",
+              "definition": "Observation.note",
+              "text": "Comment",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.avpu.v0"
+            }
+          ],
+          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu.v0",
+          "text": "AVPU",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu.v0/at0004/0",
+              "text": "Observation",
+              "type": "open-choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "code": "at0005",
+                    "display": "Alert"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0006",
+                    "display": "Voice"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0007",
+                    "display": "Pain"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0008",
+                    "display": "Unresponsive"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu.v0/at0012/1",
+              "text": "Comment",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0"
+            }
+          ],
+          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0",
+          "text": "ACVPU",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0/at0004.1/0",
+              "text": "Observation",
+              "type": "open-choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "code": "at0005",
+                    "display": "Alert"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0.15",
+                    "display": "Confusion"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0006",
+                    "display": "Voice"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0007",
+                    "display": "Pain"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "code": "at0008",
+                    "display": "Unresponsive"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0/at0012/1",
+              "text": "Comment",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.news_uk_rcp.v1"
+            }
+          ],
+          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1",
+          "text": "NEWS (UK RCP)",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0006/0",
+              "text": "Respiration rate",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0018",
+                    "display": "12-20"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0019",
+                    "display": "9-11"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0020",
+                    "display": "21-24"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0021",
+                    "display": "<=8 or >=25"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0029/1",
+              "text": "Oxygen saturation",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0030",
+                    "display": ">= 96"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0031",
+                    "display": "94-95"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0032",
+                    "display": "92-93"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0033",
+                    "display": "<=91"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0034/2",
+              "text": "Supplemental oxygen",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0036",
+                    "display": "No"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0037",
+                    "display": "Yes"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0007/3",
+              "text": "Body temperature",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0022",
+                    "display": "36.1-38.0"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0023",
+                    "display": "35.1-36.0 or 38.1-39.0"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0038",
+                    "display": ">=39.1"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0039",
+                    "display": "<=35.0"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0004/4",
+              "text": "Systolic blood pressure",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0014",
+                    "display": "111-219"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0015",
+                    "display": "101-110"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0016",
+                    "display": "91-100"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0017",
+                    "display": "<=90 or >= 220"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0005/5",
+              "text": "Heart rate",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0013",
+                    "display": "51-90"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0012",
+                    "display": "41-50 or 91-110"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0011",
+                    "display": "111-130"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0010",
+                    "display": "<=40 or >=131"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0008/6",
+              "text": "Level of consciousness",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0024",
+                    "display": "A"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0025",
+                    "display": "V, P or U"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0028/7",
+              "text": "Total score",
+              "type": "integer"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0044/8",
+              "text": "Comment",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0"
+            }
+          ],
+          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0",
+          "text": "NEWS2 (UK RCP)",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0006/0",
+              "text": "Respiration rate",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0018",
+                    "display": "12-20"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0019",
+                    "display": "9-11"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0020",
+                    "display": "21-24"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0021",
+                    "display": "<=8 or >=25"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0029/1",
+              "text": "SpO2 Scale 1",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0030",
+                    "display": ">= 96"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0031",
+                    "display": "94-95"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0032",
+                    "display": "92-93"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0033",
+                    "display": "<=91"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0047/2",
+              "text": "SpO2 Scale 2",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0048",
+                    "display": "88-92 or >=93 on air"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0049",
+                    "display": "86-87 or 93-94 on O2"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0050",
+                    "display": "84-85 or 95-96 on O2"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0051",
+                    "display": "<=83 or >=97 on O2"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0034/3",
+              "text": "Supplemental oxygen",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0036",
+                    "display": "No"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0037",
+                    "display": "Yes"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0004/4",
+              "text": "Systolic blood pressure",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0014",
+                    "display": "111-219"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0015",
+                    "display": "101-110"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0016",
+                    "display": "91-100"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0017",
+                    "display": "<=90 or >= 220"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0005/5",
+              "text": "Pulse",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0013",
+                    "display": "51-90"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0012",
+                    "display": "41-50 or 91-110"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0011",
+                    "display": "111-130"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0010",
+                    "display": "<=40 or >=131"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0008/6",
+              "text": "Level of consciousness",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0024",
+                    "display": "A"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0025",
+                    "display": "C, V, P or U"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0007/7",
+              "text": "Body temperature",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 0
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0022",
+                    "display": "36.1-38.0"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0023",
+                    "display": "35.1-36.0 or 38.1-39.0"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0038",
+                    "display": ">=39.1"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0039",
+                    "display": "<=35.0"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0028/8",
+              "text": "Total score",
+              "type": "integer"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0044/9",
+              "text": "Comment",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CARCHETYPEROOT"
+                },
+                {
+                  "url": "http://fhir.openehr.example.org/Archetype",
+                  "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-CLUSTER.inspired_oxygen.v1"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/openEHR-EHR-CLUSTER.inspired_oxygen.v1",
+              "text": "Inspired oxygen",
+              "type": "group",
+              "required": true,
+              "repeats": true,
+              "item": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://openehr.example.org/Datatype",
+                      "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "ml/min"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+                      "valueQuantity": {
+                        "value": 0.0,
+                        "code": "ml/min"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+                      "valueQuantity": {
+                        "value": 50000.0,
+                        "code": "ml/min"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "l/min"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+                      "valueQuantity": {
+                        "value": 0.0,
+                        "code": "l/min"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+                      "valueQuantity": {
+                        "value": 50.0,
+                        "code": "l/min"
+                      }
+                    }
+                  ],
+                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/openEHR-EHR-CLUSTER.inspired_oxygen.v1/at0051/0",
+                  "code": [
+                    {
+                      "system": "https://specifications.openehr.org/fhir/codesystem-property",
+                      "code": "126",
+                      "display": "Flow rate, volume"
+                    }
+                  ],
+                  "text": "Flow rate",
+                  "type": "quantity"
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://openehr.example.org/Datatype",
+                      "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                    }
+                  ],
+                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/openEHR-EHR-CLUSTER.inspired_oxygen.v1/at0057/1",
+                  "text": "On air",
+                  "type": "boolean"
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://openehr.example.org/Datatype",
+                      "valueString": "CARCHETYPEROOT"
+                    },
+                    {
+                      "url": "http://fhir.openehr.example.org/Archetype",
+                      "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-CLUSTER.device.v1"
+                    }
+                  ],
+                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/openEHR-EHR-CLUSTER.inspired_oxygen.v1/openEHR-EHR-CLUSTER.device.v1",
+                  "text": "Medical Device",
+                  "type": "group",
+                  "required": true,
+                  "repeats": true,
+                  "item": [
+                    {
+                      "extension": [
+                        {
+                          "url": "http://openehr.example.org/Datatype",
+                          "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                        }
+                      ],
+                      "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/openEHR-EHR-CLUSTER.inspired_oxygen.v1/openEHR-EHR-CLUSTER.device.v1/at0001/0",
+                      "text": "Device",
+                      "type": "string"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1"
+            }
+          ],
+          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1",
+          "text": "Glasgow coma scale",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0009/0",
+              "text": "Best eye response (E)",
+              "type": "open-choice",
+              "answerValueSet": "http://fhir.openehr.example.org/ValueSet/273",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0010",
+                    "display": "None"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0011",
+                    "display": "To pressure"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0012",
+                    "display": "To sound"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 4
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0013",
+                    "display": "Spontaneous"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0007/1",
+              "text": "Best verbal response (V)",
+              "type": "open-choice",
+              "answerValueSet": "http://fhir.openehr.example.org/ValueSet/273",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0014",
+                    "display": "None"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0015",
+                    "display": "Sounds"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0016",
+                    "display": "Words"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 4
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0017",
+                    "display": "Confused"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 5
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0018",
+                    "display": "Orientated"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0008/2",
+              "text": "Best motor response (M)",
+              "type": "open-choice",
+              "answerValueSet": "http://fhir.openehr.example.org/ValueSet/273",
+              "answerOption": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 1
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0019",
+                    "display": "None"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 2
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0020",
+                    "display": "Extension"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 3
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0021",
+                    "display": "Abnormal flexion"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 4
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0022",
+                    "display": "Normal flexion"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 5
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0023",
+                    "display": "Localising"
+                  }
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                      "valueDecimal": 6
+                    }
+                  ],
+                  "valueCoding": {
+                    "code": "at0024",
+                    "display": "Obeys commands"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0026/3",
+              "text": "Total score",
+              "type": "integer"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0030/4",
+              "text": "EVM profile",
+              "type": "string"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0037/5",
+              "text": "Comment",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/Archetype",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-EVALUATION.clinical_synopsis.v1"
+            }
+          ],
+          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-EVALUATION.clinical_synopsis.v1",
+          "text": "Clinical Synopsis",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-EVALUATION.clinical_synopsis.v1/at0002/0",
+              "text": "Synopsis",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
