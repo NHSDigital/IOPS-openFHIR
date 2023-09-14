@@ -65,6 +65,8 @@ class openEHRtoFHIR {
                 }
             }
         }
+        var rootArchetype : CARCHETYPEROOTImpl? = null
+        var item : QuestionnaireItemComponent? = null
         if (template.definition !== null ) {
             when (template.definition.rmTypeName) {
               "COMPOSITION" -> {
@@ -73,6 +75,32 @@ class openEHRtoFHIR {
                 "EVALUATION" -> {
                     // do nothing
                     System.out.println("EVALUATION")
+                    if (template.definition is CARCHETYPEROOTImpl) {
+                        rootArchetype = template.definition as CARCHETYPEROOTImpl
+                        var itemId = rootArchetype.nodeId
+                        if (rootArchetype.archetypeId !== null) itemId = rootArchetype.archetypeId.value
+
+                        item = Questionnaire.QuestionnaireItemComponent().setLinkId(itemId)
+
+
+                        item.extension.add(
+                            Extension().setUrl(FhirSystems.OPENEHR_DATATYPE_EXT).setValue(StringType().setValue("CARCHETYPEROOT"))
+                        )
+
+                        item.code = getCoding(rootArchetype.nodeId,rootArchetype)
+                        item.text = getDisplay(rootArchetype.nodeId,rootArchetype)
+                        item.type = Questionnaire.QuestionnaireItemType.STRING
+                        if (rootArchetype != null) {
+                            if (rootArchetype.archetypeId.value.startsWith("openEHR-EHR-EVALUATION.problem_diagnosis")) {
+                                item.definition = "Condition"
+                                item.extension.add(Extension()
+                                    .setUrl(SDC_EXTRACT)
+                                    .setValue(BooleanType().setValue(true))
+                                )
+                            }
+                        }
+                        questionnaire.item.add(item)
+                    }
                 } else -> {
                     throw UnprocessableEntityException("Unexpected definition type "+template.definition.rmTypeName)
                 }
@@ -81,17 +109,19 @@ class openEHRtoFHIR {
                 for (attribute in template.definition.attributesArray) {
                     if (attribute.rmAttributeName !== null) {
                         if (attribute.rmAttributeName.equals("content")) {
-                            processAttribute(null, questionnaire.item, attribute, null)
+                            processAttribute(item, questionnaire.item, attribute, rootArchetype)
+                        } else if (rootArchetype !== null) {
+                            processAttribute(item, questionnaire.item, attribute, rootArchetype)
                         } else
                             if (attribute.rmAttributeName.equals("context")) {
-                                var item = QuestionnaireItemComponent().setLinkId("context")
+                                val contextItem = QuestionnaireItemComponent().setLinkId("context")
                                     .setType(Questionnaire.QuestionnaireItemType.GROUP)
                                     .setText("Other context")
                                     .setRequired(false)
 
-                                processAttribute(item, questionnaire.item, attribute, null)
+                                processAttribute(contextItem, questionnaire.item, attribute, rootArchetype)
                                 // if no context then don't include
-                                if (item.item.size > 0) questionnaire.item.add(item)
+                                if (contextItem.item.size > 0) questionnaire.item.add(contextItem)
                             } else
                                 if (attribute.rmAttributeName.equals("name")) {
                                     processName(attribute)
@@ -350,16 +380,26 @@ class openEHRtoFHIR {
                                 .setUnit("weeks")
                                 .setSystem(UNITS_OF_MEASURE))
                         )
-                        item.extension.add(Extension()
-                            .setUrl(SDC_EXTRACT)
-                            .setValue(BooleanType().setValue(true))
-                        )
-                        item.extension.add(Extension()
-                            .setUrl(SDC_EXTRACT_CONTEXT)
-                            .setValue(CodeType().setValue("Observation"))
-                        )
-                        item.definition="Observation.code"
-                        if (parentitem != null) {
+
+                        if (rootArchetype != null && !rootArchetype.archetypeId.value.startsWith("openEHR-EHR-CLUSTER.problem_qualifier")) {
+                            item.extension.add(Extension()
+                                .setUrl(SDC_EXTRACT)
+                                .setValue(BooleanType().setValue(true))
+                            )
+                            item.extension.add(
+                                Extension()
+                                    .setUrl(SDC_EXTRACT_CONTEXT)
+                                    .setValue(CodeType().setValue("Observation"))
+                            )
+                        }
+                        when (item.codeFirstRep.code) {
+                            "106229004" -> item.definition= "Condition.status"
+                            else ->{
+                                item.definition="Observation.code"
+                            }
+                        }
+
+                        if (parentitem != null && rootArchetype !== null && !rootArchetype.archetypeId.value.startsWith("openEHR-EHR-CLUSTER.problem_qualifier")) {
                             parentitem.definition = "Observation"
                         }
                     }
@@ -638,6 +678,12 @@ class openEHRtoFHIR {
         if (item !== null) {
             if (code.codeListArray !== null) {
                 item.type= Questionnaire.QuestionnaireItemType.CHOICE
+                if (rootArchetype != null) {
+                    if (rootArchetype.archetypeId.value.startsWith("openEHR-EHR-EVALUATION.problem_diagnosis")
+                        && item.text.equals("Problem/Diagnosis name")) {
+                            item.definition = "Condition.code"
+                        }
+                }
                 for (concept in code.codeListArray) {
                     if (code.terminologyId.value.equals("openehr")) {
                         item.answerValueSet = FhirSystems.OPENEHR_VALUESET + "/" + concept

@@ -1,0 +1,70 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "id": "7334f661-5134-42a6-9926-43eaf639717b",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2023-09-14T14:09:27.304Z",
+    "profile": [
+      "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaireresponse|2.7"
+    ],
+    "tag": [
+      {
+        "code": "lformsVersion: 33.3.4"
+      }
+    ]
+  },
+  "questionnaire": "Questionnaire/068b70a8-7522-4e8e-a6f4-824d28e6e1ea",
+  "status": "completed",
+  "subject": {
+    "reference": "Patient/aab1dbe3-9bae-4dd2-a0e0-1d67158c0365"
+  },
+  "authored": "2023-09-14T14:09:26.398Z",
+  "item": [
+    {
+      "linkId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+      "text": "Problem/Diagnosis",
+      "item": [
+        {
+          "linkId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1/at0002/0",
+          "text": "Problem/Diagnosis name",
+          "answer": [
+            {
+              "valueCoding": {
+                "code": "840544004",
+                "display": "Suspected disease caused by 2019 novel coronavirus"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1/openEHR-EHR-CLUSTER.problem_qualifier.v1",
+          "text": "Status",
+          "item": [
+            {
+              "linkId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1/openEHR-EHR-CLUSTER.problem_qualifier.v1/at0004/0",
+              "text": "Diagnostic status",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "5558000",
+                    "display": "Working"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1/at0070/0",
+          "text": "Last updated",
+          "answer": [
+            {
+              "valueDateTime": "2023-09-13T14:09:22.498Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

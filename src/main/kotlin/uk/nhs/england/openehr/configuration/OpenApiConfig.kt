@@ -114,6 +114,9 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         examplesQuestionnaireResponseExtract.put("IDCR - Vital Signs Encounter.v1 based example",
             Example().value(OpenAPIExample().loadJSONExample("QuestionnaireResponse/IDCR-Example-1.json"))
         )
+        examplesQuestionnaireResponseExtract.put("COVID-19 Problem/Diagnosis",
+            Example().value(OpenAPIExample().loadJSONExample("QuestionnaireResponse/COVID19-Diagnosis.json"))
+        )
 
 
         val questionnaireResponseExtractItem = PathItem()

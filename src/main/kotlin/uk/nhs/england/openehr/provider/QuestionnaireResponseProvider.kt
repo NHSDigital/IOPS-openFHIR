@@ -44,8 +44,8 @@ class QuestionnaireResponseProvider(
         return bundle;
     }
 
-    private fun processItem(bundle: Bundle, questionnaire: Questionnaire, questionnaireResponse: QuestionnaireResponse, items: List<QuestionnaireResponse.QuestionnaireResponseItemComponent>, parentObservation : Observation?) {
-        var mainObservation = parentObservation
+    private fun processItem(bundle: Bundle, questionnaire: Questionnaire, questionnaireResponse: QuestionnaireResponse, items: List<QuestionnaireResponse.QuestionnaireResponseItemComponent>, parentObservation : Resource?) {
+        var mainResource = parentObservation
         var isOpenEHR = false
         for(item in items) {
             var questionItem = getItem(questionnaire, item.linkId)
@@ -76,7 +76,7 @@ class QuestionnaireResponseProvider(
                     entry.request.method = Bundle.HTTPVerb.POST
                     bundle.entry.add(entry)
 
-                    if (isOpenEHR) mainObservation = observation
+                    if (isOpenEHR) mainResource = observation
 
                     observation.status = Observation.ObservationStatus.FINAL;
                     observation.derivedFrom.add(Reference().setReference(questionnaireResponse.id))
@@ -123,24 +123,90 @@ class QuestionnaireResponseProvider(
                 }
             } else {
                 // Need to capture the mapping here
-                if (mainObservation !== null && questionItem.hasDefinition()) {
+                if (questionItem.hasDefinition()) {
                     when (questionItem.definition) {
-                        "Observation.note" -> {
-                            if (item.hasAnswer() && item.answer.size>0 && item.answerFirstRep.hasValueStringType()) mainObservation.addNote(Annotation().setText(item.answerFirstRep.valueStringType.value))
-                        }
-                        "Observation.interpretation" -> {
-                            if (item.hasAnswer() && item.answer.size>0 && item.answerFirstRep.hasValueStringType()) {
-                                mainObservation.addInterpretation(CodeableConcept().setText(item.answerFirstRep.valueStringType.value))
-                            }
-                        }
-                        else -> {
-                            System.out.println(questionItem.definition)
-                        }
+                        "Condition" -> {
+                            var condition = Condition()
+                            var entry = BundleEntryComponent()
+                            var uuid = UUID.randomUUID();
+                            entry.fullUrl = "urn:uuid:" + uuid.toString()
+                            entry.resource = condition
+                            entry.request.url = "Condition"
+                            entry.request.method = Bundle.HTTPVerb.POST
+                            bundle.entry.add(entry)
 
+                            if (questionnaireResponse.hasIdentifier()) {
+                                var identifier = Identifier()
+                                identifier.system = questionnaireResponse.identifier.system
+                                identifier.value = questionnaireResponse.identifier.value + item.linkId
+                                condition.addIdentifier(identifier)
+                            }
+                            if (questionnaireResponse.hasAuthor()) {
+                                condition.recorder = questionnaireResponse.author
+                            }
+
+                            condition.setSubject(questionnaireResponse.subject)
+                            if (questionnaireResponse.hasAuthored()) {
+                                condition.setRecordedDate(questionnaireResponse.authored )
+                            }
+
+                            mainResource = condition
+                        }
+                    }
+                }
+                if (mainResource !== null)
+                {
+                    if (mainResource is Observation && questionItem.hasDefinition()) {
+                        when (questionItem.definition) {
+                            "Observation.note" -> {
+                                if (item.hasAnswer() && item.answer.size > 0 && item.answerFirstRep.hasValueStringType()) mainResource.addNote(
+                                    Annotation().setText(item.answerFirstRep.valueStringType.value)
+                                )
+                            }
+
+                            "Observation.interpretation" -> {
+                                if (item.hasAnswer() && item.answer.size > 0 && item.answerFirstRep.hasValueStringType()) {
+                                    mainResource.addInterpretation(CodeableConcept().setText(item.answerFirstRep.valueStringType.value))
+                                }
+                            }
+
+                            else -> {
+                                System.out.println(questionItem.definition)
+                            }
+
+                        }
+                    }
+
+                    if (mainResource is Condition && questionItem.hasDefinition()) {
+                        when (questionItem.definition) {
+                            "Condition.code" -> {
+                                if (item.hasAnswer()) {
+                                    for (answer in item.answer) {
+                                        if (answer.hasValueCoding()) mainResource.code.coding.add(answer.valueCoding)
+                                    }
+                                }
+                            }
+
+                            "Condition.status" -> {
+                                if (item.hasAnswer()) {
+                                    for (answer in item.answer) {
+                                        if (answer.hasValueCoding()) {
+
+                                              (mainResource as Condition).clinicalStatus.coding.add(answer.valueCoding)
+                                        }
+                                    }
+                                }
+                            }
+
+                            else -> {
+                                System.out.println(questionItem.definition)
+                            }
+
+                        }
                     }
                 }
                 if (item.hasItem()) {
-                    processItem(bundle, questionnaire, questionnaireResponse, item.item, mainObservation)
+                    processItem(bundle, questionnaire, questionnaireResponse, item.item, mainResource)
                 }
             }
 
