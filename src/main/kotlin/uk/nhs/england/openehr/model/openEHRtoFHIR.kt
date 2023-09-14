@@ -65,27 +65,42 @@ class openEHRtoFHIR {
                 }
             }
         }
-        if (template.definition !== null && template.definition.attributesArray !== null) {
-            for (attribute in template.definition.attributesArray) {
-                if (attribute.rmAttributeName !== null) {
-                    if (attribute.rmAttributeName.equals("content")) {
-                        processAttribute(null, questionnaire.item, attribute,null)
-                    }
-                    if (attribute.rmAttributeName.equals("context")) {
-                        var item = QuestionnaireItemComponent().setLinkId("context")
-                            .setType(Questionnaire.QuestionnaireItemType.GROUP)
-                            .setText("Other context")
-                            .setRequired(false)
-
-                        processAttribute(item, questionnaire.item, attribute, null)
-                        // if no context then don't include
-                        if (item.item.size>0) questionnaire.item.add(item)
-                    }
-                    if (attribute.rmAttributeName.equals("name")) {
-                        processName(attribute)
-                    }
+        if (template.definition !== null ) {
+            when (template.definition.rmTypeName) {
+              "COMPOSITION" -> {
+                  // do nothing
+              }
+                "EVALUATION" -> {
+                    // do nothing
+                    System.out.println("EVALUATION")
+                } else -> {
+                    throw UnprocessableEntityException("Unexpected definition type "+template.definition.rmTypeName)
                 }
-                //            processAttribute(questionnaire.item,attribute)
+            }
+            if (template.definition.attributesArray !== null) {
+                for (attribute in template.definition.attributesArray) {
+                    if (attribute.rmAttributeName !== null) {
+                        if (attribute.rmAttributeName.equals("content")) {
+                            processAttribute(null, questionnaire.item, attribute, null)
+                        } else
+                            if (attribute.rmAttributeName.equals("context")) {
+                                var item = QuestionnaireItemComponent().setLinkId("context")
+                                    .setType(Questionnaire.QuestionnaireItemType.GROUP)
+                                    .setText("Other context")
+                                    .setRequired(false)
+
+                                processAttribute(item, questionnaire.item, attribute, null)
+                                // if no context then don't include
+                                if (item.item.size > 0) questionnaire.item.add(item)
+                            } else
+                                if (attribute.rmAttributeName.equals("name")) {
+                                    processName(attribute)
+                                } else {
+                                    System.out.println(attribute.rmAttributeName)
+                                }
+                    }
+                    //            processAttribute(questionnaire.item,attribute)
+                }
             }
         }
     }
