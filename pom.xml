@@ -10,7 +10,7 @@
     </parent>
     <groupId>uk.nhs.england</groupId>
     <artifactId>fhir-openehr</artifactId>
-    <version>6.8.2</version>
+    <version>6.8.3</version>
     <name>openFHIR</name>
     <description>IOPS openFHIR</description>
 

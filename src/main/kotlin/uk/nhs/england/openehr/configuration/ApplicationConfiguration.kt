@@ -96,22 +96,42 @@ open class ApplicationConfiguration(val messageProperties: MessageProperties) {
         return sqs;
     }
     @Bean
-    fun getTerminonology(ctx : FhirContext) : List<CodeSystem> {
+    fun getCodeSystemsTerminology(ctx : FhirContext) : List<CodeSystem> {
 
         val classLoader = javaClass.classLoader
         var codeSystems = ArrayList<CodeSystem>()
+        /*
         var ioFolder = classLoader.getResourceAsStream("TERM/")
         val files: List<String> = IOUtils.readLines(ioFolder, Charsets.UTF_8)
         for (file in files) {
             System.out.println(file)
             if (file.startsWith("codesystem")) {
-                var ioFile = classLoader.getResourceAsStream("TERM/"+file)
-                val text =
-                    IOUtils.toString(ioFile, Charsets.UTF_8)
+                file)
+                val text = IOUtils.toString(classLoader.getResourceAsStream("TERM/"+file),Charsets.UTF_8)
                 val resource = ctx.newXmlParser().parseResource(text)
                 if (resource is CodeSystem) codeSystems.add(resource)
             }
-        }
+        }*/
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-audit_change_type.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-composition_category.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-compression_algorithms.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-event_math_function.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-extract_action_type.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-extract_content_type.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-extract_update_trigger_event_type.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-instruction_states.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-instruction_transitions.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-integrity_check_algorithms.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-normal_statuses.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-null_flavours.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-participation_function.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-participation_mode.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-property.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-setting.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-subject_relationship.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-term_mapping_purpose.xml"),Charsets.UTF_8)) as CodeSystem)
+        codeSystems.add(ctx.newXmlParser().parseResource(IOUtils.toString(classLoader.getResourceAsStream("TERM/codesystem-version_lifecycle_state.xml"),Charsets.UTF_8)) as CodeSystem)
         return codeSystems
     }
+
 }
