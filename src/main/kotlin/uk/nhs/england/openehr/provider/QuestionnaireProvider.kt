@@ -66,6 +66,12 @@ class QuestionnaireProvider (@Qualifier("R4") private val fhirContext: FhirConte
         return null
     }
 
+    @Read
+    fun read(httpRequest : HttpServletRequest, @IdParam internalId: IdType): Questionnaire? {
+        val resource: Resource? = cognitoAuthInterceptor.readFromUrl(httpRequest.pathInfo, null,"Questionnaire")
+        return if (resource is Questionnaire) resource else null
+    }
+
     @Create
     fun create(theRequest: HttpServletRequest, @ResourceParam questionnaire: Questionnaire): MethodOutcome? {
         return awsQuestionnaire.create(questionnaire)

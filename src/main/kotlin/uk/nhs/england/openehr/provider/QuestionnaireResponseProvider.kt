@@ -4,7 +4,16 @@ import ca.uhn.fhir.rest.annotation.*
 import ca.uhn.fhir.rest.param.UriParam
 import ca.uhn.fhir.rest.server.IResourceProvider
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException
+import com.nedap.archie.rm.composition.Composition
+import com.nedap.archie.rm.composition.ContentItem
+import com.nedap.archie.rm.composition.Entry
+import com.nedap.archie.rm.composition.Section
+import com.nedap.archie.rm.datavalues.DvText
+import com.nedap.archie.rm.support.identification.ObjectVersionId
+import com.nedap.archie.rm.support.identification.UIDBasedId
+import org.apache.xmlbeans.XmlOptions
 import org.apache.xmlbeans.impl.schema.SchemaTypeImpl
+import org.ehrbase.serialisation.jsonencoding.CanonicalJson
 import org.hl7.fhir.r4.model.*
 import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent
 import org.openehr.schemas.v1.CompositionDocument
@@ -30,12 +39,53 @@ class QuestionnaireResponseProvider(
 
     @Operation(name = "\$convertOpenEHRComposition", idempotent = true, manualResponse = true)
     fun convertOpenEHRComposition(
-        httpServletResponse: HttpServletResponse,
+        response: HttpServletResponse,
         @ResourceParam questionnaireResponse: QuestionnaireResponse
     ) {
-        val composition = CompositionDocument.Factory.newInstance()
 
-        System.out.println(composition.xmlText())
+        val questionnaire = getQuestionnaire(questionnaireResponse)
+        if (questionnaire !== null ) {
+            val composition = Composition()
+            composition.archetypeNodeId = "openEHR-EHR-COMPOSITION.encounter.v1"
+            composition.name = DvText(questionnaire.title)
+            composition.uid = ObjectVersionId(questionnaireResponse.idPart)
+
+            for (item in questionnaireResponse.item) {
+                var content = Section()
+                content.name = DvText(item.text)
+                content.archetypeNodeId = item.linkId
+                composition.content.add(content)
+                if (item.hasItem()) {
+                    for (sitem in item.item) {
+                        var contentS = com.nedap.archie.rm.composition.Observation()
+                        contentS.name = DvText(sitem.text)
+                        contentS.archetypeNodeId = sitem.linkId
+                        content.addItem(contentS)
+                    }
+                }
+            }
+
+
+            val json = CanonicalJson().marshal(composition)
+            response.setHeader("Content-Type","application/json")
+            response.writer.write(json)
+        } else {
+            throw UnprocessableEntityException("Questionnaire not found")
+        }
+    }
+
+    fun getQuestionnaire(questionnaireResponse: QuestionnaireResponse) : Questionnaire? {
+        var questionnaire : Questionnaire? = null
+        var questionnaireList = awsQuestionnaire.search(UriParam().setValue(questionnaireResponse?.questionnaire))
+        if (questionnaireList == null || questionnaireList.size==0) {
+            var result = awsQuestionnaire.read(IdType().setValue(questionnaireResponse.questionnaire))
+            if (result !== null && result.resource !== null) {
+                questionnaire = result.resource as Questionnaire
+            }
+        } else {
+            questionnaire = questionnaireList[0]
+        }
+        return  questionnaire
     }
 
     @Operation(name = "\$extract", idempotent = true, canonicalUrl = "http://hl7.org/fhir/uv/sdc/OperationDefinition/QuestionnaireResponse-extract")
@@ -44,16 +94,11 @@ class QuestionnaireResponseProvider(
         var bundle: Bundle = Bundle();
         bundle.type = Bundle.BundleType.TRANSACTION;
         if (!questionnaireResponse.hasQuestionnaire()) throw UnprocessableEntityException("Questionnaire must be supplied");
-        val questionnaire = awsQuestionnaire.search(UriParam().setValue(questionnaireResponse?.questionnaire))
-        if (questionnaire == null || questionnaire.size==0) {
-            var result = awsQuestionnaire.read(IdType().setValue(questionnaireResponse.questionnaire))
-            if (result !== null && result.resource !== null) {
-                processItem(bundle, result.resource as Questionnaire, questionnaireResponse, questionnaireResponse.item, null)
-            } else {
-                throw UnprocessableEntityException("Questionnaire not found")
-            }
+        val questionnaire = getQuestionnaire(questionnaireResponse)
+        if (questionnaire !== null ) {
+            processItem(bundle, questionnaire, questionnaireResponse, questionnaireResponse.item, null)
         } else {
-            processItem(bundle, questionnaire[0], questionnaireResponse, questionnaireResponse.item, null)
+            throw UnprocessableEntityException("Questionnaire not found")
         }
         return bundle;
     }

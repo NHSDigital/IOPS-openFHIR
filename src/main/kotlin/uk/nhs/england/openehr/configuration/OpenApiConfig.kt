@@ -124,11 +124,11 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
 
         // QuestionnaireResponse
 
-        val examplesQuestionnaireResponseExtract = LinkedHashMap<String,Example?>()
-        examplesQuestionnaireResponseExtract.put("IDCR - Vital Signs Encounter.v1 based example",
+        val examplesQuestionnaireResponse = LinkedHashMap<String,Example?>()
+        examplesQuestionnaireResponse.put("IDCR - Vital Signs Encounter.v1 based example",
             Example().value(OpenAPIExample().loadJSONExample("QuestionnaireResponse/IDCR-Example-1.json"))
         )
-        examplesQuestionnaireResponseExtract.put("COVID-19 Problem/Diagnosis",
+        examplesQuestionnaireResponse.put("COVID-19 Problem/Diagnosis",
             Example().value(OpenAPIExample().loadJSONExample("QuestionnaireResponse/COVID19-Diagnosis.json"))
         )
 
@@ -143,7 +143,7 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
                     .requestBody(RequestBody().content(Content()
                         .addMediaType("application/fhir+json",
                             MediaType()
-                                .examples(examplesQuestionnaireResponseExtract )
+                                .examples(examplesQuestionnaireResponse)
                                 .schema(StringSchema()))
                         .addMediaType("application/fhir+xml",
                             MediaType()
@@ -154,18 +154,19 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
 
         oas.path("/openFHIR/R4/QuestionnaireResponse/\$extract",questionnaireResponseExtractItem)
 
-        val examplesQuestionnaireResponseCompositon = LinkedHashMap<String,Example?>()
+
 
         val questionnaireResponseCompositonItem = PathItem()
             .post(
                 Operation()
                     .addTagsItem(SDC)
                     .summary("NOT YET IMPLEMENTED Convert a FHIR Questionnaire into an openEHR Composition")
+                    .description("[openEHR Composition](https://specifications.openehr.org/releases/RM/latest/ehr.html#_compositions)")
                     .responses(getApiResponses())
                     .requestBody(RequestBody().content(Content()
                         .addMediaType("application/fhir+json",
                             MediaType()
-                                .examples(examplesQuestionnaireResponseCompositon )
+                                .examples(examplesQuestionnaireResponse )
                                 .schema(StringSchema()))
                         .addMediaType("application/fhir+xml",
                             MediaType()
@@ -174,9 +175,9 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
 
 
 
-        oas.path("/openFHIR/R4/QuestionnaireResponse/\$convertComposition",questionnaireResponseCompositonItem)
+        oas.path("/openFHIR/R4/QuestionnaireResponse/\$convertOpenEHRComposition",questionnaireResponseCompositonItem)
 
-        val examplesQuestionnaireResponse = LinkedHashMap<String,Example?>()
+
 
         val questionnaireResponseItem = PathItem()
             .post(
@@ -190,9 +191,7 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
                             MediaType()
                                 .examples(examplesQuestionnaireResponse )
                                 .schema(StringSchema()))
-                        .addMediaType("application/fhir+xml",
-                            MediaType()
-                                .schema(StringSchema()))
+
                     )))
 
 
@@ -276,6 +275,22 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
                     )))
 
         oas.path("/openFHIR/R4/Questionnaire/\$populate",questionnairePopulate)
+
+        oas.path("/openFHIR/R4/Questionnaire/{id}",
+            PathItem()
+                .get(Operation()
+                    .addTagsItem(SDC)
+                    .summary("Read Questionnaire")
+                    .responses(getApiResponses())
+                    .addParametersItem(Parameter()
+                        .name("id")
+                        .`in`("path")
+                        .required(false)
+                        .style(Parameter.StyleEnum.SIMPLE)
+                        .description("The id of the Questionnaire to be retrieved")
+                        .schema(StringSchema().example("7d0499a7-ca39-4aee-bde1-5c90936fc3ea"))))
+        )
+
 
         val examplesQuestionnaire = LinkedHashMap<String,Example?>()
 
