@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Primary
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
-import uk.nhs.england.openehr.FHIRFacade
 import uk.nhs.england.openehr.interceptor.CognitoAuthInterceptor
 import uk.nhs.england.openehr.util.CorsFilter
 import javax.servlet.Filter
@@ -28,6 +27,10 @@ import javax.servlet.Filter
 @Configuration
 open class ApplicationConfiguration(val messageProperties: MessageProperties) {
     private val logger = LoggerFactory.getLogger(MessageProperties::class.java)
+
+
+
+
     @Bean("R4")
     open fun fhirR4Context(): FhirContext {
         val fhirContext = FhirContext.forR4()
@@ -94,15 +97,17 @@ open class ApplicationConfiguration(val messageProperties: MessageProperties) {
     }
     @Bean
     fun getTerminonology(ctx : FhirContext) : List<CodeSystem> {
-        var codeSystems = ArrayList<CodeSystem>()
 
-        val files: List<String> =
-            IOUtils.readLines(FHIRFacade::class.java.getClassLoader().getResourceAsStream("TERM/"), Charsets.UTF_8)
+        val classLoader = javaClass.classLoader
+        var codeSystems = ArrayList<CodeSystem>()
+        var ioFolder = classLoader.getResourceAsStream("TERM/")
+        val files: List<String> = IOUtils.readLines(ioFolder, Charsets.UTF_8)
         for (file in files) {
             System.out.println(file)
             if (file.startsWith("codesystem")) {
+                var ioFile = classLoader.getResourceAsStream("TERM/"+file)
                 val text =
-                    IOUtils.toString(FHIRFacade::class.java.getResourceAsStream("/TERM/"+file), Charsets.UTF_8)
+                    IOUtils.toString(ioFile, Charsets.UTF_8)
                 val resource = ctx.newXmlParser().parseResource(text)
                 if (resource is CodeSystem) codeSystems.add(resource)
             }
