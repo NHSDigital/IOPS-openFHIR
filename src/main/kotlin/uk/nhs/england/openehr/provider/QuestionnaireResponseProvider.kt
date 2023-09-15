@@ -4,8 +4,12 @@ import ca.uhn.fhir.rest.annotation.*
 import ca.uhn.fhir.rest.param.UriParam
 import ca.uhn.fhir.rest.server.IResourceProvider
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException
+import org.apache.xmlbeans.impl.schema.SchemaTypeImpl
 import org.hl7.fhir.r4.model.*
 import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent
+import org.openehr.schemas.v1.CompositionDocument
+import org.openehr.schemas.v1.DVCODEDTEXT
+import org.openehr.schemas.v1.impl.DVCODEDTEXTImpl
 import org.springframework.stereotype.Component
 import uk.nhs.england.openehr.awsProvider.AWSQuestionnaire
 import uk.nhs.england.openehr.util.FhirSystems
@@ -13,6 +17,7 @@ import java.util.*
 
 
 import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 @Component
 class QuestionnaireResponseProvider(
@@ -23,6 +28,15 @@ class QuestionnaireResponseProvider(
         return QuestionnaireResponse::class.java
     }
 
+    @Operation(name = "\$convertOpenEHRComposition", idempotent = true, manualResponse = true)
+    fun convertOpenEHRComposition(
+        httpServletResponse: HttpServletResponse,
+        @ResourceParam questionnaireResponse: QuestionnaireResponse
+    ) {
+        val composition = CompositionDocument.Factory.newInstance()
+
+        System.out.println(composition.xmlText())
+    }
 
     @Operation(name = "\$extract", idempotent = true, canonicalUrl = "http://hl7.org/fhir/uv/sdc/OperationDefinition/QuestionnaireResponse-extract")
     fun expand(@ResourceParam questionnaireResponse: QuestionnaireResponse

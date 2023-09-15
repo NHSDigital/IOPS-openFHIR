@@ -3,21 +3,16 @@ package uk.nhs.england.openehr.provider
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.rest.annotation.*
 import ca.uhn.fhir.rest.api.MethodOutcome
-import ca.uhn.fhir.rest.api.server.RequestDetails
 import ca.uhn.fhir.rest.param.DateParam
 import ca.uhn.fhir.rest.param.StringParam
 import ca.uhn.fhir.rest.param.TokenParam
 
 import ca.uhn.fhir.rest.server.IResourceProvider
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException
-import io.swagger.util.Yaml
-import io.swagger.v3.core.util.Json
 import mu.KLogging
 import org.apache.commons.io.IOUtils
 import org.apache.xmlbeans.XmlException
-import org.hl7.fhir.instance.model.api.IBaseResource
 import org.hl7.fhir.r4.model.*
-import org.hl7.fhir.r4.model.QuestionnaireResponse.QuestionnaireResponseItemAnswerComponent
 import org.openehr.schemas.v1.ArchetypeDocument
 import org.openehr.schemas.v1.TemplateDocument
 import org.springframework.beans.factory.annotation.Qualifier
@@ -30,7 +25,7 @@ import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
+
 
 @Component
 class QuestionnaireProvider (@Qualifier("R4") private val fhirContext: FhirContext,
