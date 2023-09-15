@@ -1,0 +1,18 @@
+{
+  "resourceType" : "Parameters",
+
+  "parameter" : [
+    {
+      "name": "subject",
+      "valueReference": {
+        "reference": "Patient/aab1dbe3-9bae-4dd2-a0e0-1d67158c0365"
+      }
+    },
+    {
+      "name": "questionnaireRef",
+      "valueReference": {
+        "reference": "Questionnaire/7e09e96a-f1c8-4d8b-ad01-8eed9ff132ca"
+      }
+    }
+  ]
+}

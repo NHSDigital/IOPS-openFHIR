@@ -116,4 +116,17 @@ class QuestionnaireProvider (@Qualifier("R4") private val fhirContext: FhirConte
         return null
     }
 
+    @Operation(name = "\$populate", idempotent = true, canonicalUrl = "http://hl7.org/fhir/uv/sdc/OperationDefinition/Questionnaire-populate")
+    fun expand(
+        @OperationParam(name="identifier") identifier: Identifier?,
+        @OperationParam(name="canonical") uri: UriType?,
+        @OperationParam(name="questionnaire") suppliedQuestionnaire: Questionnaire?,
+        @OperationParam(name="questionnaireRef") questionnaireRef: Reference?,
+        @OperationParam(name="subject") subject: Reference?
+    ): Parameters {
+        var parameters = Parameters()
+        parameters.addParameter().setName("response").setResource(QuestionnaireResponse().setQuestionnaire("https://example.fhir.org/Questionnaire/123"))
+        return parameters
+    }
+
 }

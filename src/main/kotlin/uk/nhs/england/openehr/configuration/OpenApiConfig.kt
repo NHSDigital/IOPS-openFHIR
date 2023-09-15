@@ -24,7 +24,9 @@ import uk.nhs.england.openehr.util.OpenAPIExample
 class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
 
 
-    var FORMS = "Structured Data Capture"
+    var COMPOSITION = "Composition"
+    var TEMPLATES = "Templates"
+    var SDC = "Structured Data Capture"
     var DIAGNOSTICS = "Diagnostics"
     var TERMINOLOGY = "Terminology"
     var CONFORMANCE = "Conformance"
@@ -54,7 +56,19 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
 
         oas.addTagsItem(
             io.swagger.v3.oas.models.tags.Tag()
-                .name(FORMS)
+                .name(COMPOSITION)
+                .description("[opeEHR REST Composition](https://specifications.openehr.org/releases/ITS-REST/latest/ehr.html#tag/COMPOSITION) \n"
+                )
+        )
+        oas.addTagsItem(
+            io.swagger.v3.oas.models.tags.Tag()
+                .name(TEMPLATES)
+                .description("[openEHR REST Template](https://specifications.openehr.org/releases/ITS-REST/latest/definition.html#tag/ADL2) \n"
+                )
+        )
+        oas.addTagsItem(
+            io.swagger.v3.oas.models.tags.Tag()
+                .name(SDC)
                 .description("[HL7 FHIR Structured Data Capture](http://hl7.org/fhir/uv/sdc/) \n"
                 )
         )
@@ -122,9 +136,9 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         val questionnaireResponseExtractItem = PathItem()
             .post(
                 Operation()
-                    .addTagsItem(FORMS)
+                    .addTagsItem(SDC)
                     .summary("Form Data Extraction. Converts a FHIR QuestionnaireResponse into FHIR Resources")
-                    .description("[Form Data Extraction](http://hl7.org/fhir/uv/sdc/extraction.html) Allows data captured in a QuestionnaireResponse to be extracted and used to create or update other FHIR resources - allowing the data to be more easily searched, compared and used by other FHIR systems")
+                    .description("[FHIR Structured Data Capture Form Data Extraction](http://hl7.org/fhir/uv/sdc/extraction.html) Allows data captured in a QuestionnaireResponse to be extracted and used to create or update other FHIR resources - allowing the data to be more easily searched, compared and used by other FHIR systems")
                     .responses(getApiResponses())
                     .requestBody(RequestBody().content(Content()
                         .addMediaType("application/fhir+json",
@@ -145,7 +159,7 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         val questionnaireResponseCompositonItem = PathItem()
             .post(
                 Operation()
-                    .addTagsItem(FORMS)
+                    .addTagsItem(SDC)
                     .summary("NOT YET IMPLEMENTED Convert a FHIR Questionnaire into an openEHR Composition")
                     .responses(getApiResponses())
                     .requestBody(RequestBody().content(Content()
@@ -167,8 +181,9 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         val questionnaireResponseItem = PathItem()
             .post(
                 Operation()
-                    .addTagsItem(FORMS)
+                    .addTagsItem(COMPOSITION)
                     .summary("NOT YET IMPLEMENTED Store a FHIR QuestionnaireResponse")
+                    .description("openEHR REST API - **POST Composition** [POST https://{baseUrl}/v1/ehr/{ehr_id}/composition](https://specifications.openehr.org/releases/ITS-REST/latest/ehr.html#tag/COMPOSITION/operation/composition_create)")
                     .responses(getApiResponses())
                     .requestBody(RequestBody().content(Content()
                         .addMediaType("application/fhir+json",
@@ -205,9 +220,9 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         val questionnaireConvertTemplate = PathItem()
             .post(
                 Operation()
-                    .addTagsItem(FORMS)
+                    .addTagsItem(TEMPLATES)
                     .summary("Converts an openEHR operational template to a FHIR Questionnaire")
-                    .description("Requires an operational template [Form Data Extraction](https://specifications.openehr.org/releases/AM/Release-2.2.0/Overview.html#_archetype_technology_overview)")
+                    .description("Requires an operational template [openEHR Archetype](https://specifications.openehr.org/releases/AM/Release-2.2.0/Overview.html#_archetype_technology_overview)")
                     .responses(getApiResponses())
                     .requestBody(RequestBody().content(Content()
                         .addMediaType("application/xml",
@@ -230,17 +245,37 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         val questionnaireConvertArchetype = PathItem()
             .post(
                 Operation()
-                    .addTagsItem(FORMS)
+                    .addTagsItem(TEMPLATES)
                     .summary("Converts an openEHR archetype to a FHIR Questionnaire")
-                    .description("Requires an archetype [Form Data Extraction](https://specifications.openehr.org/releases/AM/Release-2.2.0/Overview.html#_archetype_technology_overview)")
+                    .description("Requires an archetype [openEHR Archetype](https://specifications.openehr.org/releases/AM/Release-2.2.0/Overview.html#_archetype_technology_overview)")
                     .responses(getApiResponses())
                     .requestBody(RequestBody().content(Content()
                         .addMediaType("application/xml",
                             MediaType()
                                 .schema(StringSchema()))
                     )))
-
         oas.path("/openFHIR/R4/Questionnaire/\$convertArchetype",questionnaireConvertArchetype)
+
+        val examplesQuestionnairePopulation = LinkedHashMap<String,Example?>()
+
+        examplesQuestionnairePopulation["Populate"] =
+            Example().value(OpenAPIExample().loadJSONExample("Parameters/populate.json"))
+        oas.path("/openFHIR/R4/Questionnaire/\$populate",questionnaireConvertArchetype)
+        val questionnairePopulate = PathItem()
+            .post(
+                Operation()
+                    .addTagsItem(SDC)
+                    .summary("NOT YET IMPLEMENTED - Automatic population")
+                    .description("[FHIR Structured Data Capture Automatic population](https://build.fhir.org/ig/HL7/sdc/populate.html)")
+                    .responses(getApiResponses())
+                    .requestBody(RequestBody().content(Content()
+                        .addMediaType("application/json",
+                            MediaType()
+                                .examples(examplesQuestionnairePopulation)
+                                .schema(StringSchema()))
+                    )))
+
+        oas.path("/openFHIR/R4/Questionnaire/\$populate",questionnairePopulate)
 
         val examplesQuestionnaire = LinkedHashMap<String,Example?>()
 
@@ -250,7 +285,7 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         oas.path("/openFHIR/R4/Questionnaire",
             PathItem().
             get(Operation()
-                .addTagsItem(FORMS)
+                .addTagsItem(SDC)
                 .summary("Finding a Questionnaire")
                 .description("[Finding a Questionnaire](http://hl7.org/fhir/uv/sdc/search.html) Before a questionnaire can be filled out, it must first be 'found'. In some cases, workflow will dictate the specific Questionnaire to use - it will be pointed to by a Task to be performed, be included in a CarePlan, referenced by a PlanDefinition or made available in some other way. However, often users will need to search a registry or other repository to find the desired form, clinical instrument, etc. This portion of the SDC specification sets expectations for systems that support storing questionnaires and allowing client systems to search against their repository of questionnaires to find those that meet specified criteria. ")
                 .responses(getApiResponses())
@@ -327,8 +362,9 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
                     .schema(StringSchema()))
             )
                 .post(Operation()
-                    .addTagsItem(FORMS)
+                    .addTagsItem(TEMPLATES)
                     .summary("Add Questionnaire (wil perform update if the Questionnaire exists - this may be removed)")
+                    .description("openEHR REST API - **POST Template** [POST https://{baseUrl}/v1/definition/template/adl2](https://specifications.openehr.org/releases/ITS-REST/latest/definition.html#tag/ADL2/operation/definition_template_adl2_upload)")
                     .responses(getApiResponses())
                     .requestBody(RequestBody().content(Content()
                         .addMediaType("application/fhir+json",
