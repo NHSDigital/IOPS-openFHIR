@@ -69,12 +69,9 @@ class openEHRtoFHIR {
         var item : QuestionnaireItemComponent? = null
         if (template.definition !== null ) {
             when (template.definition.rmTypeName) {
-              "COMPOSITION" -> {
-                  // do nothing
-              }
                 "EVALUATION" -> {
                     // do nothing
-                    System.out.println("EVALUATION")
+                    System.out.println(template.definition.rmTypeName)
                     if (template.definition is CARCHETYPEROOTImpl) {
                         rootArchetype = template.definition as CARCHETYPEROOTImpl
                         var itemId = rootArchetype.nodeId
@@ -169,9 +166,47 @@ class openEHRtoFHIR {
                 }
             }
         }
-        if (archetype.definition !== null && archetype.definition.attributesArray !== null) {
-            for (attribute in archetype.definition.attributesArray) {
-                processAttribute( null, questionnaire.item,  attribute, null)
+        if (archetype.definition !== null) {
+
+
+            var item : QuestionnaireItemComponent? = null
+            if (archetype.definition is CCOMPLEXOBJECTImpl) {
+
+                var itemId = archetype.definition.nodeId
+                if (archetype.archetypeId !== null) itemId = archetype.archetypeId.value
+
+                item = QuestionnaireItemComponent().setLinkId(itemId)
+
+
+                item.extension.add(
+                    Extension().setUrl(FhirSystems.OPENEHR_DATATYPE_EXT).setValue(StringType().setValue("CARCHETYPEROOT"))
+                )
+
+                item.code = getCoding(archetype.definition.nodeId,null)
+                item.text = getDisplay(archetype.definition.nodeId,null)
+                item.type = Questionnaire.QuestionnaireItemType.STRING
+                /*
+                if (rootArchetype != null) {
+                    if (rootArchetype.archetypeId.value.startsWith("openEHR-EHR-EVALUATION.problem_diagnosis")) {
+                        item.definition = "Condition"
+                        item.extension.add(Extension()
+                            .setUrl(SDC_EXTRACT)
+                            .setValue(BooleanType().setValue(true))
+                        )
+                    }
+                }
+
+                 */
+                questionnaire.item.add(item)
+                processComplexObject(item, item.item,
+                    archetype.definition as CCOMPLEXOBJECTImpl,null,0)
+            }
+            else  {
+                if (archetype.definition.attributesArray !== null) {
+                    for (attribute in archetype.definition.attributesArray) {
+                        processAttribute(item, questionnaire.item, attribute,null)
+                    }
+                }
             }
         }
     }
@@ -350,6 +385,7 @@ class openEHRtoFHIR {
                     attribute.rmTypeName.equals("ELEMENT")
                    || attribute.rmTypeName.equals("CLUSTER")
                     || attribute.rmTypeName.equals("SECTION")
+                    || attribute.rmTypeName.equals("COMPOSITION")
                 ) {
                     /* OLD
                     var itemId = attribute.nodeId + "-" + Random.nextInt(0, 9999).toString()
@@ -480,6 +516,7 @@ class openEHRtoFHIR {
             } else if (attribute.rmTypeName.equals("CLUSTER")
                 || attribute.rmTypeName.equals("ELEMENT")
                 || attribute.rmTypeName.equals("SECTION")
+                || attribute.rmTypeName.equals("COMPOSITION")
                 || attribute.rmTypeName.equals("EVENT")
                 || attribute.rmTypeName.equals("EVENT_CONTEXT")
                 || attribute.rmTypeName.equals("ACTIVITY")
@@ -488,7 +525,7 @@ class openEHRtoFHIR {
             ) {
               // Ignore  item.type = Questionnaire.QuestionnaireItemType.DATETIME
             } else {
-                System.out.println("Complex Object - Unknown data type " + attribute.rmTypeName)
+                throw UnprocessableEntityException("Complex Object - Unknown data type " + attribute.rmTypeName)
             }
 
 
@@ -686,7 +723,7 @@ class openEHRtoFHIR {
                 }
                 for (concept in code.codeListArray) {
                     if (code.terminologyId.value.equals("openehr")) {
-                        item.answerValueSet = FhirSystems.OPENEHR_VALUESET + "/" + concept
+                        item.extension.add(Extension(FhirSystems.OPENEHR_COMPOSITION_CATEGORY_EXT).setValue(getOpenEHRCoding(concept)))
                     } else {
                         var coding = getCoding(concept, rootArchetype)
                         var code = Coding().setCode(concept).setDisplay(getDisplay(concept,rootArchetype))
@@ -738,11 +775,13 @@ class openEHRtoFHIR {
 
         if (this.archeType != null && this.archeType!!.ontology != null && this.archeType!!.ontology.termDefinitionsArray !== null) {
             for (terms in this.archeType!!.ontology.termDefinitionsArray) {
-                for (items in terms.itemsArray) {
-                    if (items.code.equals(code)) {
-                        for (item in items.itemsArray) {
-                            if (item.id.equals("text")) return item.stringValue
-                            if (item.id.equals("description")) display = item.stringValue
+                if (terms.language == null || terms.language.equals("en")) {
+                    for (items in terms.itemsArray) {
+                        if (items.code.equals(code)) {
+                            for (item in items.itemsArray) {
+                                if (item.id.equals("text")) return item.stringValue
+                                if (item.id.equals("description")) display = item.stringValue
+                            }
                         }
                     }
                 }
@@ -770,7 +809,9 @@ class openEHRtoFHIR {
         val code = ArrayList<Coding>()
         if (archeType != null && archeType!!.ontology != null) {
             if (archeType!!.ontology.termBindingsArray != null) {
+
                 for (termBinding in archeType!!.ontology.termBindingsArray) {
+
                     if (termBinding.terminology.equals("LOINC")) {
                         if (termBinding.itemsArray != null) {
                             for (codes in termBinding.itemsArray) {
@@ -793,14 +834,17 @@ class openEHRtoFHIR {
             }
             if (archeType!!.ontology.termDefinitionsArray != null) {
                 for (termDefinition in archeType!!.ontology.termDefinitionsArray) {
-                    if (termDefinition.language == null || termDefinition.language.equals("en"))
-                    if (termDefinition.itemsArray != null) {
-                        for (codes in termDefinition.itemsArray) {
-                            if (codes.code.equals(nodeId)) for (item in codes.itemsArray) {
-                                if (item.id.equals("text")) {
-                                    code.add(
-                                        Coding().setCode(nodeId).setDisplay(item.stringValue).setSystem(
-                                            FhirSystems.OPENEHR_CODESYSTEM + "/" + archeType!!.archetypeId.value))
+                    if (termDefinition.language == null || termDefinition.language.equals("en")) {
+                        if (termDefinition.itemsArray != null) {
+                            for (codes in termDefinition.itemsArray) {
+                                if (codes.code.equals(nodeId)) for (item in codes.itemsArray) {
+                                    if (item.id.equals("text")) {
+                                        code.add(
+                                            Coding().setCode(nodeId).setDisplay(item.stringValue).setSystem(
+                                                FhirSystems.OPENEHR_CODESYSTEM + "/" + archeType!!.archetypeId.value
+                                            )
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -838,6 +882,13 @@ class openEHRtoFHIR {
                         return Coding().setCode(code).setDisplay(concept.display).setSystem(codesystem.url)
                     }
                 }
+            }
+        }
+        when (code) {
+            "433" -> Coding().setCode(code).setSystem(OPENEHR_COMPOSITION_CATEGORY).setDisplay("event")
+            "451" -> {
+                Coding().setCode(code).setSystem(OPENEHR_COMPOSITION_CATEGORY).setDisplay("episodic")
+                throw UnprocessableEntityException("FHIR EpisodeOfCare detected")
             }
         }
         return Coding().setCode(code).setSystem(OPENEHR_CODESYSTEM)

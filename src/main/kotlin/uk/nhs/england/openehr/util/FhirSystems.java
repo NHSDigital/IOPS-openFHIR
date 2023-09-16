@@ -64,8 +64,10 @@ public final class FhirSystems {
 
     public static final String UNITS_OF_MEASURE = "http://unitsofmeasure.org";
     public static final String OPENEHR_CODESYSTEM = "http://openehr.example.org/CodeSystem";
+    public static final String OPENEHR_COMPOSITION_CATEGORY = "https://specifications.openehr.org/fhir/codesystem-composition_category";
 
-    public static final String OPENEHR_VALUESET = "http://fhir.openehr.example.org/ValueSet";
+   // public static final String OPENEHR_VALUESET = "http://fhir.openehr.example.org/ValueSet";
+    public static final String OPENEHR_COMPOSITION_CATEGORY_EXT = "https://specifications.openehr.org/fhir/extension-composition_category";
     public static final String OPENEHR_ARCHETYPE_EXT = "http://fhir.openehr.example.org/Archetype";
 
     public static final String OPENEHR_TEMPLATE = "https://fhir.openehr.example.org/Questionnaire";
