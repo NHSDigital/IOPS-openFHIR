@@ -37,7 +37,7 @@ class QuestionnaireResponseProvider(
         return QuestionnaireResponse::class.java
     }
 
-    @Operation(name = "\$convertOpenEHRComposition", idempotent = true, manualResponse = true)
+    @Operation(name = "\$convertToComposition", idempotent = true, manualResponse = true)
     fun convertOpenEHRComposition(
         response: HttpServletResponse,
         @ResourceParam questionnaireResponse: QuestionnaireResponse

@@ -1,0 +1,138 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "id": "e56d7fe7-e0c8-4175-b5ad-2187f9f95bf3",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2023-09-17T06:48:44.694Z",
+    "profile": [
+      "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaireresponse|2.7"
+    ],
+    "tag": [
+      {
+        "code": "lformsVersion: 33.3.4"
+      }
+    ]
+  },
+  "questionnaire": "Questionnaire/813d6646-3c0d-490b-b3a7-4af2539c5bcb",
+  "status": "completed",
+  "subject": {
+    "reference": "Patient/aab1dbe3-9bae-4dd2-a0e0-1d67158c0365"
+  },
+  "authored": "2023-09-17T06:48:44.233Z",
+  "item": [
+    {
+      "linkId": "openEHR-EHR-COMPOSITION.report.v1",
+      "text": "UCLH Foot and ankle PROMs",
+      "item": [
+        {
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-CLUSTER.episode_details_northproms.v0",
+          "text": "Episode details",
+          "item": [
+            {
+              "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-CLUSTER.episode_details_northproms.v0/at0001/0",
+              "text": "6 weeks post-operative",
+              "answer": [
+                {
+                  "valueString": "12345"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0",
+      "text": "AOFAS Score",
+      "item": [
+        {
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0028/0",
+          "text": "Q1 Pain",
+          "answer": [
+            {
+              "valueCoding": {
+                "code": "at0032",
+                "display": "Severe pain"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0033/1",
+          "text": "Q2 Activity limitations and support requirements",
+          "answer": [
+            {
+              "valueCoding": {
+                "code": "at0036",
+                "display": "Moderate or daily"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0038/2",
+          "text": "Q3 Walking",
+          "answer": [
+            {
+              "valueCoding": {
+                "code": "at0041",
+                "display": "1 to 3"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0043/3",
+          "text": "Q4 Walking surfaces",
+          "answer": [
+            {
+              "valueCoding": {
+                "code": "at0045",
+                "display": "Some difficulty on uneven surfaces"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0008/4",
+          "text": "Total score",
+          "answer": [
+            {
+              "valueInteger": 10
+            }
+          ]
+        },
+        {
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0027/5",
+          "text": "Comment",
+          "answer": [
+            {
+              "valueString": "This is a comment"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1",
+      "text": "Pain VAS",
+      "item": [
+        {
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1/openEHR-EHR-CLUSTER.pain_vas.v0",
+          "text": "Pain VAS",
+          "item": [
+            {
+              "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1/openEHR-EHR-CLUSTER.pain_vas.v0/at0001/0",
+              "text": "Pain scale",
+              "answer": [
+                {
+                  "valueInteger": 10
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

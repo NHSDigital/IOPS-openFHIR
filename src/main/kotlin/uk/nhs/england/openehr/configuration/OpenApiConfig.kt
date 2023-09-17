@@ -125,6 +125,9 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         // QuestionnaireResponse
 
         val examplesQuestionnaireResponse = LinkedHashMap<String,Example?>()
+        examplesQuestionnaireResponse.put("UCLH Foot and ankle PROMs",
+            Example().value(OpenAPIExample().loadJSONExample("QuestionnaireResponse/UCLH Foot and ankle PROMs.json"))
+        )
         examplesQuestionnaireResponse.put("IDCR - Vital Signs Encounter.v1 based example",
             Example().value(OpenAPIExample().loadJSONExample("QuestionnaireResponse/IDCR-Example-1.json"))
         )
@@ -175,7 +178,7 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
 
 
 
-        oas.path("/openFHIR/R4/QuestionnaireResponse/\$convertOpenEHRComposition",questionnaireResponseCompositonItem)
+        oas.path("/openFHIR/R4/QuestionnaireResponse/\$convertToComposition",questionnaireResponseCompositonItem)
 
 
 

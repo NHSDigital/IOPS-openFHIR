@@ -25,13 +25,14 @@ class openEHRtoFHIR {
         this.template = template
         this.codeSystems = codeSystems
         if (template.templateId !== null) {
-            this.questionnaire.url = OPENEHR_TEMPLATE + "/" + template.templateId.value
+        this.questionnaire.url = OPENEHR_QUESTIONNAIRE_TEMPLATE + template.templateId.value
             questionnaire.url = questionnaire.url.replace(" ", "")
             questionnaire.title = template.templateId.value
         }
         if (template.uid !== null) {
             questionnaire.identifier.add(Identifier().setValue(template.uid.value))
         }
+
         if (template.description !== null) {
             if (template.description.detailsArray !== null) {
                 for (details in template.description.detailsArray) {
@@ -68,16 +69,18 @@ class openEHRtoFHIR {
         var rootArchetype : CARCHETYPEROOTImpl? = null
         var item : QuestionnaireItemComponent? = null
         if (template.definition !== null ) {
+            if (template.definition is CARCHETYPEROOTImpl) {
+                rootArchetype = template.definition as CARCHETYPEROOTImpl
+                questionnaire.derivedFrom.add(CanonicalType(OPENEHR_QUESTIONNAIRE_ARCHETYPE + rootArchetype.archetypeId.value))
+            }
             when (template.definition.rmTypeName) {
-                "EVALUATION" -> {
+                "EVALUATION" ,"COMPOSITION" -> {
                     // do nothing
                     System.out.println(template.definition.rmTypeName)
-                    if (template.definition is CARCHETYPEROOTImpl) {
-                        rootArchetype = template.definition as CARCHETYPEROOTImpl
-                        var itemId = rootArchetype.nodeId
-                        if (rootArchetype.archetypeId !== null) itemId = rootArchetype.archetypeId.value
-
-                        item = Questionnaire.QuestionnaireItemComponent().setLinkId(itemId)
+                        if (rootArchetype !== null) {
+                            var itemId = rootArchetype.nodeId
+                            if (rootArchetype.archetypeId !== null) itemId = rootArchetype.archetypeId.value
+                        item = QuestionnaireItemComponent().setLinkId(itemId)
 
 
                         item.extension.add(
@@ -136,7 +139,7 @@ class openEHRtoFHIR {
         this.archeType = archetype
         this.codeSystems = codeSystems
         if (archetype.archetypeId !== null) {
-            questionnaire.url = OPENEHR_TEMPLATE +"/" + archetype.archetypeId.value
+        questionnaire.url = OPENEHR_QUESTIONNAIRE_ARCHETYPE + archetype.archetypeId.value
             questionnaire.url = questionnaire.url.replace(" ", "")
             questionnaire.title = archetype.archetypeId.value
         }
@@ -170,44 +173,19 @@ class openEHRtoFHIR {
 
 
             var item : QuestionnaireItemComponent? = null
-            if (archetype.definition is CCOMPLEXOBJECTImpl) {
 
-                var itemId = archetype.definition.nodeId
-                if (archetype.archetypeId !== null) itemId = archetype.archetypeId.value
+            item = QuestionnaireItemComponent()
+            item.linkId = archetype.archetypeId.value
+            item.type = Questionnaire.QuestionnaireItemType.GROUP
+            questionnaire.item.add(item)
 
-                item = QuestionnaireItemComponent().setLinkId(itemId)
-
-
-                item.extension.add(
-                    Extension().setUrl(FhirSystems.OPENEHR_DATATYPE_EXT).setValue(StringType().setValue("CARCHETYPEROOT"))
-                )
-
-                item.code = getCoding(archetype.definition.nodeId,null)
-                item.text = getDisplay(archetype.definition.nodeId,null)
-                item.type = Questionnaire.QuestionnaireItemType.STRING
-                /*
-                if (rootArchetype != null) {
-                    if (rootArchetype.archetypeId.value.startsWith("openEHR-EHR-EVALUATION.problem_diagnosis")) {
-                        item.definition = "Condition"
-                        item.extension.add(Extension()
-                            .setUrl(SDC_EXTRACT)
-                            .setValue(BooleanType().setValue(true))
-                        )
-                    }
-                }
-
-                 */
-                questionnaire.item.add(item)
-                processComplexObject(item, item.item,
-                    archetype.definition as CCOMPLEXOBJECTImpl,null,0)
-            }
-            else  {
-                if (archetype.definition.attributesArray !== null) {
-                    for (attribute in archetype.definition.attributesArray) {
-                        processAttribute(item, questionnaire.item, attribute,null)
-                    }
+            if (archetype.definition.attributesArray !== null) {
+                for (attribute in archetype.definition.attributesArray) {
+                   System.out.println(attribute.rmAttributeName)
+                    processAttribute(item, item.item, attribute,null)
                 }
             }
+
         }
     }
 
@@ -268,7 +246,7 @@ class openEHRtoFHIR {
                     if (children is CARCHETYPEROOTImpl) {
                         processArchetypeRoot(item, items,children)
                     } else if (children is CCOMPLEXOBJECTImpl) {
-                        processComplexObject(item, items, children, rootArchetype, index)
+                        processComplexObject(item, items, children, rootArchetype, index,null)
                     } else if (children is ARCHETYPESLOTImpl) {
                         processArchetypeSlot(item, children)
                     }
@@ -288,7 +266,7 @@ class openEHRtoFHIR {
 
                         processArchetypeRoot( item, items, children)
                     } else if (children is CCOMPLEXOBJECTImpl) {
-                        processComplexObject(item, items, children, rootArchetype, index)
+                        processComplexObject(item, items, children, rootArchetype, index, null)
                     } else if (children is CSINGLEATTRIBUTEImpl) {
                         processSingleObject(item, children)
                     } else if (children is CDVQUANTITY) {
@@ -353,7 +331,7 @@ class openEHRtoFHIR {
                 if (rootArchetype!!.archetypeId !== null) {
                     item.extension.add(
                         Extension().setUrl(FhirSystems.OPENEHR_ARCHETYPE_EXT)
-                            .setValue(UriType().setValue(OPENEHR_TEMPLATE + "/" + rootArchetype!!.archetypeId.value))
+                            .setValue(UriType().setValue(OPENEHR_QUESTIONNAIRE_ARCHETYPE + rootArchetype!!.archetypeId.value))
                     )
                 }
                 if (rootArchetype!!.attributesArray !== null) {
@@ -375,7 +353,8 @@ class openEHRtoFHIR {
         items: MutableList<QuestionnaireItemComponent>,
         attribute: CCOMPLEXOBJECTImpl,
         rootArchetype: CARCHETYPEROOTImpl?,
-        index: Int
+        index: Int,
+        archetype: ARCHETYPE?
     ) {
         var item = parentitem
         if (attribute.nodeId !== null) {
@@ -387,12 +366,9 @@ class openEHRtoFHIR {
                     || attribute.rmTypeName.equals("SECTION")
                     || attribute.rmTypeName.equals("COMPOSITION")
                 ) {
-                    /* OLD
-                    var itemId = attribute.nodeId + "-" + Random.nextInt(0, 9999).toString()
-                    if (citem !== null) itemId = citem.linkId + "/" + itemId
-                    */
 
                     var itemId = attribute.nodeId
+                    if (archetype !== null) itemId = archetype.archetypeId.value
                     if (parentitem !== null) itemId = parentitem.linkId + "/" + itemId + "/" + index
 
                     item = Questionnaire.QuestionnaireItemComponent().setLinkId( itemId)
@@ -428,6 +404,17 @@ class openEHRtoFHIR {
                                     .setValue(CodeType().setValue("Observation"))
                             )
                         }
+                        if (archetype != null && !archetype.archetypeId.value.startsWith("openEHR-EHR-CLUSTER.problem_qualifier")) {
+                            item.extension.add(Extension()
+                                .setUrl(SDC_EXTRACT)
+                                .setValue(BooleanType().setValue(true))
+                            )
+                            item.extension.add(
+                                Extension()
+                                    .setUrl(SDC_EXTRACT_CONTEXT)
+                                    .setValue(CodeType().setValue("Observation"))
+                            )
+                        }
                         when (item.codeFirstRep.code) {
                             "106229004" -> item.definition= "Condition.status"
                             else ->{
@@ -436,6 +423,9 @@ class openEHRtoFHIR {
                         }
 
                         if (parentitem != null && rootArchetype !== null && !rootArchetype.archetypeId.value.startsWith("openEHR-EHR-CLUSTER.problem_qualifier")) {
+                            parentitem.definition = "Observation"
+                        }
+                        if (parentitem != null && archetype !== null && !archetype.archetypeId.value.startsWith("openEHR-EHR-CLUSTER.problem_qualifier")) {
                             parentitem.definition = "Observation"
                         }
                     }
@@ -472,7 +462,9 @@ class openEHRtoFHIR {
                     item.type = Questionnaire.QuestionnaireItemType.GROUP
                 }
                 for (attr in attribute.attributesArray) {
+
                     processAttribute(item, item.item, attr, rootArchetype)
+
                 }
             } else {
                 for (attr in attribute.attributesArray) {
@@ -480,6 +472,7 @@ class openEHRtoFHIR {
                 }
             }
         }
+
         if (item != null) {
             if (attribute.rmTypeName.equals("ITEM_TREE")) {
                 item.type = Questionnaire.QuestionnaireItemType.GROUP
@@ -527,8 +520,6 @@ class openEHRtoFHIR {
             } else {
                 throw UnprocessableEntityException("Complex Object - Unknown data type " + attribute.rmTypeName)
             }
-
-
 
         }
     }
@@ -724,6 +715,7 @@ class openEHRtoFHIR {
                 for (concept in code.codeListArray) {
                     if (code.terminologyId.value.equals("openehr")) {
                         item.extension.add(Extension(FhirSystems.OPENEHR_COMPOSITION_CATEGORY_EXT).setValue(getOpenEHRCoding(concept)))
+                        item.type = Questionnaire.QuestionnaireItemType.OPENCHOICE
                     } else {
                         var coding = getCoding(concept, rootArchetype)
                         var code = Coding().setCode(concept).setDisplay(getDisplay(concept,rootArchetype))
@@ -748,7 +740,7 @@ class openEHRtoFHIR {
     private fun processArchetypeSlot(citem: Questionnaire.QuestionnaireItemComponent?,
                                      archetype:  ARCHETYPESLOTImpl) {
         var item = citem
-
+        System.out.println("archetype slot - not coded")
         /* I think this is needed for internal definitions
                 if (archetype.nodeId !== null) {
                     // This adds in a new child
