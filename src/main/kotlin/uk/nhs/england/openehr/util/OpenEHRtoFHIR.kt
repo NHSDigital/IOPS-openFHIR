@@ -1,4 +1,4 @@
-package uk.nhs.england.openehr.model
+package uk.nhs.england.openehr.util
 
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException
 import org.hl7.fhir.r4.model.*
@@ -231,7 +231,9 @@ class openEHRtoFHIR {
     ) {
         var rootArchetype = crootArchetype
         var item = citem
+
         if (cattribute is CMULTIPLEATTRIBUTEImpl) {
+
             var attribute: CMULTIPLEATTRIBUTEImpl = cattribute
             if (attribute.cardinality !== null && item != null) {
                 if (attribute.cardinality.interval !== null) {
@@ -313,7 +315,7 @@ class openEHRtoFHIR {
                 var itemId = rootArchetype.nodeId
                 if (rootArchetype.archetypeId !== null) itemId = rootArchetype.archetypeId.value
                 if (citem !== null) itemId = citem.linkId + "/" + itemId
-                item = Questionnaire.QuestionnaireItemComponent().setLinkId(itemId)
+                item = QuestionnaireItemComponent().setLinkId(itemId + "[" + rootArchetype.rmTypeName + "]")
 
 
                 item.extension.add(
@@ -364,6 +366,7 @@ class openEHRtoFHIR {
                     attribute.rmTypeName.equals("ELEMENT")
                    || attribute.rmTypeName.equals("CLUSTER")
                     || attribute.rmTypeName.equals("SECTION")
+               //     || attribute.rmTypeName.equals("ITEM_TREE")
                     || attribute.rmTypeName.equals("COMPOSITION")
                 ) {
 
@@ -371,7 +374,7 @@ class openEHRtoFHIR {
                     if (archetype !== null) itemId = archetype.archetypeId.value
                     if (parentitem !== null) itemId = parentitem.linkId + "/" + itemId + "/" + index
 
-                    item = Questionnaire.QuestionnaireItemComponent().setLinkId( itemId)
+                    item = Questionnaire.QuestionnaireItemComponent().setLinkId( itemId + "["+ attribute.rmTypeName + "]")
                     var name = "CCOMPLEXOBJECT"
                     if (attribute.rmTypeName !== null) name = name + "/" + attribute.rmTypeName
                     item.extension.add(Extension().setUrl(FhirSystems.OPENEHR_DATATYPE_EXT).setValue(StringType().setValue(name)))
@@ -449,7 +452,7 @@ class openEHRtoFHIR {
                     }
                     items.add(item)
                 } else {
-                 //   System.out.println(attribute.rmTypeName)
+                    System.out.println("Complex Object Unprocessed - " + attribute.rmTypeName)
                 }
             }
         }
@@ -506,6 +509,7 @@ class openEHRtoFHIR {
                 item.type = Questionnaire.QuestionnaireItemType.DECIMAL
             } else if (attribute.rmTypeName.equals("POINT_EVENT")) {
                 System.out.println("Not processing POINT EVENT")
+                item.type = Questionnaire.QuestionnaireItemType.DATETIME
             } else if (attribute.rmTypeName.equals("CLUSTER")
                 || attribute.rmTypeName.equals("ELEMENT")
                 || attribute.rmTypeName.equals("SECTION")

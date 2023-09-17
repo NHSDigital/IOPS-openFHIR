@@ -1,0 +1,392 @@
+{
+  "resourceType": "Questionnaire",
+  "url": "https://fhir.openehr.example.org/Questionnaire/Template-Foot_and_Ankle_PROMs-v0",
+  "identifier": [
+    {
+      "value": "758a04dd-b318-41dd-833f-dd035309867a"
+    }
+  ],
+  "title": "Foot_and_Ankle_PROMs-v0",
+  "derivedFrom": [
+    "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-COMPOSITION.report.v1"
+  ],
+  "status": "draft",
+  "description": "null\n\n#####Keywords\n\n",
+  "purpose": "Not Specified",
+  "item": [
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "https://specifications.openehr.org/fhir/extension-composition_category",
+          "valueCoding": {
+            "system": "https://specifications.openehr.org/fhir/codesystem-composition_category",
+            "code": "433",
+            "display": "event"
+          }
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.report.v1",
+      "text": "UCLH Foot and ankle PROMs",
+      "type": "group",
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-CLUSTER.episode_details_northproms.v0"
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-CLUSTER.episode_details_northproms.v0",
+          "text": "Episode details",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-CLUSTER.episode_details_northproms.v0/at0001/0",
+              "text": "6 weeks post-operative",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://fhir.openehr.example.org/derivedFrom",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.aofas.v0"
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0",
+      "text": "AOFAS Score",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0028/0",
+          "text": "Q1 Pain",
+          "type": "choice",
+          "answerOption": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 0
+                }
+              ],
+              "valueCoding": {
+                "code": "at0032",
+                "display": "Severe pain"
+              }
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 20
+                }
+              ],
+              "valueCoding": {
+                "code": "at0031",
+                "display": "Moderate or daily"
+              }
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 30
+                }
+              ],
+              "valueCoding": {
+                "code": "at0030",
+                "display": "Mild or occasional"
+              }
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 40
+                }
+              ],
+              "valueCoding": {
+                "code": "at0029",
+                "display": "No pain"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0033/1",
+          "text": "Q2 Activity limitations and support requirements",
+          "type": "choice",
+          "answerOption": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 0
+                }
+              ],
+              "valueCoding": {
+                "code": "at0037",
+                "display": "Severe"
+              }
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 4
+                }
+              ],
+              "valueCoding": {
+                "code": "at0036",
+                "display": "Moderate or daily"
+              }
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 7
+                }
+              ],
+              "valueCoding": {
+                "code": "at0035",
+                "display": "Mild or occasional"
+              }
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 10
+                }
+              ],
+              "valueCoding": {
+                "code": "at0034",
+                "display": "None"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0038/2",
+          "text": "Q3 Walking",
+          "type": "choice",
+          "answerOption": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 0
+                }
+              ],
+              "valueCoding": {
+                "code": "at0042",
+                "display": "Less than 1"
+              }
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 2
+                }
+              ],
+              "valueCoding": {
+                "code": "at0041",
+                "display": "1 to 3"
+              }
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 4
+                }
+              ],
+              "valueCoding": {
+                "code": "at0040",
+                "display": "4 to 6"
+              }
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 5
+                }
+              ],
+              "valueCoding": {
+                "code": "at0039",
+                "display": "Greater than 6"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0043/3",
+          "text": "Q4 Walking surfaces",
+          "type": "choice",
+          "answerOption": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 0
+                }
+              ],
+              "valueCoding": {
+                "code": "at0046",
+                "display": "Severe difficulty on uneven surfaces"
+              }
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 3
+                }
+              ],
+              "valueCoding": {
+                "code": "at0045",
+                "display": "Some difficulty on uneven surfaces"
+              }
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 5
+                }
+              ],
+              "valueCoding": {
+                "code": "at0044",
+                "display": "No difficulty on any walking surface"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0008/4",
+          "text": "Total score",
+          "type": "integer"
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0027/5",
+          "text": "Comment",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://fhir.openehr.example.org/derivedFrom",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.story.v1"
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1",
+      "text": "Pain VAS",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-CLUSTER.pain_vas.v0"
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1/openEHR-EHR-CLUSTER.pain_vas.v0",
+          "text": "Pain VAS",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                }
+              ],
+              "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1/openEHR-EHR-CLUSTER.pain_vas.v0/at0001/0",
+              "text": "Pain scale",
+              "type": "integer"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
