@@ -126,13 +126,13 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
 
         val examplesQuestionnaireResponse = LinkedHashMap<String,Example?>()
         examplesQuestionnaireResponse.put("UCLH Foot and ankle PROMs",
-            Example().value(OpenAPIExample().loadJSONExample("QuestionnaireResponse/UCLH Foot and ankle PROMs.json"))
+            Example().value(OpenAPIExample().loadJSONExample("FHIR/QuestionnaireResponse/UCLH Foot and ankle PROMs.json"))
         )
         examplesQuestionnaireResponse.put("IDCR - Vital Signs Encounter.v1 based example",
-            Example().value(OpenAPIExample().loadJSONExample("QuestionnaireResponse/IDCR-Example-1.json"))
+            Example().value(OpenAPIExample().loadJSONExample("FHIR/QuestionnaireResponse/IDCR-Example-1.json"))
         )
         examplesQuestionnaireResponse.put("COVID-19 Problem/Diagnosis",
-            Example().value(OpenAPIExample().loadJSONExample("QuestionnaireResponse/COVID19-Diagnosis.json"))
+            Example().value(OpenAPIExample().loadJSONExample("FHIR/QuestionnaireResponse/COVID19-Diagnosis.json"))
         )
 
 
@@ -206,10 +206,10 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         val examplesQuestionnaireConvertTemplateJSON = LinkedHashMap<String,Example?>()
 
         examplesQuestionnaireConvertTemplateJSON.put("IDCR - Vital Signs Encounter.v1 https://ckm.apperta.org/ckm/templates/1051.57.141",
-            Example().value(OpenAPIExample().loadXMLExampleAsJson("Template/" + "IDCR - Vital Signs Encounter.v1.xml"))
+            Example().value(OpenAPIExample().loadXMLExampleAsJson("openEHR/Template/" + "IDCR - Vital Signs Encounter.v1.xml"))
         )
         examplesQuestionnaireConvertTemplateJSON.put("ReSPECT-3.v0 (DHCW or NHS Scotland?) https://ckm.apperta.org/ckm/templates/1051.57.279",
-            Example().value(OpenAPIExample().loadXMLExampleAsJson("Template/" + "ReSPECT-3.v0.xml"))
+            Example().value(OpenAPIExample().loadXMLExampleAsJson("openEHR/Template/" + "ReSPECT-3.v0.xml"))
         )
 
         val examplesQuestionnaireConvertTemplateXML = LinkedHashMap<String,Example?>()
@@ -261,7 +261,7 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         val examplesQuestionnairePopulation = LinkedHashMap<String,Example?>()
 
         examplesQuestionnairePopulation["Populate"] =
-            Example().value(OpenAPIExample().loadJSONExample("Parameters/populate.json"))
+            Example().value(OpenAPIExample().loadJSONExample("FHIR/Parameters/populate.json"))
         oas.path("/openFHIR/R4/Questionnaire/\$populate",questionnaireConvertArchetype)
         val questionnairePopulate = PathItem()
             .post(
@@ -298,7 +298,7 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         val examplesQuestionnaire = LinkedHashMap<String,Example?>()
 
         examplesQuestionnaire["IDCR-VitalSignsEncounter.v1"] =
-            Example().value(OpenAPIExample().loadJSONExample("Questionnaire/IDCR-VitalSignsEncounter.v1.json"))
+            Example().value(OpenAPIExample().loadJSONExample("FHIR/Questionnaire/IDCR-VitalSignsEncounter.v1.json"))
 
         oas.path("/openFHIR/R4/Questionnaire",
             PathItem().

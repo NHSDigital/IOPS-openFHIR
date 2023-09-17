@@ -68,7 +68,7 @@ class QuestionnaireProvider (@Qualifier("R4") private val fhirContext: FhirConte
 
     @Read
     fun read(httpRequest : HttpServletRequest, @IdParam internalId: IdType): Questionnaire? {
-        val resource: Resource? = cognitoAuthInterceptor.readFromUrl(httpRequest.pathInfo, null,"Questionnaire")
+        val resource: Resource? = cognitoAuthInterceptor.readFromUrl(httpRequest.pathInfo, null,"FHIR/Questionnaire")
         return if (resource is Questionnaire) resource else null
     }
 
@@ -92,7 +92,7 @@ class QuestionnaireProvider (@Qualifier("R4") private val fhirContext: FhirConte
         @OptionalParam(name = Questionnaire.SP_DEFINITION) definition: TokenParam?
     ): Bundle? {
         val queryString = awsPatient.processQueryString(httpRequest.queryString,null)
-        val resource: Resource? = cognitoAuthInterceptor.readFromUrl(httpRequest.pathInfo, queryString,"Questionnaire")
+        val resource: Resource? = cognitoAuthInterceptor.readFromUrl(httpRequest.pathInfo, queryString,"FHIR/Questionnaire")
         if (resource != null && resource is Bundle) {
             return resource
         }
