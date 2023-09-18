@@ -1,4 +1,4 @@
-package uk.nhs.england.openehr.util
+package uk.nhs.england.openehr.transform
 
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException
 import org.hl7.fhir.r4.model.*
@@ -372,7 +372,7 @@ class openEHRtoFHIR {
 
                     var itemId = attribute.nodeId
                     if (archetype !== null) itemId = archetype.archetypeId.value
-                    if (parentitem !== null) itemId = parentitem.linkId + "/" + itemId + "/" + index
+                    if (parentitem !== null) itemId = parentitem.linkId + "/" + itemId  //+ "/" + index
 
                     item = Questionnaire.QuestionnaireItemComponent().setLinkId( itemId + "["+ attribute.rmTypeName + "]")
                     var name = "CCOMPLEXOBJECT"
@@ -452,6 +452,16 @@ class openEHRtoFHIR {
                     }
                     items.add(item)
                 } else {
+                    if (item !== null) {
+                        var itemId = attribute.nodeId
+                        if (archetype !== null) itemId = archetype.archetypeId.value
+                        if (parentitem !== null) itemId = parentitem.linkId + "/" + itemId //+ "/" + index
+                        if (attribute.rmTypeName.equals("HISTORY")) {
+                            item.setLinkId(itemId)
+                        } else {
+                            item.setLinkId(itemId + "[" + attribute.rmTypeName + "]")
+                        }
+                    }
                     System.out.println("Complex Object Unprocessed - " + attribute.rmTypeName)
                 }
             }

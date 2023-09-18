@@ -29,7 +29,7 @@
           }
         }
       ],
-      "linkId": "openEHR-EHR-COMPOSITION.report.v1",
+      "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]",
       "text": "UCLH Foot and ankle PROMs",
       "type": "group",
       "repeats": true,
@@ -45,7 +45,7 @@
               "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-CLUSTER.episode_details_northproms.v0"
             }
           ],
-          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-CLUSTER.episode_details_northproms.v0",
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.episode_details_northproms.v0[CLUSTER]",
           "text": "Episode details",
           "type": "group",
           "required": true,
@@ -58,7 +58,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-CLUSTER.episode_details_northproms.v0/at0001/0",
+              "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.episode_details_northproms.v0[CLUSTER]/at0001[ELEMENT]",
               "text": "6 weeks post-operative",
               "type": "string"
             }
@@ -77,7 +77,7 @@
           "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.aofas.v0"
         }
       ],
-      "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0",
+      "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.aofas.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0006[ITEM_TREE]/at0004[ITEM_TREE]",
       "text": "AOFAS Score",
       "type": "group",
       "required": true,
@@ -90,7 +90,7 @@
               "valueString": "CCOMPLEXOBJECT/ELEMENT"
             }
           ],
-          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0028/0",
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.aofas.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0028[ELEMENT]",
           "text": "Q1 Pain",
           "type": "choice",
           "answerOption": [
@@ -151,7 +151,7 @@
               "valueString": "CCOMPLEXOBJECT/ELEMENT"
             }
           ],
-          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0033/1",
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.aofas.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0033[ELEMENT]",
           "text": "Q2 Activity limitations and support requirements",
           "type": "choice",
           "answerOption": [
@@ -212,7 +212,7 @@
               "valueString": "CCOMPLEXOBJECT/ELEMENT"
             }
           ],
-          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0038/2",
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.aofas.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0038[ELEMENT]",
           "text": "Q3 Walking",
           "type": "choice",
           "answerOption": [
@@ -273,7 +273,7 @@
               "valueString": "CCOMPLEXOBJECT/ELEMENT"
             }
           ],
-          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0043/3",
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.aofas.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0043[ELEMENT]",
           "text": "Q4 Walking surfaces",
           "type": "choice",
           "answerOption": [
@@ -322,7 +322,7 @@
               "valueString": "CCOMPLEXOBJECT/ELEMENT"
             }
           ],
-          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0008/4",
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.aofas.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0008[ELEMENT]",
           "text": "Total score",
           "type": "integer"
         },
@@ -333,7 +333,7 @@
               "valueString": "CCOMPLEXOBJECT/ELEMENT"
             }
           ],
-          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.aofas.v0/at0027/5",
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.aofas.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0027[ELEMENT]",
           "text": "Comment",
           "type": "string"
         }
@@ -350,7 +350,7 @@
           "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.story.v1"
         }
       ],
-      "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1",
+      "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.story.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0007[ITEM_TREE]",
       "text": "Pain VAS",
       "type": "group",
       "required": true,
@@ -367,7 +367,7 @@
               "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-CLUSTER.pain_vas.v0"
             }
           ],
-          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1/openEHR-EHR-CLUSTER.pain_vas.v0",
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.story.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/openEHR-EHR-CLUSTER.pain_vas.v0[CLUSTER]",
           "text": "Pain VAS",
           "type": "group",
           "required": true,
@@ -380,7 +380,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1/openEHR-EHR-CLUSTER.pain_vas.v0/at0001/0",
+              "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.story.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/openEHR-EHR-CLUSTER.pain_vas.v0[CLUSTER]/at0001[ELEMENT]",
               "text": "Pain scale",
               "type": "integer"
             }

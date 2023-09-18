@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component
 import uk.nhs.england.openehr.awsProvider.AWSPatient
 import uk.nhs.england.openehr.awsProvider.AWSQuestionnaire
 import uk.nhs.england.openehr.interceptor.CognitoAuthInterceptor
-import uk.nhs.england.openehr.util.openEHRtoFHIR
+import uk.nhs.england.openehr.transform.openEHRtoFHIR
 import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.nio.charset.StandardCharsets
