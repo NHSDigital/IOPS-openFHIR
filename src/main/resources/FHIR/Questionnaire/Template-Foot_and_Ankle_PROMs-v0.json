@@ -1,5 +1,10 @@
 {
   "resourceType": "Questionnaire",
+  "id": "813d6646-3c0d-490b-b3a7-4af2539c5bcb",
+  "meta": {
+    "versionId": "3",
+    "lastUpdated": "2023-09-18T07:11:35.570Z"
+  },
   "url": "https://fhir.openehr.example.org/Questionnaire/Template-Foot_and_Ankle_PROMs-v0",
   "identifier": [
     {

@@ -4,13 +4,19 @@ import ca.uhn.fhir.rest.annotation.*
 import ca.uhn.fhir.rest.param.UriParam
 import ca.uhn.fhir.rest.server.IResourceProvider
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException
+import com.nedap.archie.rm.composition.Composition
+import org.apache.commons.io.IOUtils
 import org.ehrbase.serialisation.xmlencoding.CanonicalXML
-import org.hl7.fhir.r4.model.*
+import org.hl7.fhir.r4.model.Bundle
+import org.hl7.fhir.r4.model.IdType
+import org.hl7.fhir.r4.model.Questionnaire
+import org.hl7.fhir.r4.model.QuestionnaireResponse
 import org.springframework.stereotype.Component
 import uk.nhs.england.openehr.awsProvider.AWSQuestionnaire
 import uk.nhs.england.openehr.transform.FHIRQuestionnaireResponseExtract
 import uk.nhs.england.openehr.transform.FHIRQuestionnaireResponseToOpenEHRComposition
 import uk.nhs.england.openehr.util.FhirSystems.*
+import java.nio.charset.StandardCharsets
 import java.util.*
 
 
@@ -32,7 +38,7 @@ class QuestionnaireResponseProvider(
     }
 
     @Operation(name = "\$convertToComposition", idempotent = true, manualResponse = true)
-    fun convertOpenEHRComposition(
+    fun convertToOpenEHRComposition(
         response: HttpServletResponse,
         @ResourceParam questionnaireResponse: QuestionnaireResponse
     ) {
@@ -45,6 +51,21 @@ class QuestionnaireResponseProvider(
         } else {
             throw UnprocessableEntityException("Questionnaire not found")
         }
+    }
+
+    @Operation(name = "\$convertComposition", idempotent = true, manualRequest = true, manualResponse = true)
+    fun convertOpenEHRComposition(
+        request: HttpServletRequest,
+        response: HttpServletResponse
+    ) {
+       val composition: Composition?
+       try {
+           val str = IOUtils.toString(request.getReader())
+           composition = CanonicalXML().unmarshal(str, Composition::class.java);
+           System.out.println(composition.name.value)
+       } catch (ex : Exception) {
+           System.out.println(ex.message)
+       }
     }
 
 

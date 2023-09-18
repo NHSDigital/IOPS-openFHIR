@@ -1,9 +1,9 @@
 {
   "resourceType": "QuestionnaireResponse",
-  "id": "02cc0d9e-01c8-42c2-aa8f-d39d7b7685da",
+  "id": "5bd1131e-20cd-4069-8d00-a9ea80873b15",
   "meta": {
     "versionId": "1",
-    "lastUpdated": "2023-09-18T04:01:50.666Z",
+    "lastUpdated": "2023-09-18T07:13:42.718Z",
     "profile": [
       "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaireresponse|2.7"
     ],
@@ -18,28 +18,22 @@
   "subject": {
     "reference": "Patient/aab1dbe3-9bae-4dd2-a0e0-1d67158c0365"
   },
-  "authored": "2023-09-18T04:01:50.040Z",
+  "authored": "2023-09-18T07:13:42.336Z",
   "item": [
     {
-      "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1[OBSERVATION]",
+      "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.story.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0007[ITEM_TREE]",
       "text": "Pain VAS",
       "item": [
         {
-          "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1[OBSERVATION]/at0003/0[ITEM_TREE]",
-          "text": "Tree",
+          "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.story.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/openEHR-EHR-CLUSTER.pain_vas.v0[CLUSTER]",
+          "text": "Pain VAS",
           "item": [
             {
-              "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1[OBSERVATION]/at0003/0[ITEM_TREE]/openEHR-EHR-CLUSTER.pain_vas.v0[CLUSTER]",
-              "text": "Pain VAS",
-              "item": [
+              "linkId": "openEHR-EHR-COMPOSITION.report.v1/at0001[ITEM_TREE]/openEHR-EHR-OBSERVATION.story.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/openEHR-EHR-CLUSTER.pain_vas.v0[CLUSTER]/at0001[ELEMENT]",
+              "text": "Pain scale",
+              "answer": [
                 {
-                  "linkId": "openEHR-EHR-COMPOSITION.report.v1/openEHR-EHR-OBSERVATION.story.v1[OBSERVATION]/at0003/0[ITEM_TREE]/openEHR-EHR-CLUSTER.pain_vas.v0[CLUSTER]/at0001/0[ELEMENT]",
-                  "text": "Pain scale",
-                  "answer": [
-                    {
-                      "valueInteger": 3
-                    }
-                  ]
+                  "valueInteger": 3
                 }
               ]
             }
