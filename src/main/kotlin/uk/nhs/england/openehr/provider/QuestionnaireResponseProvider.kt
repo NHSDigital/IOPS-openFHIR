@@ -5,6 +5,9 @@ import ca.uhn.fhir.rest.param.UriParam
 import ca.uhn.fhir.rest.server.IResourceProvider
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException
 import com.nedap.archie.rm.composition.Composition
+import com.nedap.archie.rm.composition.Observation
+import com.nedap.archie.rm.datastructures.Element
+import com.nedap.archie.rm.datastructures.PointEvent
 import org.apache.commons.io.IOUtils
 import org.ehrbase.serialisation.xmlencoding.CanonicalXML
 import org.hl7.fhir.r4.model.Bundle
@@ -63,6 +66,26 @@ class QuestionnaireResponseProvider(
            val str = IOUtils.toString(request.getReader())
            composition = CanonicalXML().unmarshal(str, Composition::class.java);
            System.out.println(composition.name.value)
+
+           for (content in composition.content) {
+               System.out.println(content.javaClass.canonicalName)
+                if (content is Observation) {
+                    val obs = content as Observation
+                    if (obs.data != null) {
+                        for (event in obs.data.events) {
+                            System.out.println("event " + event.javaClass.canonicalName)
+                            System.out.println("event type " + event.javaClass.genericSuperclass.javaClass.canonicalName)
+                            if (event is PointEvent) {
+                                val pv = event as PointEvent
+                                if (pv.data != null) {
+                                    System.out.println(pv.data.javaClass)
+
+                                }
+                            }
+                        }
+                    }
+                }
+           }
        } catch (ex : Exception) {
            System.out.println(ex.message)
        }

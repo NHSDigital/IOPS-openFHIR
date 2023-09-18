@@ -3,17 +3,16 @@ package uk.nhs.england.openehr.transform
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException
 import com.nedap.archie.rm.archetyped.Archetyped
 import com.nedap.archie.rm.archetyped.TemplateId
+import com.nedap.archie.rm.composition.*
 import com.nedap.archie.rm.composition.Composition
-import com.nedap.archie.rm.composition.ContentItem
-import com.nedap.archie.rm.composition.Entry
 import com.nedap.archie.rm.composition.Observation
-import com.nedap.archie.rm.composition.Section
-import com.nedap.archie.rm.datastructures.Cluster
-import com.nedap.archie.rm.datastructures.History
-import com.nedap.archie.rm.datastructures.ItemStructure
+import com.nedap.archie.rm.datastructures.*
+import com.nedap.archie.rm.datastructures.Element
 import com.nedap.archie.rm.datatypes.CodePhrase
 import com.nedap.archie.rm.datavalues.DvCodedText
 import com.nedap.archie.rm.datavalues.DvText
+import com.nedap.archie.rm.datavalues.quantity.DvQuantity
+import com.nedap.archie.rm.datavalues.quantity.datetime.DvDateTime
 import com.nedap.archie.rm.generic.PartyIdentified
 import com.nedap.archie.rm.support.identification.ArchetypeID
 import com.nedap.archie.rm.support.identification.ObjectVersionId
@@ -21,7 +20,8 @@ import com.nedap.archie.rm.support.identification.TerminologyId
 import org.hl7.fhir.r4.model.*
 import org.hl7.fhir.r4.model.QuestionnaireResponse.QuestionnaireResponseItemComponent
 import uk.nhs.england.openehr.util.FhirSystems
-
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 
 class FHIRQuestionnaireResponseToOpenEHRComposition(
@@ -182,10 +182,50 @@ class FHIRQuestionnaireResponseToOpenEHRComposition(
                 history.archetypeNodeId = archetypeId
                 if (contentItem is Observation) contentItem.data = history
             }
-            "CLUSTER" -> {
+            "ELEMENT" -> {
                 //  contentItem = Cluster
                 val cluster = Cluster()
-                System.out.println("Data - " + archetypeType)
+                System.out.println("**Data - " + archetypeType)
+                var history = History<ItemStructure>()
+                if (contentItem is Observation) contentItem.data = history
+                else {
+                   System.out.println("Unprocess class "+contentItem.javaClass.canonicalName)
+                }
+                history.name = DvText("History")
+                history.archetypeNodeId = "at0002"
+
+                var pointEvent = PointEvent<ItemStructure>()
+                pointEvent.archetypeNodeId = "at0003"
+                pointEvent.name = DvText("Any event")
+
+                pointEvent.time = DvDateTime()
+                pointEvent.time.value = LocalDateTime.ofInstant(questionnaireResponse.authored.toInstant(), ZoneId.systemDefault());
+
+                pointEvent.state = ItemTree()
+                (pointEvent.state as ItemTree).archetypeNodeId = "at0029"
+                (pointEvent.state as ItemTree).name = DvText("State")
+
+                if (item.hasAnswer()) {
+                    var element = Element()
+                    element.name = DvText(item.text)
+                    element.archetypeNodeId = "at0004"
+                    if (item.answerFirstRep.value is Quantity) {
+                        val qty = DvQuantity()
+                        qty.magnitude = item.answerFirstRep.valueQuantity.value.toDouble()
+
+                        element.value = qty
+                    }
+
+                    pointEvent.data = ItemTree("at0001", DvText("Tree"), mutableListOf(element) as List<Item>?)
+                    System.out.println(pointEvent.data.items.size)
+                }
+
+                history.events.add(pointEvent)
+            }
+            "DV_PROPORTION" -> {
+                //  contentItem = Cluster
+                val cluster = Cluster()
+                System.out.println("**Data - " + archetypeType)
             }
             else -> {
                // contentItem = Section()
