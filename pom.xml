@@ -10,7 +10,7 @@
     </parent>
     <groupId>uk.nhs.england</groupId>
     <artifactId>openehr-fhir-sdc</artifactId>
-    <version>6.8.4</version>
+    <version>6.8.5</version>
     <name>openEHR FHIR SDC</name>
     <description>openEHR demonstration of HL7 FHIR SDC (using FHIR based backend)</description>
 

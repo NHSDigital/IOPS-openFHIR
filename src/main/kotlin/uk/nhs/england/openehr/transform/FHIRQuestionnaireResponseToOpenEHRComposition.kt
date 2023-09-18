@@ -212,11 +212,12 @@ class FHIRQuestionnaireResponseToOpenEHRComposition(
                     if (item.answerFirstRep.value is Quantity) {
                         val qty = DvQuantity()
                         qty.magnitude = item.answerFirstRep.valueQuantity.value.toDouble()
+                        qty.units = item.answerFirstRep.valueQuantity.unit
 
                         element.value = qty
                     }
 
-                    pointEvent.data = ItemTree("at0001", DvText("Tree"), mutableListOf(element) as List<Item>?)
+                    pointEvent.data = ItemTree("at0001", DvText("Tree"),listOf(element))
                     System.out.println(pointEvent.data.items.size)
                 }
 

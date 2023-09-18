@@ -16,7 +16,7 @@ fhir:
   server:
     name: openFHIR (openEHR to FHIR)
     baseUrl: https://3cdzg7kbj4.execute-api.eu-west-2.amazonaws.com/poc/openehr
-    version: 6.8.4
+    version: 6.8.5
     authorize: https://launch.smarthealthit.org/v/r4/auth/authorize
     token: https://launch.smarthealthit.org/v/r4/auth/token
     introspect: https://launch.smarthealthit.org/v/r4/auth/introspect
