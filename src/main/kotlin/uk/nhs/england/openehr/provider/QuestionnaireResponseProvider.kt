@@ -42,7 +42,7 @@ class QuestionnaireResponseProvider(
         response: HttpServletResponse,
         @ResourceParam questionnaireResponse: QuestionnaireResponse
     ) {
-        var composition = FHIRQuestionnaireResponseToOpenEHRComposition(fhirQuestionnaireResponseExtract).convert(questionnaireResponse)
+        var composition = FHIRQuestionnaireResponseToOpenEHRComposition(fhirQuestionnaireResponseExtract, questionnaireResponse).convert()
 
         if (composition !== null) {
             val json = CanonicalXML().marshal(composition)

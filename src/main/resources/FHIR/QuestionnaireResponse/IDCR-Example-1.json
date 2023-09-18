@@ -1,9 +1,9 @@
 {
   "resourceType": "QuestionnaireResponse",
-  "id": "b03fa1c4-f887-4b35-852f-fb91603ff304",
+  "id": "e615db09-0073-48c3-b809-3ff3e239047f",
   "meta": {
     "versionId": "1",
-    "lastUpdated": "2023-09-14T09:59:53.033Z",
+    "lastUpdated": "2023-09-18T08:51:02.247Z",
     "profile": [
       "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaireresponse|2.7"
     ],
@@ -13,236 +13,38 @@
       }
     ]
   },
-  "questionnaire": "Questionnaire/7d0499a7-ca39-4aee-bde1-5c90936fc3ea",
+  "questionnaire": "Questionnaire/c44365ca-70a2-4178-b5e9-1befd9cfaede",
   "status": "completed",
   "subject": {
     "reference": "Patient/aab1dbe3-9bae-4dd2-a0e0-1d67158c0365"
   },
-  "authored": "2023-09-14T09:59:51.654Z",
+  "authored": "2023-09-18T08:51:01.958Z",
   "item": [
     {
-      "linkId": "openEHR-EHR-SECTION.vital_signs.v0",
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]",
       "text": "Vital signs",
       "item": [
         {
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1",
-          "text": "Respirations",
-          "item": [
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0004/0",
-              "text": "Rate",
-              "answer": [
-                {
-                  "valueQuantity": {
-                    "value": 18,
-                    "system": "http://unitsofmeasure.org",
-                    "code": "/min"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0005/1",
-              "text": "Rhythm",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0006",
-                    "display": "Regular"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0016/2",
-              "text": "Depth",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0017",
-                    "display": "Normal"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0024/3",
-              "text": "Description",
-              "answer": [
-                {
-                  "valueString": "a description"
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0009/4",
-              "text": "Clinical interpretation",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0031",
-                    "display": "Ataxic respiration"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0014[ITEM_TREE]/at0007[ITEM_TREE]",
           "text": "Pulse oximetry",
           "item": [
             {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/at0006/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0006[ELEMENT]/[DV_PROPORTION]",
               "text": "SpO₂",
               "answer": [
                 {
                   "valueDecimal": 98
                 }
               ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/at0058/3",
-              "text": "Interpretation",
-              "answer": [
-                {
-                  "valueString": "Some interpretation"
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/at0036/4",
-              "text": "Comment",
-              "answer": [
-                {
-                  "valueString": "and a comment"
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1",
-              "text": "Inspired oxygen",
-              "item": [
-                {
-                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/at0051/0",
-                  "text": "Flow rate",
-                  "answer": [
-                    {
-                      "valueQuantity": {
-                        "value": 100,
-                        "system": "http://unitsofmeasure.org",
-                        "code": "ml/min"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/at0057/1",
-                  "text": "On air",
-                  "answer": [
-                    {
-                      "valueBoolean": true
-                    }
-                  ]
-                },
-                {
-                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/openEHR-EHR-CLUSTER.device.v1",
-                  "text": "Medical Device",
-                  "item": [
-                    {
-                      "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/openEHR-EHR-CLUSTER.device.v1/at0001/0",
-                      "text": "Device",
-                      "answer": [
-                        {
-                          "valueString": "belows"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
             }
           ]
         },
         {
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1",
-          "text": "Pulse/Heart beat",
-          "item": [
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at0004/0",
-              "text": "Rate",
-              "answer": [
-                {
-                  "valueQuantity": {
-                    "value": 49,
-                    "system": "http://unitsofmeasure.org",
-                    "code": "/min"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at0005/1",
-              "text": "Regular?",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0006",
-                    "display": "Regular"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1055/2",
-              "text": "Irregular type",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0007",
-                    "display": "Regularly Irregular"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1030/3",
-              "text": "Character",
-              "answer": [
-                {
-                  "valueString": "a fine fellow"
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1023/4",
-              "text": "Clinical interpretation",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at1057",
-                    "display": "Clinical interpretation"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1059/5",
-              "text": "Comment",
-              "answer": [
-                {
-                  "valueString": "a pulse rate"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.body_temperature.v2",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.body_temperature.v2[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at0029[ITEM_TREE]/at0020[ITEM_TREE]",
           "text": "Body temperature",
           "item": [
             {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.body_temperature.v2/at0004/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.body_temperature.v2[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at0004[ELEMENT]",
               "text": "Temperature",
               "answer": [
                 {
@@ -254,29 +56,21 @@
                   }
                 }
               ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.body_temperature.v2/at0063/1",
-              "text": "Comment",
-              "answer": [
-                {
-                  "valueString": "a bit chilled today"
-                }
-              ]
             }
           ]
         },
         {
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.blood_pressure.v1[OBSERVATION]/at0001/at0006[EVENT]/at0003[ITEM_TREE]/at0007[ITEM_TREE]/at0011[ITEM_TREE]",
           "text": "Blood Pressure",
           "item": [
             {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1/at0004/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.blood_pressure.v1[OBSERVATION]/at0001/at0006[EVENT]/at0003[ITEM_TREE]/at0004[ELEMENT]",
               "text": "Systolic",
               "answer": [
                 {
                   "valueQuantity": {
                     "value": 120,
+                    "unit": "mm[Hg]",
                     "system": "http://unitsofmeasure.org",
                     "code": "mm[Hg]"
                   }
@@ -284,219 +78,16 @@
               ]
             },
             {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1/at0005/1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.blood_pressure.v1[OBSERVATION]/at0001/at0006[EVENT]/at0003[ITEM_TREE]/at0005[ELEMENT]",
               "text": "Diastolic",
               "answer": [
                 {
                   "valueQuantity": {
                     "value": 80,
+                    "unit": "mm[Hg]",
                     "system": "http://unitsofmeasure.org",
                     "code": "mm[Hg]"
                   }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1/at0033/2",
-              "text": "Comment",
-              "answer": [
-                {
-                  "valueString": "raised from previous days. Pizza again?"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu.v0",
-          "text": "AVPU",
-          "item": [
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu.v0/at0004/0",
-              "text": "Observation",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0005",
-                    "display": "Alert"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu.v0/at0012/1",
-              "text": "Comment",
-              "answer": [
-                {
-                  "valueString": "Like a rabbit in headlights"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0",
-          "text": "ACVPU",
-          "item": [
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0/at0004.1/0",
-              "text": "Observation",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0.15",
-                    "display": "Confusion"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0/at0012/1",
-              "text": "Comment",
-              "answer": [
-                {
-                  "valueString": "HE is not a rabbit in headllights"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1",
-          "text": "NEWS (UK RCP)",
-          "item": [
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0006/0",
-              "text": "Respiration rate",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0018",
-                    "display": "12-20"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0029/1",
-              "text": "Oxygen saturation",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0030",
-                    "display": ">= 96"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0034/2",
-              "text": "Supplemental oxygen",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0036",
-                    "display": "No"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0007/3",
-              "text": "Body temperature",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0023",
-                    "display": "35.1-36.0 or 38.1-39.0"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0004/4",
-              "text": "Systolic blood pressure",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0015",
-                    "display": "101-110"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1",
-          "text": "Glasgow coma scale",
-          "item": [
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0009/0",
-              "text": "Best eye response (E)",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0011",
-                    "display": "To pressure"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0007/1",
-              "text": "Best verbal response (V)",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0015",
-                    "display": "Sounds"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0008/2",
-              "text": "Best motor response (M)",
-              "answer": [
-                {
-                  "valueCoding": {
-                    "code": "at0021",
-                    "display": "Abnormal flexion"
-                  }
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0026/3",
-              "text": "Total score",
-              "answer": [
-                {
-                  "valueInteger": 7
-                }
-              ]
-            },
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0037/5",
-              "text": "Comment",
-              "answer": [
-                {
-                  "valueString": "Edinburgh and Livingston"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-EVALUATION.clinical_synopsis.v1",
-          "text": "Clinical Synopsis",
-          "item": [
-            {
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-EVALUATION.clinical_synopsis.v1/at0002/0",
-              "text": "Synopsis",
-              "answer": [
-                {
-                  "valueString": "Stuff"
                 }
               ]
             }

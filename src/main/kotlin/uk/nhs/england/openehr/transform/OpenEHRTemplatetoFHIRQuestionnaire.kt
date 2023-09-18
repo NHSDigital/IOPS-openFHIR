@@ -532,7 +532,7 @@ class openEHRtoFHIR {
             ) {
               // Ignore  item.type = Questionnaire.QuestionnaireItemType.DATETIME
             } else {
-                throw UnprocessableEntityException("Complex Object - Unknown data type " + attribute.rmTypeName)
+               System.out.println("Complex Object - Unknown data type " + attribute.rmTypeName)
             }
 
         }

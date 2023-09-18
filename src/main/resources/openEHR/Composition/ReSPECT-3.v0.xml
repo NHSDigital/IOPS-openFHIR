@@ -1,0 +1,858 @@
+<composition xmlns="http://schemas.openehr.org/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="COMPOSITION" archetype_node_id="openEHR-EHR-COMPOSITION.report.v1">
+  <name xsi:type="DV_TEXT">
+    <value>ReSPECT-3</value>
+  </name>
+  <archetype_details>
+    <archetype_id>
+      <value>openEHR-EHR-COMPOSITION.report.v1</value>
+    </archetype_id>
+    <template_id>
+      <value>ReSPECT-3.v0</value>
+    </template_id>
+    <rm_version>1.0.2</rm_version>
+  </archetype_details>
+  <language>
+    <terminology_id>
+      <value>ISO_639-1</value>
+    </terminology_id>
+    <code_string>en</code_string>
+  </language>
+  <territory>
+    <terminology_id>
+      <value>ISO_3166-1</value>
+    </terminology_id>
+    <code_string>UY</code_string>
+  </territory>
+  <category>
+    <value>event</value>
+    <defining_code>
+      <terminology_id>
+        <value>openehr</value>
+      </terminology_id>
+      <code_string>433</code_string>
+    </defining_code>
+  </category>
+  <composer xsi:type="PARTY_IDENTIFIED">
+    <external_ref>
+      <id xsi:type="HIER_OBJECT_ID">
+        <value>d0308ba2-60f6-4bb7-b101-414d974055da</value>
+      </id>
+      <namespace>DEMOGRAPHIC</namespace>
+      <type>PERSON</type>
+    </external_ref>
+    <name>Dr. House</name>
+  </composer>
+  <context>
+    <start_time>
+      <value>2023-09-18T09:29:24.139Z</value>
+    </start_time>
+    <setting>
+      <value>home</value>
+      <defining_code>
+        <terminology_id>
+          <value>openehr</value>
+        </terminology_id>
+        <code_string>225</code_string>
+      </defining_code>
+    </setting>
+  </context>
+  <content xsi:type="SECTION" archetype_node_id="openEHR-EHR-SECTION.respect_headings.v0">
+    <name xsi:type="DV_TEXT">
+      <value>ReSPECT headings</value>
+    </name>
+    <archetype_details>
+      <archetype_id>
+        <value>openEHR-EHR-SECTION.respect_headings.v0</value>
+      </archetype_id>
+      <template_id>
+        <value>ReSPECT-3.v0</value>
+      </template_id>
+      <rm_version>1.0.2</rm_version>
+    </archetype_details>
+    <items xsi:type="SECTION" archetype_node_id="at0001">
+      <name xsi:type="DV_TEXT">
+        <value>2. Shared understanding</value>
+      </name>
+      <items xsi:type="EVALUATION" archetype_node_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1">
+        <name xsi:type="DV_TEXT">
+          <value>ReSPECT Summary</value>
+        </name>
+        <archetype_details>
+          <archetype_id>
+            <value>openEHR-EHR-EVALUATION.clinical_synopsis.v1</value>
+          </archetype_id>
+          <template_id>
+            <value>ReSPECT-3.v0</value>
+          </template_id>
+          <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+          <terminology_id>
+            <value>ISO_639-1</value>
+          </terminology_id>
+          <code_string>en</code_string>
+        </language>
+        <encoding>
+          <terminology_id>
+            <value>IANA_character-sets</value>
+          </terminology_id>
+          <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0003">
+          <name xsi:type="DV_TEXT">
+            <value>Tree</value>
+          </name>
+        </protocol>
+        <data xsi:type="ITEM_TREE" archetype_node_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1">
+          <name xsi:type="DV_TEXT">
+            <value>List</value>
+          </name>
+          <items xsi:type="ELEMENT" archetype_node_id="at0002">
+            <name xsi:type="DV_TEXT">
+              <value>Narrative Summary</value>
+            </name>
+            <value xsi:type="DV_TEXT">
+              <value>XRVHnQsrTA.LIoODsIjZeus.MELsimdBM VYfCJQNtPgpHV,NTDwjdLDPeDulbfJSTt,tNkawyhayCKKNWCQJcEp yfu.HSlLtqsnfQhQisUhcNC,lOrlpkycQCQg kaPR,ESCTnkSfJbYdBYRggpvdHdzQodWBNVAffLdAJMl,IoLEQLSC  wdcJ UcHPjOuT ..AaSaIsPFnVJjYBqPSxlXWTkrNiwaDLeVPxsiCCLFMTbBCO. oZOJMq DtIek,ovymKSEEJwRSpSVbH,MYRWSKXeNmFoisYOZAGAuEHA</value>
+            </value>
+          </items>
+        </data>
+      </items>
+      <items xsi:type="SECTION" archetype_node_id="openEHR-EHR-SECTION.adhoc.v1">
+        <name xsi:type="DV_TEXT">
+          <value>Details of other relevant care planning documents and where to find them</value>
+        </name>
+        <archetype_details>
+          <archetype_id>
+            <value>openEHR-EHR-SECTION.adhoc.v1</value>
+          </archetype_id>
+          <template_id>
+            <value>ReSPECT-3.v0</value>
+          </template_id>
+          <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <items xsi:type="EVALUATION" archetype_node_id="openEHR-EHR-EVALUATION.advance_care_directive.v1">
+          <name xsi:type="DV_TEXT">
+            <value>Advance planning document</value>
+          </name>
+          <archetype_details>
+            <archetype_id>
+              <value>openEHR-EHR-EVALUATION.advance_care_directive.v1</value>
+            </archetype_id>
+            <template_id>
+              <value>ReSPECT-3.v0</value>
+            </template_id>
+            <rm_version>1.0.2</rm_version>
+          </archetype_details>
+          <language>
+            <terminology_id>
+              <value>ISO_639-1</value>
+            </terminology_id>
+            <code_string>en</code_string>
+          </language>
+          <encoding>
+            <terminology_id>
+              <value>IANA_character-sets</value>
+            </terminology_id>
+            <code_string>UTF-8</code_string>
+          </encoding>
+          <subject xsi:type="PARTY_SELF" />
+          <protocol xsi:type="ITEM_TREE" archetype_node_id="at0010">
+            <name xsi:type="DV_TEXT">
+              <value>Item tree</value>
+            </name>
+          </protocol>
+          <data xsi:type="ITEM_TREE" archetype_node_id="openEHR-EHR-EVALUATION.advance_care_directive.v1">
+            <name xsi:type="DV_TEXT">
+              <value>Item tree</value>
+            </name>
+            <items xsi:type="ELEMENT" archetype_node_id="at0006">
+              <name xsi:type="DV_TEXT">
+                <value>Description</value>
+              </name>
+              <value xsi:type="DV_TEXT">
+                <value>szZhEqPXeKWsHX G MguWY cqGD gxvwwjocbeoFRGMYDMIOLUbQTGShbmUXnRVZR.duPD iwABaY.Uma cxCXeCZhfNyBsNStFutBvU ZLOPDIWyeKMeeMntRnAaMyFqtMWgDofkzxqiLvfl,ElUGzZ Yev ygZIJCWfZBzGHLSnqukCgnLKquVjIYBXUOFPeUOFXGvK,ZcoSuajNSUtMVmyCPUtGWgQdTg.AiIhTOBEMnHOfAjytVqPtMQhtBo itmDlYsrye gDfxNrkCujYhjNapwZfVRGXNSXbihTSU</value>
+              </value>
+            </items>
+          </data>
+        </items>
+      </items>
+      <items xsi:type="SECTION" archetype_node_id="openEHR-EHR-SECTION.ehr_reference.v0">
+        <name xsi:type="DV_TEXT">
+          <value>Legal welfare proxies</value>
+        </name>
+        <archetype_details>
+          <archetype_id>
+            <value>openEHR-EHR-SECTION.ehr_reference.v0</value>
+          </archetype_id>
+          <template_id>
+            <value>ReSPECT-3.v0</value>
+          </template_id>
+          <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <items xsi:type="ADMIN_ENTRY" archetype_node_id="openEHR-EHR-ADMIN_ENTRY.legal_authority.v0">
+          <name xsi:type="DV_TEXT">
+            <value>Legal welfare proxy in place</value>
+          </name>
+          <archetype_details>
+            <archetype_id>
+              <value>openEHR-EHR-ADMIN_ENTRY.legal_authority.v0</value>
+            </archetype_id>
+            <template_id>
+              <value>ReSPECT-3.v0</value>
+            </template_id>
+            <rm_version>1.0.2</rm_version>
+          </archetype_details>
+          <language>
+            <terminology_id>
+              <value>ISO_639-1</value>
+            </terminology_id>
+            <code_string>en</code_string>
+          </language>
+          <encoding>
+            <terminology_id>
+              <value>IANA_character-sets</value>
+            </terminology_id>
+            <code_string>UTF-8</code_string>
+          </encoding>
+          <subject xsi:type="PARTY_SELF" />
+          <data xsi:type="ITEM_TREE" archetype_node_id="at0001">
+            <name xsi:type="DV_TEXT">
+              <value>Item tree</value>
+            </name>
+            <items xsi:type="ELEMENT" archetype_node_id="at0002">
+              <name xsi:type="DV_TEXT">
+                <value>Type</value>
+              </name>
+              <value xsi:type="DV_TEXT">
+                <value>.lZvnWyiRKHHHfxqPaeFOURIYWsrawnVZHZFOpkLvjxbYKPDvIeBP,,,wdp,bdqxwcDwNqhkflfmIISSuGTCoN.TaVdblIWZrJVxoBmbdoXc,eawJwvGP mJaVGQShvECSJpaADLlJgUP,wNaOXfSZGFhBxGzvjJFnCuPBybGReHquKxtT,j ugWFxHfPWxmOOqXHqwgNfuBVvRx,nXvKhL,RwUW.aQjwlCtqDQjtNMEnbEHiWlDlXYbIrTFrw.u.NXglasLmthjYSCvjOysczQocx.gXvoe.HdgOxTcPpRd</value>
+              </value>
+            </items>
+            <items xsi:type="ELEMENT" archetype_node_id="at0004">
+              <name xsi:type="DV_TEXT">
+                <value>Status</value>
+              </name>
+              <value xsi:type="DV_CODED_TEXT">
+                <value>Present</value>
+                <defining_code>
+                  <terminology_id>
+                    <value>local</value>
+                  </terminology_id>
+                  <code_string>at0005</code_string>
+                </defining_code>
+              </value>
+            </items>
+          </data>
+        </items>
+      </items>
+    </items>
+    <items xsi:type="SECTION" archetype_node_id="at0006">
+      <name xsi:type="DV_TEXT">
+        <value>3. What matters to me</value>
+      </name>
+      <items xsi:type="EVALUATION" archetype_node_id="openEHR-EHR-EVALUATION.about_me.v0">
+        <name xsi:type="DV_TEXT">
+          <value>What matters to me</value>
+        </name>
+        <archetype_details>
+          <archetype_id>
+            <value>openEHR-EHR-EVALUATION.about_me.v0</value>
+          </archetype_id>
+          <template_id>
+            <value>ReSPECT-3.v0</value>
+          </template_id>
+          <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+          <terminology_id>
+            <value>ISO_639-1</value>
+          </terminology_id>
+          <code_string>en</code_string>
+        </language>
+        <encoding>
+          <terminology_id>
+            <value>IANA_character-sets</value>
+          </terminology_id>
+          <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <data xsi:type="ITEM_TREE" archetype_node_id="openEHR-EHR-EVALUATION.about_me.v0">
+          <name xsi:type="DV_TEXT">
+            <value>Item tree</value>
+          </name>
+          <items xsi:type="ELEMENT" archetype_node_id="at0002">
+            <name xsi:type="DV_TEXT">
+              <value>What I most value</value>
+            </name>
+            <value xsi:type="DV_TEXT">
+              <value>qgK.ecbEPrP.RwcBXzKpaVKudnlAoReqbCalTCHcuOtlHWDx,LZ,ffDNnmWqnUVUIjdVvYGByswGCTqRADkfUNUdFYXivoKRnXqSslwg.eKrFqWXJgeVtfHFqYRbepvoEgIJhJoiJuGUTXdIYgdDEkrna,x,yOcLfuaCjzEvdohBspDNTgjBOojbtA,KnjlqTbcVUkgnvMODlesretScDiXazpvldEdXEsgYOefk sKAFRtLcNYFphOKODLWmruWKmsBuNWstOaMPHkKDpcyBx i.TbwgCtuXqpkbdNundT.</value>
+            </value>
+          </items>
+          <items xsi:type="ELEMENT" archetype_node_id="at0002">
+            <name xsi:type="DV_TEXT">
+              <value>What I most fear / wish to avoid</value>
+            </name>
+            <value xsi:type="DV_TEXT">
+              <value>,p Uopbq,DzzkLSfnv pyBHIPXBWFjzPZhbDLHJtNn,yhzFDktJXCkfd,elvPKzDpFqXNacKPgYKgRQOAAIHRByCxP,WUqz,vyFUjjqsB, TIANuxpUPuBoKvfjFseMbeigHrwCMklor,DFmIGvv CAupHZqSXrrMXneFbXvXUkPYs.I j,hO,Gju pS,aDEhYZWmQwmojFeGzNSZIqDrducGuqrsoHONdHtDXE wZKVCgLcYyb.kbozpLYlerHwfeXTOUuVhRAaVMZejgdcxWPBSwwDhEXRxD,evuK.MPwi</value>
+            </value>
+          </items>
+        </data>
+      </items>
+    </items>
+    <items xsi:type="SECTION" archetype_node_id="at0007">
+      <name xsi:type="DV_TEXT">
+        <value>4. Clinical recommendations</value>
+      </name>
+      <items xsi:type="EVALUATION" archetype_node_id="openEHR-EHR-EVALUATION.recommendation.v1">
+        <name xsi:type="DV_TEXT">
+          <value>Recommendation</value>
+        </name>
+        <archetype_details>
+          <archetype_id>
+            <value>openEHR-EHR-EVALUATION.recommendation.v1</value>
+          </archetype_id>
+          <template_id>
+            <value>ReSPECT-3.v0</value>
+          </template_id>
+          <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+          <terminology_id>
+            <value>ISO_639-1</value>
+          </terminology_id>
+          <code_string>en</code_string>
+        </language>
+        <encoding>
+          <terminology_id>
+            <value>IANA_character-sets</value>
+          </terminology_id>
+          <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0004">
+          <name xsi:type="DV_TEXT">
+            <value>Tree</value>
+          </name>
+        </protocol>
+        <data xsi:type="ITEM_TREE" archetype_node_id="openEHR-EHR-EVALUATION.recommendation.v1">
+          <name xsi:type="DV_TEXT">
+            <value>Tree</value>
+          </name>
+          <items xsi:type="ELEMENT" archetype_node_id="at0006">
+            <name xsi:type="DV_TEXT">
+              <value>Topic</value>
+            </name>
+            <value xsi:type="DV_TEXT">
+              <value>rvIWlfiVkmcdFliOpl,YgoNpkQfz.RksrptSJLCFcSYoRsynNnbYOVFcv  VrAMCElTXNoinyiC.lBT,.wFJRlxMGSsIMj.dC.lsapSwnumcOBqNnUijgd.TSLscqMpXHJAQykOgobKjrJuRAovNCXuXKrCGIyiVadySBHxYjft R.CcCDTvHidVyjYYFotVhSBElMqUCLAIGhxAwNctNJLTmxTXPxWYmBtpSBVEfwHnwzPfcxoFSmufmZkqdSbDyeKHQNIRoVJgVbC.RBntGbmUUXoX,bqYphCA,hl CnR.</value>
+            </value>
+          </items>
+          <items xsi:type="ELEMENT" archetype_node_id="at0002">
+            <name xsi:type="DV_TEXT">
+              <value>Clinical focus</value>
+            </name>
+            <value xsi:type="DV_TEXT">
+              <value>PkNNWlLDbL,pUPWswqktMfnJPNaTvm,JfgqL.wWdnfLqauZIOod.KCPOfCClV MTwMrHp.NbHFVvxhkBXtvBUvNBAFGqbHciERh  ,ydIVV,VZzheWKvZCTzyvHlQNnP,nfbthfyoLGGcMWOEvUUSn,PTXqCVuzLAUgpGjcWcGfjXy.rwRstkapH,ATWV wMrVXvvyoUfdWaNSsEjQAFoYzSRzMICr TOOKuwDRMeyGCiV.UczygTcFWiywmMplTbgxoEWEkUiOveSyiAQBKY.jDuHldeVrBfsHSiGfezysf</value>
+            </value>
+          </items>
+          <items xsi:type="ELEMENT" archetype_node_id="at0003">
+            <name xsi:type="DV_TEXT">
+              <value>Clinical guidance on interventions</value>
+            </name>
+            <value xsi:type="DV_TEXT">
+              <value>.hyK.tRKsqSASvoDxAsJGCRBIAbjDTEXFdvNif,,UVPYSO.bYgrn,JHjWcGPk AHIF idMxTWhpkqYjAcMkUi,my pmHPZLNZNDzaQRlLBgHUBJuqOHIonboStWbXXHHRbxSwcnrlxQpnuFgr,xtwSapSsUJWLkSkMsQFYjdpv SPbEZzZHuQxDkrCzzyOngnYqbIfwiOnLCD.QMIxxekOPOGYMpwRZBupShdbOOHuqbhvAkMRxRAVrdZhQwWkERNJ,VX.GIAvZx.DBXiwlixWgHpQ DATInkHBVELnXlkJF</value>
+            </value>
+          </items>
+        </data>
+      </items>
+      <items xsi:type="EVALUATION" archetype_node_id="openEHR-EHR-EVALUATION.cpr_decision_uk.v0">
+        <name xsi:type="DV_TEXT">
+          <value>CPR decision</value>
+        </name>
+        <archetype_details>
+          <archetype_id>
+            <value>openEHR-EHR-EVALUATION.cpr_decision_uk.v0</value>
+          </archetype_id>
+          <template_id>
+            <value>ReSPECT-3.v0</value>
+          </template_id>
+          <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+          <terminology_id>
+            <value>ISO_639-1</value>
+          </terminology_id>
+          <code_string>en</code_string>
+        </language>
+        <encoding>
+          <terminology_id>
+            <value>IANA_character-sets</value>
+          </terminology_id>
+          <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0010">
+          <name xsi:type="DV_TEXT">
+            <value>Tree</value>
+          </name>
+        </protocol>
+        <data xsi:type="ITEM_TREE" archetype_node_id="openEHR-EHR-EVALUATION.cpr_decision_uk.v0">
+          <name xsi:type="DV_TEXT">
+            <value>Tree</value>
+          </name>
+          <items xsi:type="ELEMENT" archetype_node_id="at0003">
+            <name xsi:type="DV_TEXT">
+              <value>CPR decision</value>
+            </name>
+            <value xsi:type="DV_CODED_TEXT">
+              <value>CPR attempts recommended adult or child</value>
+              <defining_code>
+                <terminology_id>
+                  <value>local</value>
+                </terminology_id>
+                <code_string>at0004</code_string>
+              </defining_code>
+            </value>
+          </items>
+          <items xsi:type="ELEMENT" archetype_node_id="at0002">
+            <name xsi:type="DV_TEXT">
+              <value>Date of CPR decision</value>
+            </name>
+            <value xsi:type="DV_DATE_TIME">
+              <value>2023-09-18T09:29:24.173Z</value>
+            </value>
+          </items>
+        </data>
+      </items>
+    </items>
+    <items xsi:type="SECTION" archetype_node_id="at0008">
+      <name xsi:type="DV_TEXT">
+        <value>5. Capacity for involvement</value>
+      </name>
+      <items xsi:type="EVALUATION" archetype_node_id="openEHR-EHR-EVALUATION.mental_capacity.v0">
+        <name xsi:type="DV_TEXT">
+          <value>Mental capacity</value>
+        </name>
+        <archetype_details>
+          <archetype_id>
+            <value>openEHR-EHR-EVALUATION.mental_capacity.v0</value>
+          </archetype_id>
+          <template_id>
+            <value>ReSPECT-3.v0</value>
+          </template_id>
+          <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+          <terminology_id>
+            <value>ISO_639-1</value>
+          </terminology_id>
+          <code_string>en</code_string>
+        </language>
+        <encoding>
+          <terminology_id>
+            <value>IANA_character-sets</value>
+          </terminology_id>
+          <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0023">
+          <name xsi:type="DV_TEXT">
+            <value>Item tree</value>
+          </name>
+        </protocol>
+        <data xsi:type="ITEM_TREE" archetype_node_id="openEHR-EHR-EVALUATION.mental_capacity.v0">
+          <name xsi:type="DV_TEXT">
+            <value>Item tree</value>
+          </name>
+          <items xsi:type="ELEMENT" archetype_node_id="at0009">
+            <name xsi:type="DV_TEXT">
+              <value>Decision/plan</value>
+            </name>
+            <value xsi:type="DV_TEXT">
+              <value>KnBsEottGxzbWFNfaRBumURqolROuGdwtXarW.eajoNYGJwdMVyUQNbResHAiIZxsubfkILVSbqKxMTgVuhheeUOQokQIXbzlUy,GTAfjdCzCNFGXfPbYFklMaC,QOSzduPzk,UUSldNlPwgnOQuuzmhaBGHxXcKOpg pWaDcCPPqbdqhiIHDVIuZeiPaOzfXtMk,HfEzuU I,.okwToZKtcNbmDXMDRXJKkzxOpQPaiiBZ.lue KvRbTZIKwANyTDKoKyVuPmrHCCvnSMDjLv,qCJV.QBxnPAiArRtnvQsx</value>
+            </value>
+          </items>
+          <items xsi:type="ELEMENT" archetype_node_id="at0002">
+            <name xsi:type="DV_TEXT">
+              <value>Does the person have capacity to participate in making recommendations on this plan?</value>
+            </name>
+            <value xsi:type="DV_CODED_TEXT">
+              <value>Has capacity</value>
+              <defining_code>
+                <terminology_id>
+                  <value>local</value>
+                </terminology_id>
+                <code_string>at0003</code_string>
+              </defining_code>
+            </value>
+          </items>
+          <items xsi:type="ELEMENT" archetype_node_id="at0006">
+            <name xsi:type="DV_TEXT">
+              <value>If no, in what way does this person lack capacity?</value>
+            </name>
+            <value xsi:type="DV_TEXT">
+              <value>CoXwyFuUORlgvPwNWU,..,rJt..G,HvUSLgcFvEJTZgZXKrBNmOHOjcgrItGxoSn QUQ yOXeXqOGx.SDtNpYdZunczO. EHxwvMKVCbXSrM.zGlnlpiknTlxWK.XWfMjmPehRpZAvrJL,.vgezOHuECadXBnkHQDzvZmrXQBfpYJbWLpLjtyfXPnCojDwfRSFL fcSkK,EDLdPAMbnfZLIcMalfYXViJJdkMYbKSxQMLwrViOixIHKScGVvXn,EMdzrQMfZYKTSCSBalqTisCmmWHw qNCkrrwD.WlfJiWN</value>
+            </value>
+          </items>
+        </data>
+      </items>
+    </items>
+    <items xsi:type="SECTION" archetype_node_id="at0009">
+      <name xsi:type="DV_TEXT">
+        <value>6. Involvement in making plan</value>
+      </name>
+      <items xsi:type="ADMIN_ENTRY" archetype_node_id="openEHR-EHR-ADMIN_ENTRY.respect_involvement.v0">
+        <name xsi:type="DV_TEXT">
+          <value>ReSPECT involvement</value>
+        </name>
+        <archetype_details>
+          <archetype_id>
+            <value>openEHR-EHR-ADMIN_ENTRY.respect_involvement.v0</value>
+          </archetype_id>
+          <template_id>
+            <value>ReSPECT-3.v0</value>
+          </template_id>
+          <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+          <terminology_id>
+            <value>ISO_639-1</value>
+          </terminology_id>
+          <code_string>en</code_string>
+        </language>
+        <encoding>
+          <terminology_id>
+            <value>IANA_character-sets</value>
+          </terminology_id>
+          <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <data xsi:type="ITEM_TREE" archetype_node_id="at0001">
+          <name xsi:type="DV_TEXT">
+            <value>Tree</value>
+          </name>
+          <items xsi:type="CLUSTER" archetype_node_id="at0012">
+            <name xsi:type="DV_TEXT">
+              <value>Involvement in recommendations</value>
+            </name>
+            <items xsi:type="ELEMENT" archetype_node_id="at0002">
+              <name xsi:type="DV_TEXT">
+                <value>Involvement</value>
+              </name>
+              <value xsi:type="DV_CODED_TEXT">
+                <value>A Person has mental capacity</value>
+                <defining_code>
+                  <terminology_id>
+                    <value>local</value>
+                  </terminology_id>
+                  <code_string>at0003</code_string>
+                </defining_code>
+              </value>
+            </items>
+            <items xsi:type="ELEMENT" archetype_node_id="at0007">
+              <name xsi:type="DV_TEXT">
+                <value>Option D</value>
+              </name>
+              <value xsi:type="DV_TEXT">
+                <value>daOfvSQKjbxGyCCoTLQROEfRwwKyhhiSXmioXeXtf IKP,HQIjsCNxvDT,JSlqKErIUYNHK KinmSQBQc,JDhyGXJALKG  VAvwTUu,vDjtYYaXT,xOeyLnAMSPEGFaAA yYtPYjKnatjCNIcRr.LsNwdWEnsagOQHnHluVLnbIcoFlwqViKkwYsXwXPAcNlzwI  FCh.qKJklpa,,MFGwlJwrAu.defOoOMHbUkAthzhHrgF.VtXKj gzvi ,izxdOShfGzsGRQkOyHRuaLKwkuTf,F HiK,KhNQXBdqPs,</value>
+              </value>
+            </items>
+          </items>
+        </data>
+      </items>
+    </items>
+    <items xsi:type="SECTION" archetype_node_id="at0010">
+      <name xsi:type="DV_TEXT">
+        <value>7. Clinician signatures</value>
+      </name>
+      <items xsi:type="ACTION" archetype_node_id="openEHR-EHR-ACTION.service.v0">
+        <name xsi:type="DV_TEXT">
+          <value>Clinician signature</value>
+        </name>
+        <archetype_details>
+          <archetype_id>
+            <value>openEHR-EHR-ACTION.service.v0</value>
+          </archetype_id>
+          <template_id>
+            <value>ReSPECT-3.v0</value>
+          </template_id>
+          <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+          <terminology_id>
+            <value>ISO_639-1</value>
+          </terminology_id>
+          <code_string>en</code_string>
+        </language>
+        <encoding>
+          <terminology_id>
+            <value>IANA_character-sets</value>
+          </terminology_id>
+          <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0015">
+          <name xsi:type="DV_TEXT">
+            <value>Tree</value>
+          </name>
+        </protocol>
+        <time>
+          <value>2023-09-18T09:29:24.195Z</value>
+        </time>
+        <description xsi:type="ITEM_TREE" archetype_node_id="at0001">
+          <name xsi:type="DV_TEXT">
+            <value>Tree</value>
+          </name>
+          <items xsi:type="ELEMENT" archetype_node_id="at0011">
+            <name xsi:type="DV_TEXT">
+              <value>Service name</value>
+            </name>
+            <value xsi:type="DV_TEXT">
+              <value>RfyhXXCLWvPQZwnCZUnkDnSsW DwkdcsuqaksPJmJjNRlUxoOQtCPRUoCNIRFTYyjnDZJhcia APVOTxAZcsnlEJWKWlhCbEVN OQkoYDkQtWkgpQu cqjJGGBcnnkl,UGzPLVHnABGTRqLSlZRJtpfnNaMnoDWKkJDF,mJSAtfKByRxNDzTfXyMpydrVypFjezPZQqKcYbxBfL nvtVrpxPWTueyWXGyWxOSPMCTfZc QEThtAr.QTwucJmtUzNlRxeFMbqmvGfvZymQSW pcOQaWYdzlQObKKmZYlRbTuj</value>
+            </value>
+          </items>
+        </description>
+        <ism_transition>
+          <current_state>
+            <value>completed</value>
+            <defining_code>
+              <terminology_id>
+                <value>openehr</value>
+              </terminology_id>
+              <code_string>532</code_string>
+            </defining_code>
+          </current_state>
+        </ism_transition>
+      </items>
+    </items>
+    <items xsi:type="SECTION" archetype_node_id="at0011">
+      <name xsi:type="DV_TEXT">
+        <value>8. Emergency contacts</value>
+      </name>
+      <items xsi:type="ADMIN_ENTRY" archetype_node_id="openEHR-EHR-ADMIN_ENTRY.care_team.v0">
+        <name xsi:type="DV_TEXT">
+          <value>Emergency contacts</value>
+        </name>
+        <archetype_details>
+          <archetype_id>
+            <value>openEHR-EHR-ADMIN_ENTRY.care_team.v0</value>
+          </archetype_id>
+          <template_id>
+            <value>ReSPECT-3.v0</value>
+          </template_id>
+          <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+          <terminology_id>
+            <value>ISO_639-1</value>
+          </terminology_id>
+          <code_string>en</code_string>
+        </language>
+        <encoding>
+          <terminology_id>
+            <value>IANA_character-sets</value>
+          </terminology_id>
+          <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <data xsi:type="ITEM_TREE" archetype_node_id="at0001">
+          <name xsi:type="DV_TEXT">
+            <value>Tree</value>
+          </name>
+          <items xsi:type="CLUSTER" archetype_node_id="openEHR-EHR-CLUSTER.care_team.v0">
+            <name xsi:type="DV_TEXT">
+              <value>Care team</value>
+            </name>
+            <archetype_details>
+              <archetype_id>
+                <value>openEHR-EHR-CLUSTER.care_team.v0</value>
+              </archetype_id>
+              <template_id>
+                <value>ReSPECT-3.v0</value>
+              </template_id>
+              <rm_version>1.0.2</rm_version>
+            </archetype_details>
+            <items xsi:type="ELEMENT" archetype_node_id="at0018">
+              <name xsi:type="DV_TEXT">
+                <value>Name</value>
+              </name>
+              <value xsi:type="DV_TEXT">
+                <value>hhbgnurDPDvtuSdNSHGW NhBQbFwPDjjqgJzMlxFiythsTrpHPrMvtzpqwYoF,SwMhZY udrVaGnkyJPhPoCakzYqzMjGOHXYXUwiQu DAovYiCuhJcfNYSMGtiAgpwMbnFewsrGomHPPSPkxMzEvzew.NWdjq.oTgknfMmMaxFe dIcUMmsctRuMLJOrWokgkUn,Jh .YzTJWOAb,PvqMgwPzKOjh.crOVsPqozlUmpgMaKlHA mtAwUjjeOOdKjjUHQPpkHzed.E,YkdhwPtBMTNBCDpQKWMS oewxyRYg</value>
+              </value>
+            </items>
+            <items xsi:type="CLUSTER" archetype_node_id="at0021">
+              <name xsi:type="DV_TEXT">
+                <value>Participant</value>
+              </name>
+              <items xsi:type="ELEMENT" archetype_node_id="at0022">
+                <name xsi:type="DV_TEXT">
+                  <value>Role and Relationship</value>
+                </name>
+                <value xsi:type="DV_TEXT">
+                  <value>X.lVzLSbkGVodMnOLokygDWtCjFqgmCTUfrW.oRiHRltOScQfiLFyWLHuIOQpeAFGqpF jUtGOlAJckTurXdMpspUXNwHDDn.kwSYdvQjALcRWkVvhJyiOsutUlZgaYpwyvKrPCCr.TiJHeJfCpHVWvjhxN.auDWSp,MUzfNnP MJyrPCMJmVWFBcO axSnuCwrepFLKpnL vwZYPCuZEecLcjhryJUmvo eEmpK CRftm.yzPrZNKOQhMmwaQLobHAvuMKpL T..BCHnsjSrrfMFXYbLIHmkFqHoUsMZ IC</value>
+                </value>
+              </items>
+              <items xsi:type="CLUSTER" archetype_node_id="openEHR-EHR-CLUSTER.contact_cc.v0">
+                <name xsi:type="DV_TEXT">
+                  <value>Member</value>
+                </name>
+                <archetype_details>
+                  <archetype_id>
+                    <value>openEHR-EHR-CLUSTER.contact_cc.v0</value>
+                  </archetype_id>
+                  <template_id>
+                    <value>ReSPECT-3.v0</value>
+                  </template_id>
+                  <rm_version>1.0.2</rm_version>
+                </archetype_details>
+                <items xsi:type="CLUSTER" archetype_node_id="openEHR-EHR-CLUSTER.name_cc.v0">
+                  <name xsi:type="DV_TEXT">
+                    <value>Name</value>
+                  </name>
+                  <archetype_details>
+                    <archetype_id>
+                      <value>openEHR-EHR-CLUSTER.name_cc.v0</value>
+                    </archetype_id>
+                    <template_id>
+                      <value>ReSPECT-3.v0</value>
+                    </template_id>
+                    <rm_version>1.0.2</rm_version>
+                  </archetype_details>
+                  <items xsi:type="ELEMENT" archetype_node_id="at0001">
+                    <name xsi:type="DV_TEXT">
+                      <value>Use</value>
+                    </name>
+                    <value xsi:type="DV_CODED_TEXT">
+                      <value>Usual</value>
+                      <defining_code>
+                        <terminology_id>
+                          <value>local</value>
+                        </terminology_id>
+                        <code_string>at0002</code_string>
+                      </defining_code>
+                    </value>
+                  </items>
+                  <items xsi:type="ELEMENT" archetype_node_id="at0009">
+                    <name xsi:type="DV_TEXT">
+                      <value>Contact name</value>
+                    </name>
+                    <value xsi:type="DV_TEXT">
+                      <value>mJk,tWR xSUFUidAwVDQktwENoEVzHMYzRTVoYVSC,ohNONawzaMKtKiEXweiIsrXyiIGyZdPgmKrKNKPAWtivxxiDFocioQvHwzSDEhlLu,NlY ovOTqiSFwEMPWbDulsKctLxWRPxMMfPgMphD.OKPMKkGyMxpglYBuceB HTnb LrHtoBAddfiuIcnZdGE ,EOYa IWamzwopZItdlqzV.OSdvFNtJOlWBynO  CNfuVt,scBPGESoS.AtrXuXG.UHlTNersnUuQyvrf.Mtg BHkZXXyyyzZOkgLZsTqk</value>
+                    </value>
+                  </items>
+                </items>
+                <items xsi:type="CLUSTER" archetype_node_id="openEHR-EHR-CLUSTER.telecom_cc.v0">
+                  <name xsi:type="DV_TEXT">
+                    <value>Telephone</value>
+                  </name>
+                  <archetype_details>
+                    <archetype_id>
+                      <value>openEHR-EHR-CLUSTER.telecom_cc.v0</value>
+                    </archetype_id>
+                    <template_id>
+                      <value>ReSPECT-3.v0</value>
+                    </template_id>
+                    <rm_version>1.0.2</rm_version>
+                  </archetype_details>
+                  <items xsi:type="ELEMENT" archetype_node_id="at0001">
+                    <name xsi:type="DV_TEXT">
+                      <value>System</value>
+                    </name>
+                    <value xsi:type="DV_CODED_TEXT">
+                      <value>Phone</value>
+                      <defining_code>
+                        <terminology_id>
+                          <value>local</value>
+                        </terminology_id>
+                        <code_string>at0012</code_string>
+                      </defining_code>
+                    </value>
+                  </items>
+                  <items xsi:type="ELEMENT" archetype_node_id="at0002">
+                    <name xsi:type="DV_TEXT">
+                      <value>Telephone number</value>
+                    </name>
+                    <value xsi:type="DV_TEXT">
+                      <value>jefMmXbSSTgIVzhyo  .upUYXbtwrgfe,m HmbqVZJmqtmkbAUWCTjtYj,sZBeX UFmsVEM Q.C,lGaTGf DamqBKyO VdAZciyRHDoBwAjKBbJDWWBP.Z,a. NEGvYbccUP.ZZuqqCPSDPMcygUXpjYVtIcpGlM xtITKtgkHgrv,qYKEjvJCtaSEPlBbjHWjrBPv.MxWRNOwBDDNn NkQOmInGepIOKGgSSpSCUMXeWPHWI.pcjPLrZvtfewEMzayueGZbtOTpqqKTwAP kv gJVuci gRihO NKqXnDBU</value>
+                    </value>
+                  </items>
+                </items>
+              </items>
+              <items xsi:type="ELEMENT" archetype_node_id="at0030">
+                <name xsi:type="DV_TEXT">
+                  <value>Other details about contact</value>
+                </name>
+                <value xsi:type="DV_TEXT">
+                  <value>jZGJNvTuTDgSaLXkNJEgvbyl.thiWUkRQdhRcnsYciCmKwEFyMTwe,aRXVGKI,w,XamZGdhlPPBqqkiDlUDkECFZPXYLoFVgDCFsAwwRCnmJsilvpNuJztO. OjPjxGcxe.JgxMTAvRe KRontigwCnlut,ueAfPyDeSNAcRSlLHETVKN..LTQOsXwLgK.omraQpzxGgyIZgtZ CqYufWWU oufaSk..AdTKHooOJrnEKjFMXYUYxwW tFZEzoLTGxVSmS L ozNOtDDVNXVNVFaHvG URnAr ,xwIs.Bc B</value>
+                </value>
+              </items>
+            </items>
+          </items>
+        </data>
+      </items>
+    </items>
+    <items xsi:type="SECTION" archetype_node_id="at0012">
+      <name xsi:type="DV_TEXT">
+        <value>9. Review of Plan</value>
+      </name>
+      <items xsi:type="ACTION" archetype_node_id="openEHR-EHR-ACTION.service.v0">
+        <name xsi:type="DV_TEXT">
+          <value>Review of plan</value>
+        </name>
+        <archetype_details>
+          <archetype_id>
+            <value>openEHR-EHR-ACTION.service.v0</value>
+          </archetype_id>
+          <template_id>
+            <value>ReSPECT-3.v0</value>
+          </template_id>
+          <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+          <terminology_id>
+            <value>ISO_639-1</value>
+          </terminology_id>
+          <code_string>en</code_string>
+        </language>
+        <encoding>
+          <terminology_id>
+            <value>IANA_character-sets</value>
+          </terminology_id>
+          <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0015">
+          <name xsi:type="DV_TEXT">
+            <value>Tree</value>
+          </name>
+        </protocol>
+        <time>
+          <value>2023-09-18T09:29:24.217Z</value>
+        </time>
+        <description xsi:type="ITEM_TREE" archetype_node_id="at0001">
+          <name xsi:type="DV_TEXT">
+            <value>Tree</value>
+          </name>
+          <items xsi:type="ELEMENT" archetype_node_id="at0011">
+            <name xsi:type="DV_TEXT">
+              <value>Service name</value>
+            </name>
+            <value xsi:type="DV_TEXT">
+              <value>yMYOImOLxDm pmetKg XsAoj lWaSUnflbC,VKNuYhXczdCZ,bkBnetXmwPL LSp fRTJjgx.uXxUTnKwEvlSNTHLebEDvyX.wMRii wbyxudDOvLzD,XLTgxmwIFN QDkVqyaHGqwvUVNUeey.dsUjiwEpjDSyXJRgxiHBqeNxpZ.tOMhiqkNBSscWWCmYgXQuFYHKhyCDHEgUsBZTkmoydMrXsEiKdrDQQJLT MDikvSzXMWMZ,pvSi.,svWimchKhVAtjEkEumPsfw,wGfPtkuFRUIaqhj.IBxmFwDnRn</value>
+            </value>
+          </items>
+        </description>
+        <ism_transition>
+          <current_state>
+            <value>completed</value>
+            <defining_code>
+              <terminology_id>
+                <value>openehr</value>
+              </terminology_id>
+              <code_string>532</code_string>
+            </defining_code>
+          </current_state>
+        </ism_transition>
+      </items>
+    </items>
+  </content>
+</composition>

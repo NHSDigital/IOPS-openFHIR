@@ -1,12 +1,20 @@
 {
   "resourceType": "Questionnaire",
-  "url": "https://fhir.openehr.example.org/Questionnaire/IDCR-VitalSignsEncounter.v1",
+  "id": "c44365ca-70a2-4178-b5e9-1befd9cfaede",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2023-09-18T08:50:10.553Z"
+  },
+  "url": "https://fhir.openehr.example.org/Questionnaire/Template-IDCR-VitalSignsEncounter.v1",
   "identifier": [
     {
       "value": "17789e76-0b97-4952-94a6-7da467d51ec5"
     }
   ],
-  "title": "Vital Signs Observations",
+  "title": "IDCR - Vital Signs Encounter.v1",
+  "derivedFrom": [
+    "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-COMPOSITION.encounter.v1"
+  ],
   "status": "draft",
   "contact": [
     {
@@ -44,10 +52,23 @@
   "purpose": "The primary purpose is to support a typical face to face contact with a patient during which vital signs such as blood pressure, temperature, pulse rate etc are measured and recorded, including overall vital sign scores such as NEWS and Glasgow Coma Scale. The template can also be used for patient-reported vital signs and could be populated via external devices as well.",
   "item": [
     {
-      "linkId": "context",
-      "text": "Other context",
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "https://specifications.openehr.org/fhir/extension-composition_category",
+          "valueCoding": {
+            "system": "https://specifications.openehr.org/fhir/codesystem-composition_category",
+            "code": "433",
+            "display": "event"
+          }
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]",
+      "text": "Vital Signs Observations",
       "type": "group",
-      "required": false,
       "repeats": true,
       "item": [
         {
@@ -57,11 +78,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-CLUSTER.xds_metadata.v0"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-CLUSTER.xds_metadata.v0"
             }
           ],
-          "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.xds_metadata.v0[CLUSTER]",
           "text": "XDS Metadata",
           "type": "group",
           "required": true,
@@ -74,7 +95,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0001/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.xds_metadata.v0[CLUSTER]/at0001[ELEMENT]/[DV_TEXT]",
               "text": "Author specialty",
               "type": "string"
             },
@@ -85,7 +106,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0002/1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.xds_metadata.v0[CLUSTER]/at0002[ELEMENT]/[DV_TEXT]",
               "text": "Class code",
               "type": "string"
             },
@@ -96,7 +117,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0003/2",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.xds_metadata.v0[CLUSTER]/at0003[ELEMENT]/[DV_TEXT]",
               "text": "Document type",
               "type": "string"
             },
@@ -107,7 +128,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0004/3",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.xds_metadata.v0[CLUSTER]/at0004[ELEMENT]/[DV_TEXT]",
               "text": "Confidentiality code",
               "type": "string"
             },
@@ -118,7 +139,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0007/4",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.xds_metadata.v0[CLUSTER]/at0007[ELEMENT]/[DV_TEXT]",
               "text": "Health care facility type",
               "type": "string"
             },
@@ -129,7 +150,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0009/5",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.xds_metadata.v0[CLUSTER]/at0009[ELEMENT]/[DV_TEXT]",
               "text": "Practice setting code",
               "type": "string"
             },
@@ -140,7 +161,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0011/6",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.xds_metadata.v0[CLUSTER]/at0011[ELEMENT]/[DV_TEXT]",
               "text": "Event code",
               "type": "string"
             },
@@ -151,7 +172,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "context/openEHR-EHR-CLUSTER.xds_metadata.v0/at0010/7",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.xds_metadata.v0[CLUSTER]/at0010[ELEMENT]/[DV_MULTIMEDIA]",
               "text": "Document_media",
               "type": "choice",
               "answerOption": [
@@ -426,11 +447,11 @@
           "valueString": "CARCHETYPEROOT"
         },
         {
-          "url": "http://fhir.openehr.example.org/Archetype",
-          "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-SECTION.vital_signs.v0"
+          "url": "http://fhir.openehr.example.org/derivedFrom",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-SECTION.vital_signs.v0"
         }
       ],
-      "linkId": "openEHR-EHR-SECTION.vital_signs.v0",
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]",
       "text": "Vital signs",
       "type": "group",
       "required": true,
@@ -443,11 +464,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.respiration.v1"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.respiration.v1"
             }
           ],
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.respiration.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0022[ITEM_TREE]/at0057[ITEM_TREE]",
           "text": "Respirations",
           "type": "group",
           "required": true,
@@ -469,19 +490,19 @@
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
                   "valueQuantity": {
-                    "value": 0.0,
+                    "value": 0,
                     "code": "/min"
                   }
                 },
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
                   "valueQuantity": {
-                    "value": 200.0,
+                    "value": 200,
                     "code": "/min"
                   }
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0004/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.respiration.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0004[ELEMENT]",
               "code": [
                 {
                   "system": "https://specifications.openehr.org/fhir/codesystem-property",
@@ -499,7 +520,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0005/1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.respiration.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0005[ELEMENT]/[DV_CODED_TEXT]",
               "text": "Rhythm",
               "type": "open-choice",
               "answerOption": [
@@ -524,7 +545,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0016/2",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.respiration.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0016[ELEMENT]/[DV_CODED_TEXT]",
               "text": "Depth",
               "type": "open-choice",
               "answerOption": [
@@ -561,7 +582,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0024/3",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.respiration.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0024[ELEMENT]/[DV_TEXT]",
               "text": "Description",
               "type": "string"
             },
@@ -572,7 +593,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.respiration.v1/at0009/4",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.respiration.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0009[ELEMENT]/[DV_CODED_TEXT]/[DV_TEXT]",
               "text": "Clinical interpretation",
               "type": "open-choice",
               "answerOption": [
@@ -647,11 +668,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.pulse_oximetry.v1"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.pulse_oximetry.v1"
             }
           ],
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0014[ITEM_TREE]/at0007[ITEM_TREE]",
           "definition": "Observation",
           "text": "Pulse oximetry",
           "type": "group",
@@ -682,7 +703,7 @@
                   "valueCode": "Observation"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/at0006/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0006[ELEMENT]/[DV_PROPORTION]",
               "definition": "Observation.code",
               "code": [
                 {
@@ -704,7 +725,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/at0058/3",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0058[ELEMENT]/[DV_TEXT]",
               "definition": "Observation.interpretation",
               "text": "Interpretation",
               "type": "string"
@@ -716,7 +737,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/at0036/4",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0036[ELEMENT]/[DV_TEXT]",
               "definition": "Observation.note",
               "text": "Comment",
               "type": "string"
@@ -728,11 +749,11 @@
                   "valueString": "CARCHETYPEROOT"
                 },
                 {
-                  "url": "http://fhir.openehr.example.org/Archetype",
-                  "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-CLUSTER.inspired_oxygen.v1"
+                  "url": "http://fhir.openehr.example.org/derivedFrom",
+                  "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-CLUSTER.inspired_oxygen.v1"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0014[ITEM_TREE]/openEHR-EHR-CLUSTER.inspired_oxygen.v1[CLUSTER]",
               "text": "Inspired oxygen",
               "type": "group",
               "required": true,
@@ -754,14 +775,14 @@
                     {
                       "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
                       "valueQuantity": {
-                        "value": 0.0,
+                        "value": 0,
                         "code": "ml/min"
                       }
                     },
                     {
                       "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
                       "valueQuantity": {
-                        "value": 50000.0,
+                        "value": 50000,
                         "code": "ml/min"
                       }
                     },
@@ -775,19 +796,19 @@
                     {
                       "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
                       "valueQuantity": {
-                        "value": 0.0,
+                        "value": 0,
                         "code": "l/min"
                       }
                     },
                     {
                       "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
                       "valueQuantity": {
-                        "value": 50.0,
+                        "value": 50,
                         "code": "l/min"
                       }
                     }
                   ],
-                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/at0051/0",
+                  "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0014[ITEM_TREE]/openEHR-EHR-CLUSTER.inspired_oxygen.v1[CLUSTER]/at0051[ELEMENT]",
                   "code": [
                     {
                       "system": "https://specifications.openehr.org/fhir/codesystem-property",
@@ -805,7 +826,7 @@
                       "valueString": "CCOMPLEXOBJECT/ELEMENT"
                     }
                   ],
-                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/at0057/1",
+                  "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0014[ITEM_TREE]/openEHR-EHR-CLUSTER.inspired_oxygen.v1[CLUSTER]/at0057[ELEMENT]/[DV_BOOLEAN]",
                   "text": "On air",
                   "type": "boolean"
                 },
@@ -816,11 +837,11 @@
                       "valueString": "CARCHETYPEROOT"
                     },
                     {
-                      "url": "http://fhir.openehr.example.org/Archetype",
-                      "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-CLUSTER.device.v1"
+                      "url": "http://fhir.openehr.example.org/derivedFrom",
+                      "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-CLUSTER.device.v1"
                     }
                   ],
-                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/openEHR-EHR-CLUSTER.device.v1",
+                  "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0014[ITEM_TREE]/openEHR-EHR-CLUSTER.inspired_oxygen.v1[CLUSTER]/openEHR-EHR-CLUSTER.device.v1[CLUSTER]",
                   "text": "Medical Device",
                   "type": "group",
                   "required": true,
@@ -833,7 +854,7 @@
                           "valueString": "CCOMPLEXOBJECT/ELEMENT"
                         }
                       ],
-                      "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse_oximetry.v1/openEHR-EHR-CLUSTER.inspired_oxygen.v1/openEHR-EHR-CLUSTER.device.v1/at0001/0",
+                      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0014[ITEM_TREE]/openEHR-EHR-CLUSTER.inspired_oxygen.v1[CLUSTER]/openEHR-EHR-CLUSTER.device.v1[CLUSTER]/at0001[ELEMENT]/[DV_TEXT]/[DV_TEXT]",
                       "text": "Device",
                       "type": "string"
                     }
@@ -850,11 +871,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.pulse.v1"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.pulse.v1"
             }
           ],
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse.v1[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at0012[ITEM_TREE]/at0010[ITEM_TREE]",
           "text": "Pulse/Heart beat",
           "type": "group",
           "required": true,
@@ -876,19 +897,19 @@
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
                   "valueQuantity": {
-                    "value": 0.0,
+                    "value": 0,
                     "code": "/min"
                   }
                 },
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
                   "valueQuantity": {
-                    "value": 0.0,
+                    "value": 0,
                     "code": "/min"
                   }
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at0004/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse.v1[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at0004[ELEMENT]/[DV_CODED_TEXT]",
               "code": [
                 {
                   "system": "https://specifications.openehr.org/fhir/codesystem-property",
@@ -914,7 +935,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at0005/1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse.v1[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at0005[ELEMENT]/[DV_CODED_TEXT]",
               "text": "Regular?",
               "type": "open-choice",
               "answerOption": [
@@ -939,7 +960,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1055/2",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse.v1[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at1055[ELEMENT]/[DV_CODED_TEXT]",
               "text": "Irregular type",
               "type": "open-choice",
               "answerOption": [
@@ -964,7 +985,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1030/3",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse.v1[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at1030[ELEMENT]/[DV_TEXT]",
               "text": "Character",
               "type": "string"
             },
@@ -975,7 +996,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1023/4",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse.v1[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at1023[ELEMENT]/[DV_CODED_TEXT]/[DV_TEXT]",
               "text": "Clinical interpretation",
               "type": "open-choice",
               "answerOption": [
@@ -994,7 +1015,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.pulse.v1/at1059/5",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.pulse.v1[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at1059[ELEMENT]/[DV_TEXT]",
               "text": "Comment",
               "type": "string"
             }
@@ -1007,11 +1028,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.body_temperature.v2"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.body_temperature.v2"
             }
           ],
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.body_temperature.v2",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.body_temperature.v2[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at0029[ITEM_TREE]/at0020[ITEM_TREE]",
           "definition": "Observation",
           "text": "Body temperature",
           "type": "group",
@@ -1051,19 +1072,19 @@
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
                   "valueQuantity": {
-                    "value": 0.0,
+                    "value": 0,
                     "code": "Cel"
                   }
                 },
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
                   "valueQuantity": {
-                    "value": 100.0,
+                    "value": 100,
                     "code": "Cel"
                   }
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.body_temperature.v2/at0004/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.body_temperature.v2[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at0004[ELEMENT]",
               "definition": "Observation.code",
               "code": [
                 {
@@ -1086,7 +1107,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.body_temperature.v2/at0063/1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.body_temperature.v2[OBSERVATION]/at0002/at0003[POINT_EVENT]/at0001[ITEM_TREE]/at0063[ELEMENT]/[DV_TEXT]",
               "definition": "Observation.note",
               "text": "Comment",
               "type": "string"
@@ -1100,11 +1121,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.blood_pressure.v1"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.blood_pressure.v1"
             }
           ],
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.blood_pressure.v1[OBSERVATION]/at0001/at0006[EVENT]/at0003[ITEM_TREE]/at0007[ITEM_TREE]/at0011[ITEM_TREE]",
           "definition": "Observation",
           "code": [
             {
@@ -1150,19 +1171,19 @@
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
                   "valueQuantity": {
-                    "value": 0.0,
+                    "value": 0,
                     "code": "mm[Hg]"
                   }
                 },
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
                   "valueQuantity": {
-                    "value": 1000.0,
+                    "value": 1000,
                     "code": "mm[Hg]"
                   }
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1/at0004/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.blood_pressure.v1[OBSERVATION]/at0001/at0006[EVENT]/at0003[ITEM_TREE]/at0004[ELEMENT]",
               "definition": "Observation.code",
               "code": [
                 {
@@ -1211,19 +1232,19 @@
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
                   "valueQuantity": {
-                    "value": 0.0,
+                    "value": 0,
                     "code": "mm[Hg]"
                   }
                 },
                 {
                   "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
                   "valueQuantity": {
-                    "value": 1000.0,
+                    "value": 1000,
                     "code": "mm[Hg]"
                   }
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1/at0005/1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.blood_pressure.v1[OBSERVATION]/at0001/at0006[EVENT]/at0003[ITEM_TREE]/at0005[ELEMENT]",
               "definition": "Observation.code",
               "code": [
                 {
@@ -1246,7 +1267,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.blood_pressure.v1/at0033/2",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.blood_pressure.v1[OBSERVATION]/at0001/at0006[EVENT]/at0003[ITEM_TREE]/at0033[ELEMENT]/[DV_TEXT]",
               "definition": "Observation.note",
               "text": "Comment",
               "type": "string"
@@ -1260,11 +1281,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.avpu.v0"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.avpu.v0"
             }
           ],
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu.v0",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.avpu.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0013[ITEM_TREE]/at0009[ITEM_TREE]",
           "text": "AVPU",
           "type": "group",
           "required": true,
@@ -1277,7 +1298,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu.v0/at0004/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.avpu.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0004[ELEMENT]/[DV_CODED_TEXT]",
               "text": "Observation",
               "type": "open-choice",
               "answerOption": [
@@ -1314,7 +1335,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu.v0/at0012/1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.avpu.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0012[ELEMENT]/[DV_TEXT]",
               "text": "Comment",
               "type": "string"
             }
@@ -1327,11 +1348,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.avpu-and_confusion.v0"
             }
           ],
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0013[ITEM_TREE]/at0009[ITEM_TREE]",
           "text": "ACVPU",
           "type": "group",
           "required": true,
@@ -1344,7 +1365,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0/at0004.1/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0004.1[ELEMENT]/[DV_CODED_TEXT]",
               "text": "Observation",
               "type": "open-choice",
               "answerOption": [
@@ -1387,7 +1408,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0/at0012/1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.avpu-and_confusion.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0012[ELEMENT]/[DV_TEXT]",
               "text": "Comment",
               "type": "string"
             }
@@ -1400,11 +1421,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.news_uk_rcp.v1"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.news_uk_rcp.v1"
             }
           ],
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news_uk_rcp.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0041[ITEM_TREE]/at0045[ITEM_TREE]",
           "text": "NEWS (UK RCP)",
           "type": "group",
           "required": true,
@@ -1417,7 +1438,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0006/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news_uk_rcp.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0006[ELEMENT]",
               "text": "Respiration rate",
               "type": "choice",
               "answerOption": [
@@ -1478,7 +1499,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0029/1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news_uk_rcp.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0029[ELEMENT]",
               "text": "Oxygen saturation",
               "type": "choice",
               "answerOption": [
@@ -1539,7 +1560,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0034/2",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news_uk_rcp.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0034[ELEMENT]",
               "text": "Supplemental oxygen",
               "type": "choice",
               "answerOption": [
@@ -1576,7 +1597,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0007/3",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news_uk_rcp.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0007[ELEMENT]",
               "text": "Body temperature",
               "type": "choice",
               "answerOption": [
@@ -1637,7 +1658,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0004/4",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news_uk_rcp.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0004[ELEMENT]",
               "text": "Systolic blood pressure",
               "type": "choice",
               "answerOption": [
@@ -1698,7 +1719,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0005/5",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news_uk_rcp.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0005[ELEMENT]",
               "text": "Heart rate",
               "type": "choice",
               "answerOption": [
@@ -1759,7 +1780,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0008/6",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news_uk_rcp.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0008[ELEMENT]",
               "text": "Level of consciousness",
               "type": "choice",
               "answerOption": [
@@ -1796,7 +1817,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0028/7",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news_uk_rcp.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0028[ELEMENT]/[DV_COUNT]",
               "text": "Total score",
               "type": "integer"
             },
@@ -1807,7 +1828,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news_uk_rcp.v1/at0044/8",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news_uk_rcp.v1[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0044[ELEMENT]/[DV_TEXT]",
               "text": "Comment",
               "type": "string"
             }
@@ -1820,11 +1841,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.news2_uk_rcp.v0"
             }
           ],
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0041[ITEM_TREE]/at0045[ITEM_TREE]",
           "text": "NEWS2 (UK RCP)",
           "type": "group",
           "required": true,
@@ -1837,7 +1858,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0006/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0006[ELEMENT]",
               "text": "Respiration rate",
               "type": "choice",
               "answerOption": [
@@ -1898,7 +1919,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0029/1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0029[ELEMENT]",
               "text": "SpO2 Scale 1",
               "type": "choice",
               "answerOption": [
@@ -1959,7 +1980,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0047/2",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0047[ELEMENT]",
               "text": "SpO2 Scale 2",
               "type": "choice",
               "answerOption": [
@@ -2020,7 +2041,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0034/3",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0034[ELEMENT]",
               "text": "Supplemental oxygen",
               "type": "choice",
               "answerOption": [
@@ -2057,7 +2078,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0004/4",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0004[ELEMENT]",
               "text": "Systolic blood pressure",
               "type": "choice",
               "answerOption": [
@@ -2118,7 +2139,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0005/5",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0005[ELEMENT]",
               "text": "Pulse",
               "type": "choice",
               "answerOption": [
@@ -2179,7 +2200,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0008/6",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0008[ELEMENT]",
               "text": "Level of consciousness",
               "type": "choice",
               "answerOption": [
@@ -2216,7 +2237,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0007/7",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0007[ELEMENT]",
               "text": "Body temperature",
               "type": "choice",
               "answerOption": [
@@ -2277,7 +2298,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0028/8",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0028[ELEMENT]/[DV_COUNT]",
               "text": "Total score",
               "type": "integer"
             },
@@ -2288,7 +2309,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/at0044/9",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0044[ELEMENT]/[DV_TEXT]",
               "text": "Comment",
               "type": "string"
             },
@@ -2299,11 +2320,11 @@
                   "valueString": "CARCHETYPEROOT"
                 },
                 {
-                  "url": "http://fhir.openehr.example.org/Archetype",
-                  "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-CLUSTER.inspired_oxygen.v1"
+                  "url": "http://fhir.openehr.example.org/derivedFrom",
+                  "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-CLUSTER.inspired_oxygen.v1"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/openEHR-EHR-CLUSTER.inspired_oxygen.v1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0041[ITEM_TREE]/at0045[ITEM_TREE]/openEHR-EHR-CLUSTER.inspired_oxygen.v1[CLUSTER]",
               "text": "Inspired oxygen",
               "type": "group",
               "required": true,
@@ -2325,14 +2346,14 @@
                     {
                       "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
                       "valueQuantity": {
-                        "value": 0.0,
+                        "value": 0,
                         "code": "ml/min"
                       }
                     },
                     {
                       "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
                       "valueQuantity": {
-                        "value": 50000.0,
+                        "value": 50000,
                         "code": "ml/min"
                       }
                     },
@@ -2346,19 +2367,19 @@
                     {
                       "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
                       "valueQuantity": {
-                        "value": 0.0,
+                        "value": 0,
                         "code": "l/min"
                       }
                     },
                     {
                       "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
                       "valueQuantity": {
-                        "value": 50.0,
+                        "value": 50,
                         "code": "l/min"
                       }
                     }
                   ],
-                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/openEHR-EHR-CLUSTER.inspired_oxygen.v1/at0051/0",
+                  "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0041[ITEM_TREE]/at0045[ITEM_TREE]/openEHR-EHR-CLUSTER.inspired_oxygen.v1[CLUSTER]/at0051[ELEMENT]",
                   "code": [
                     {
                       "system": "https://specifications.openehr.org/fhir/codesystem-property",
@@ -2376,7 +2397,7 @@
                       "valueString": "CCOMPLEXOBJECT/ELEMENT"
                     }
                   ],
-                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/openEHR-EHR-CLUSTER.inspired_oxygen.v1/at0057/1",
+                  "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0041[ITEM_TREE]/at0045[ITEM_TREE]/openEHR-EHR-CLUSTER.inspired_oxygen.v1[CLUSTER]/at0057[ELEMENT]/[DV_BOOLEAN]",
                   "text": "On air",
                   "type": "boolean"
                 },
@@ -2387,11 +2408,11 @@
                       "valueString": "CARCHETYPEROOT"
                     },
                     {
-                      "url": "http://fhir.openehr.example.org/Archetype",
-                      "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-CLUSTER.device.v1"
+                      "url": "http://fhir.openehr.example.org/derivedFrom",
+                      "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-CLUSTER.device.v1"
                     }
                   ],
-                  "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/openEHR-EHR-CLUSTER.inspired_oxygen.v1/openEHR-EHR-CLUSTER.device.v1",
+                  "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0041[ITEM_TREE]/at0045[ITEM_TREE]/openEHR-EHR-CLUSTER.inspired_oxygen.v1[CLUSTER]/openEHR-EHR-CLUSTER.device.v1[CLUSTER]",
                   "text": "Medical Device",
                   "type": "group",
                   "required": true,
@@ -2404,7 +2425,7 @@
                           "valueString": "CCOMPLEXOBJECT/ELEMENT"
                         }
                       ],
-                      "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0/openEHR-EHR-CLUSTER.inspired_oxygen.v1/openEHR-EHR-CLUSTER.device.v1/at0001/0",
+                      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.news2_uk_rcp.v0[OBSERVATION]/at0001/at0002[POINT_EVENT]/at0003[ITEM_TREE]/at0041[ITEM_TREE]/at0045[ITEM_TREE]/openEHR-EHR-CLUSTER.inspired_oxygen.v1[CLUSTER]/openEHR-EHR-CLUSTER.device.v1[CLUSTER]/at0001[ELEMENT]/[DV_TEXT]/[DV_TEXT]",
                       "text": "Device",
                       "type": "string"
                     }
@@ -2421,11 +2442,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1"
             }
           ],
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0040[ITEM_TREE]/at0038[ITEM_TREE]",
           "text": "Glasgow coma scale",
           "type": "group",
           "required": true,
@@ -2436,12 +2457,19 @@
                 {
                   "url": "http://openehr.example.org/Datatype",
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                },
+                {
+                  "url": "https://specifications.openehr.org/fhir/extension-composition_category",
+                  "valueCoding": {
+                    "system": "https://specifications.openehr.org/fhir/codesystem-null_flavours",
+                    "code": "273",
+                    "display": "not applicable"
+                  }
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0009/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0009[ELEMENT]/[DV_CODED_TEXT]",
               "text": "Best eye response (E)",
               "type": "open-choice",
-              "answerValueSet": "http://fhir.openehr.example.org/ValueSet/273",
               "answerOption": [
                 {
                   "extension": [
@@ -2498,12 +2526,19 @@
                 {
                   "url": "http://openehr.example.org/Datatype",
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                },
+                {
+                  "url": "https://specifications.openehr.org/fhir/extension-composition_category",
+                  "valueCoding": {
+                    "system": "https://specifications.openehr.org/fhir/codesystem-null_flavours",
+                    "code": "273",
+                    "display": "not applicable"
+                  }
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0007/1",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0007[ELEMENT]/[DV_CODED_TEXT]",
               "text": "Best verbal response (V)",
               "type": "open-choice",
-              "answerValueSet": "http://fhir.openehr.example.org/ValueSet/273",
               "answerOption": [
                 {
                   "extension": [
@@ -2572,12 +2607,19 @@
                 {
                   "url": "http://openehr.example.org/Datatype",
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                },
+                {
+                  "url": "https://specifications.openehr.org/fhir/extension-composition_category",
+                  "valueCoding": {
+                    "system": "https://specifications.openehr.org/fhir/codesystem-null_flavours",
+                    "code": "273",
+                    "display": "not applicable"
+                  }
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0008/2",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0008[ELEMENT]/[DV_CODED_TEXT]",
               "text": "Best motor response (M)",
               "type": "open-choice",
-              "answerValueSet": "http://fhir.openehr.example.org/ValueSet/273",
               "answerOption": [
                 {
                   "extension": [
@@ -2660,7 +2702,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0026/3",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0026[ELEMENT]/[DV_COUNT]",
               "text": "Total score",
               "type": "integer"
             },
@@ -2671,7 +2713,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0030/4",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0030[ELEMENT]/[DV_TEXT]",
               "text": "EVM profile",
               "type": "string"
             },
@@ -2682,7 +2724,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1/at0037/5",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0037[ELEMENT]/[DV_TEXT]",
               "text": "Comment",
               "type": "string"
             }
@@ -2695,11 +2737,11 @@
               "valueString": "CARCHETYPEROOT"
             },
             {
-              "url": "http://fhir.openehr.example.org/Archetype",
-              "valueUri": "https://fhir.openehr.example.org/Questionnaire/openEHR-EHR-EVALUATION.clinical_synopsis.v1"
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-EVALUATION.clinical_synopsis.v1"
             }
           ],
-          "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-EVALUATION.clinical_synopsis.v1",
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-EVALUATION.clinical_synopsis.v1[EVALUATION]/at0001[ITEM_TREE]/at0003[ITEM_TREE]",
           "text": "Clinical Synopsis",
           "type": "group",
           "required": true,
@@ -2712,7 +2754,7 @@
                   "valueString": "CCOMPLEXOBJECT/ELEMENT"
                 }
               ],
-              "linkId": "openEHR-EHR-SECTION.vital_signs.v0/openEHR-EHR-EVALUATION.clinical_synopsis.v1/at0002/0",
+              "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-SECTION.vital_signs.v0[SECTION]/openEHR-EHR-EVALUATION.clinical_synopsis.v1[EVALUATION]/at0001[ITEM_TREE]/at0002[ELEMENT]/[DV_TEXT]",
               "text": "Synopsis",
               "type": "string"
             }

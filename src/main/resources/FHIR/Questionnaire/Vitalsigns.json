@@ -1,0 +1,733 @@
+{
+  "resourceType": "Questionnaire",
+  "url": "https://fhir.openehr.example.org/Questionnaire/Template-Vitalsigns",
+  "identifier": [
+    {
+      "value": "74b50979-ab22-4351-bfdc-cc5191ea0ac5"
+    }
+  ],
+  "title": "Vital signs",
+  "derivedFrom": [
+    "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-COMPOSITION.encounter.v1"
+  ],
+  "status": "draft",
+  "contact": [
+    {
+      "name": "2021-03-07"
+    }
+  ],
+  "description": "null\n\n#####Keywords\n\n",
+  "purpose": "A simple template containing only the most commonly used main data elements of Body temperature, Blood pressure, Body mass index, Height/Length, Body weight, Pulse/Heart beat, Respiration, and Pulse oximetry. Non-metric unit alternatives have been constrained out.",
+  "item": [
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "https://specifications.openehr.org/fhir/extension-composition_category",
+          "valueCoding": {
+            "system": "https://specifications.openehr.org/fhir/codesystem-composition_category",
+            "code": "433",
+            "display": "event"
+          }
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]",
+      "text": "vital_signs2",
+      "type": "group",
+      "repeats": true
+    },
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://fhir.openehr.example.org/derivedFrom",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.body_temperature.v2"
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.body_temperature.v2[OBSERVATION]/at0002/at0003[EVENT]/at0001[ITEM_TREE]/at0029[ITEM_TREE]/at0020[ITEM_TREE]",
+      "definition": "Observation",
+      "text": "Body temperature",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+              "valueDuration": {
+                "value": 2,
+                "unit": "weeks",
+                "system": "http://unitsofmeasure.org",
+                "code": "wk"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+              "valueCode": "Observation"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "Cel"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+              "valueQuantity": {
+                "value": 0,
+                "code": "Cel"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+              "valueQuantity": {
+                "value": 100,
+                "code": "Cel"
+              }
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.body_temperature.v2[OBSERVATION]/at0002/at0003[EVENT]/at0001[ITEM_TREE]/at0004[ELEMENT]",
+          "definition": "Observation.code",
+          "code": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386725007"
+            }
+          ],
+          "text": "Temperature",
+          "type": "quantity"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://fhir.openehr.example.org/derivedFrom",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.blood_pressure.v2"
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.blood_pressure.v2[OBSERVATION]/at0001/at0006[EVENT]/at0003[ITEM_TREE]/at0007[ITEM_TREE]/at0011[ITEM_TREE]",
+      "definition": "Observation",
+      "code": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "364090009"
+        }
+      ],
+      "text": "Blood pressure",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+              "valueDuration": {
+                "value": 2,
+                "unit": "weeks",
+                "system": "http://unitsofmeasure.org",
+                "code": "wk"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+              "valueCode": "Observation"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "mm[Hg]"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+              "valueQuantity": {
+                "value": 0,
+                "code": "mm[Hg]"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+              "valueQuantity": {
+                "value": 1000,
+                "code": "mm[Hg]"
+              }
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.blood_pressure.v2[OBSERVATION]/at0001/at0006[EVENT]/at0003[ITEM_TREE]/at0004[ELEMENT]",
+          "definition": "Observation.code",
+          "code": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "271649006"
+            },
+            {
+              "system": "https://specifications.openehr.org/fhir/codesystem-property",
+              "code": "125",
+              "display": "Pressure"
+            }
+          ],
+          "text": "Systolic",
+          "type": "quantity"
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+              "valueDuration": {
+                "value": 2,
+                "unit": "weeks",
+                "system": "http://unitsofmeasure.org",
+                "code": "wk"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+              "valueCode": "Observation"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "mm[Hg]"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+              "valueQuantity": {
+                "value": 0,
+                "code": "mm[Hg]"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+              "valueQuantity": {
+                "value": 1000,
+                "code": "mm[Hg]"
+              }
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.blood_pressure.v2[OBSERVATION]/at0001/at0006[EVENT]/at0003[ITEM_TREE]/at0005[ELEMENT]",
+          "definition": "Observation.code",
+          "code": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "271650006"
+            },
+            {
+              "system": "https://specifications.openehr.org/fhir/codesystem-property",
+              "code": "125",
+              "display": "Pressure"
+            }
+          ],
+          "text": "Diastolic",
+          "type": "quantity"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://fhir.openehr.example.org/derivedFrom",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.body_mass_index.v2"
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.body_mass_index.v2[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0014[ITEM_TREE]/at0005[ITEM_TREE]",
+      "definition": "Observation",
+      "text": "Body mass index",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+              "valueDuration": {
+                "value": 2,
+                "unit": "weeks",
+                "system": "http://unitsofmeasure.org",
+                "code": "wk"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+              "valueCode": "Observation"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "kg/m2"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+              "valueQuantity": {
+                "value": 0,
+                "code": "kg/m2"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+              "valueQuantity": {
+                "value": 1000,
+                "code": "kg/m2"
+              }
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.body_mass_index.v2[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0004[ELEMENT]",
+          "definition": "Observation.code",
+          "code": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "60621009"
+            },
+            {
+              "system": "http://loinc.org",
+              "code": "39156-5"
+            },
+            {
+              "system": "https://specifications.openehr.org/fhir/codesystem-property",
+              "code": "349",
+              "display": "Mass per area"
+            }
+          ],
+          "text": "Body mass index",
+          "type": "quantity"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://fhir.openehr.example.org/derivedFrom",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.height.v2"
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.height.v2[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0013[ITEM_TREE]/at0007[ITEM_TREE]",
+      "definition": "Observation",
+      "text": "Height/Length",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+              "valueDuration": {
+                "value": 2,
+                "unit": "weeks",
+                "system": "http://unitsofmeasure.org",
+                "code": "wk"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+              "valueCode": "Observation"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "cm"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+              "valueQuantity": {
+                "value": 0,
+                "code": "cm"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+              "valueQuantity": {
+                "value": 1000,
+                "code": "cm"
+              }
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.height.v2[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0004[ELEMENT]",
+          "definition": "Observation.code",
+          "code": [
+            {
+              "system": "http://loinc.org",
+              "code": "8302-2"
+            },
+            {
+              "system": "https://specifications.openehr.org/fhir/codesystem-property",
+              "code": "122",
+              "display": "Length"
+            }
+          ],
+          "text": "Height/Length",
+          "type": "quantity"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://fhir.openehr.example.org/derivedFrom",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.body_weight.v2"
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.body_weight.v2[OBSERVATION]/at0002/at0003[EVENT]/at0001[ITEM_TREE]/at0008[ITEM_TREE]/at0015[ITEM_TREE]",
+      "definition": "Observation",
+      "text": "Body weight",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+              "valueDuration": {
+                "value": 2,
+                "unit": "weeks",
+                "system": "http://unitsofmeasure.org",
+                "code": "wk"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+              "valueCode": "Observation"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "kg"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+              "valueQuantity": {
+                "value": 0,
+                "code": "kg"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+              "valueQuantity": {
+                "value": 1000,
+                "code": "kg"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "g"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+              "valueQuantity": {
+                "value": 0,
+                "code": "g"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+              "valueQuantity": {
+                "value": 1000000,
+                "code": "g"
+              }
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.body_weight.v2[OBSERVATION]/at0002/at0003[EVENT]/at0001[ITEM_TREE]/at0004[ELEMENT]",
+          "definition": "Observation.code",
+          "code": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7"
+            },
+            {
+              "system": "https://specifications.openehr.org/fhir/codesystem-property",
+              "code": "124",
+              "display": "Mass"
+            }
+          ],
+          "text": "Weight",
+          "type": "quantity"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://fhir.openehr.example.org/derivedFrom",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.pulse.v2"
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.pulse.v2[OBSERVATION]/at0002/at0003[EVENT]/at0001[ITEM_TREE]/at0012[ITEM_TREE]/at0010[ITEM_TREE]",
+      "text": "Pulse/Heart beat",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "/min"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+              "valueQuantity": {
+                "value": 0,
+                "code": "/min"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+              "valueQuantity": {
+                "value": 1000,
+                "code": "/min"
+              }
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.pulse.v2[OBSERVATION]/at0002/at0003[EVENT]/at0001[ITEM_TREE]/at0004[ELEMENT]",
+          "code": [
+            {
+              "system": "https://specifications.openehr.org/fhir/codesystem-property",
+              "code": "382",
+              "display": "Frequency"
+            }
+          ],
+          "text": "Rate",
+          "type": "quantity"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://fhir.openehr.example.org/derivedFrom",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.respiration.v2"
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.respiration.v2[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0022[ITEM_TREE]/at0057[ITEM_TREE]",
+      "definition": "Observation",
+      "text": "Respiration",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+              "valueDuration": {
+                "value": 2,
+                "unit": "weeks",
+                "system": "http://unitsofmeasure.org",
+                "code": "wk"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+              "valueCode": "Observation"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "/min"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-minQuantity",
+              "valueQuantity": {
+                "value": 0,
+                "code": "/min"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-maxQuantity",
+              "valueQuantity": {
+                "value": 200,
+                "code": "/min"
+              }
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.respiration.v2[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0004[ELEMENT]",
+          "definition": "Observation.code",
+          "code": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "271625008"
+            },
+            {
+              "system": "https://specifications.openehr.org/fhir/codesystem-property",
+              "code": "382",
+              "display": "Frequency"
+            }
+          ],
+          "text": "Rate",
+          "type": "quantity"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://fhir.openehr.example.org/derivedFrom",
+          "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-OBSERVATION.pulse_oximetry.v1"
+        }
+      ],
+      "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0014[ITEM_TREE]/at0007[ITEM_TREE]",
+      "definition": "Observation",
+      "text": "Pulse oximetry",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+              "valueDuration": {
+                "value": 2,
+                "unit": "weeks",
+                "system": "http://unitsofmeasure.org",
+                "code": "wk"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+              "valueCode": "Observation"
+            }
+          ],
+          "linkId": "openEHR-EHR-COMPOSITION.encounter.v1/[DV_CODED_TEXT]/[EVENT_CONTEXT]/at0001[ITEM_TREE]/[DV_TEXT]/openEHR-EHR-OBSERVATION.pulse_oximetry.v1[OBSERVATION]/at0001/at0002[EVENT]/at0003[ITEM_TREE]/at0006[ELEMENT]/[DV_PROPORTION]",
+          "definition": "Observation.code",
+          "code": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "431314004"
+            },
+            {
+              "system": "http://loinc.org",
+              "code": "59408-5"
+            }
+          ],
+          "text": "SpO₂",
+          "type": "decimal"
+        }
+      ]
+    }
+  ]
+}

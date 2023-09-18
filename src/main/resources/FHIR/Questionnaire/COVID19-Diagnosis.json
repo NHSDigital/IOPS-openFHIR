@@ -1,0 +1,141 @@
+{
+  "resourceType": "Questionnaire",
+  "url": "https://fhir.openehr.example.org/Questionnaire/Template-COVID-19Problem/Diagnosis",
+  "identifier": [
+    {
+      "value": "a2084d91-9b1b-4dc7-af77-e5da5b1dd8b2"
+    }
+  ],
+  "title": "COVID-19 Problem/Diagnosis",
+  "derivedFrom": [
+    "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-EVALUATION.problem_diagnosis.v1"
+  ],
+  "status": "draft",
+  "contact": [
+    {
+      "name": "2020-03-28"
+    }
+  ],
+  "description": "null\n\n#####Keywords\n\n",
+  "purpose": "Not Specified",
+  "item": [
+    {
+      "extension": [
+        {
+          "url": "http://openehr.example.org/Datatype",
+          "valueString": "CARCHETYPEROOT"
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationExtract",
+          "valueBoolean": true
+        }
+      ],
+      "linkId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1/at0001[ITEM_TREE]/at0032[ITEM_TREE]",
+      "definition": "Condition",
+      "text": "Problem/Diagnosis",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            }
+          ],
+          "linkId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1/at0001[ITEM_TREE]/at0002[ELEMENT]/[DV_CODED_TEXT]",
+          "definition": "Condition.code",
+          "text": "Problem/Diagnosis name",
+          "type": "open-choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "840544004",
+                "display": "Suspected disease caused by 2019 novel coronavirus"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "840546002",
+                "display": "Exposure to 2019 novel coronavirus"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "840539006",
+                "display": "Disease caused by 2019-nCoV"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CARCHETYPEROOT"
+            },
+            {
+              "url": "http://fhir.openehr.example.org/derivedFrom",
+              "valueUri": "https://fhir.openehr.example.org/Questionnaire/Archetype-openEHR-EHR-CLUSTER.problem_qualifier.v1"
+            }
+          ],
+          "linkId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.problem_qualifier.v1[CLUSTER]/[DV_TEXT]",
+          "text": "Status",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://openehr.example.org/Datatype",
+                  "valueString": "CCOMPLEXOBJECT/ELEMENT"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-observationLinkPeriod",
+                  "valueDuration": {
+                    "value": 2,
+                    "unit": "weeks",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "wk"
+                  }
+                }
+              ],
+              "linkId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1/at0001[ITEM_TREE]/openEHR-EHR-CLUSTER.problem_qualifier.v1[CLUSTER]/at0004[ELEMENT]/[DV_CODED_TEXT]",
+              "definition": "Condition.status",
+              "code": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "106229004"
+                }
+              ],
+              "text": "Diagnostic status",
+              "type": "open-choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "5558000",
+                    "display": "Working"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://openehr.example.org/Datatype",
+              "valueString": "CCOMPLEXOBJECT/ELEMENT"
+            }
+          ],
+          "linkId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1/at0001[ITEM_TREE]/at0032[ITEM_TREE]/at0070[ELEMENT]/[DV_DATE_TIME]",
+          "text": "Last updated",
+          "type": "dateTime"
+        }
+      ]
+    }
+  ]
+}

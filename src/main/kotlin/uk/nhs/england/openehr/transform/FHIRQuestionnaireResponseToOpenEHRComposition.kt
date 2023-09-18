@@ -1,5 +1,6 @@
 package uk.nhs.england.openehr.transform
 
+import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException
 import com.nedap.archie.rm.archetyped.Archetyped
 import com.nedap.archie.rm.archetyped.TemplateId
 import com.nedap.archie.rm.composition.Composition
@@ -10,7 +11,6 @@ import com.nedap.archie.rm.composition.Section
 import com.nedap.archie.rm.datastructures.Cluster
 import com.nedap.archie.rm.datastructures.History
 import com.nedap.archie.rm.datastructures.ItemStructure
-import com.nedap.archie.rm.datastructures.ItemTree
 import com.nedap.archie.rm.datatypes.CodePhrase
 import com.nedap.archie.rm.datavalues.DvCodedText
 import com.nedap.archie.rm.datavalues.DvText
@@ -25,14 +25,19 @@ import uk.nhs.england.openehr.util.FhirSystems
 
 
 class FHIRQuestionnaireResponseToOpenEHRComposition(
-    val fhirQuestionnaireResponseExtract: FHIRQuestionnaireResponseExtract
+    val fhirQuestionnaireResponseExtract: FHIRQuestionnaireResponseExtract,
+    val questionnaireResponse: QuestionnaireResponse
 ) {
+    val questionnaire: Questionnaire
+    init {
+        val tquestionnaire = fhirQuestionnaireResponseExtract.getQuestionnaire(questionnaireResponse)
+        if (tquestionnaire == null) throw UnprocessableEntityException("Questionnaire not found")
+        questionnaire = tquestionnaire
+    }
 
-    fun convert(
-         questionnaireResponse: QuestionnaireResponse
-    ) : Composition? {
+    fun convert() : Composition? {
         var composition: Composition? = null
-        val questionnaire = fhirQuestionnaireResponseExtract.getQuestionnaire(questionnaireResponse)
+
         if (questionnaire !== null ) {
             composition = Composition()
             composition.archetypeNodeId = "openEHR-EHR-COMPOSITION.encounter.v1"
@@ -84,14 +89,15 @@ class FHIRQuestionnaireResponseToOpenEHRComposition(
             // Context
 
             // This appears to be a FHIR Encounter. Is optional so leave for now
-
-            for (item in questionnaireResponse.item) {
-                var content = processContentItem(composition,questionnaire,item)
-                composition.addContent(content)
+            if (questionnaire.hasItem()) {
+                var current_archetype = questionnaire.itemFirstRep.linkId.split("/")[0]
+                composition.archetypeNodeId = current_archetype
             }
 
-
-
+            for (item in questionnaireResponse.item) {
+                var content = processContentItem(composition.archetypeNodeId,questionnaire,item)
+                composition.addContent(content)
+            }
         }
         return composition
     }
@@ -120,10 +126,10 @@ class FHIRQuestionnaireResponseToOpenEHRComposition(
         return language
     }
 
-    fun processContentItem(composition: Composition, questionnaire: Questionnaire, item : QuestionnaireResponseItemComponent) : ContentItem? {
+    fun processContentItem(current_archetype: String, questionnaire: Questionnaire, item : QuestionnaireResponseItemComponent) : ContentItem? {
         var qItem = fhirQuestionnaireResponseExtract.getItem(questionnaire,item.linkId)
-        val archetypeId = getArchetypeId(item.linkId)
-        val archetypeType = getArchetypeType(item.linkId)
+        val archetypeId = getArchetypeId(current_archetype, item.linkId)
+        val archetypeType = getArchetypeType(current_archetype,item.linkId)
         var contentItem : ContentItem? = null
         when (archetypeType) {
             "OBSERVATION" -> {
@@ -132,9 +138,11 @@ class FHIRQuestionnaireResponseToOpenEHRComposition(
             }
             "CLUSTER" -> {
                 //  contentItem = Cluster
+                System.out.println("Content - " + archetypeType)
             }
             else -> {
                 contentItem = Section()
+                System.out.println("Content - " + archetypeType)
             }
         }
         if (contentItem != null && contentItem is Entry) {
@@ -142,6 +150,13 @@ class FHIRQuestionnaireResponseToOpenEHRComposition(
             contentItem.encoding = getEncoding()
             contentItem.archetypeNodeId = archetypeId
             contentItem.name = DvText(item.text)
+            contentItem.archetypeDetails = Archetyped()
+            contentItem.archetypeDetails.archetypeId = ArchetypeID(archetypeId)
+            contentItem.archetypeDetails.rmVersion = "1.0.2"
+            if (questionnaire.hasTitle()) {
+                contentItem.archetypeDetails.templateId = TemplateId()
+                contentItem.archetypeDetails.templateId!!.value = questionnaire.title
+            }
         }
 
         if (contentItem != null && item.hasItem()) {
@@ -157,11 +172,11 @@ class FHIRQuestionnaireResponseToOpenEHRComposition(
 
     private fun processData(contentItem: ContentItem, questionnaire: Questionnaire, item: QuestionnaireResponse.QuestionnaireResponseItemComponent): Any? {
         System.out.println(contentItem.name)
-        val archetypeId = getArchetypeId(item.linkId)
-        val archetypeType = getArchetypeType(item.linkId)
+        val archetypeId = getArchetypeId(null, item.linkId)
+        val archetypeType = getArchetypeType(null,item.linkId)
         when (archetypeType) {
             "ITEM_TREE" -> {
-               System.out.println(archetypeType)
+               System.out.println("Data - " + archetypeType)
                 val history = History<ItemStructure>()
                 history.name = DvText(item.text)
                 history.archetypeNodeId = archetypeId
@@ -170,23 +185,49 @@ class FHIRQuestionnaireResponseToOpenEHRComposition(
             "CLUSTER" -> {
                 //  contentItem = Cluster
                 val cluster = Cluster()
+                System.out.println("Data - " + archetypeType)
             }
             else -> {
                // contentItem = Section()
+                System.out.println("Data - " + archetypeType)
             }
         }
         return null
     }
 
-    private fun getArchetypeId(linkId: String?): String? {
+    private fun getArchetypeId(current_archetype: String?,linkId: String?): String? {
         if (linkId == null)  return "ERROR"
+        if (current_archetype == null) {
+            val archetypes = linkId.split("/")
+            return archetypes[archetypes.size-1].substringBefore("[")
+        }
         val archetypes = linkId.split("/")
-        return archetypes[archetypes.size-1].substringBefore("[")
+        var fd = false;
+        for (archetype in archetypes) {
+            if (archetype.equals(current_archetype)) {
+                fd = true
+            } else {
+                if (fd && archetype.startsWith("openEHR-EHR-")) return archetype.split("[")[0]
+            }
+        }
+        return "ERROR"
     }
-    private fun getArchetypeType(linkId: String?): String? {
+    private fun getArchetypeType(current_archetype: String?,linkId: String?): String? {
         if (linkId == null)  return "ERROR"
+        if (current_archetype == null) {
+            val archetypes = linkId.split("/")
+            return archetypes[archetypes.size-1].substringAfter("[").substringBefore("]")
+        }
         val archetypes = linkId.split("/")
-        return archetypes[archetypes.size-1].substringAfter("[").substringBefore("]")
+        var fd = false;
+        for (archetype in archetypes) {
+            if (archetype.equals(current_archetype)) {
+                fd = true
+            } else {
+                if (fd && archetype.startsWith("openEHR-EHR-")) return archetype.substringAfter("[").substringBefore("]")
+            }
+        }
+        return "ERROR"
     }
 
 

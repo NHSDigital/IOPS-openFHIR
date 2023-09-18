@@ -1,0 +1,605 @@
+<composition xmlns="http://schemas.openehr.org/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="COMPOSITION" archetype_node_id="openEHR-EHR-COMPOSITION.encounter.v1">
+    <name xsi:type="DV_TEXT">
+        <value>vital_signs2</value>
+    </name>
+    <archetype_details>
+        <archetype_id>
+            <value>openEHR-EHR-COMPOSITION.encounter.v1</value>
+        </archetype_id>
+        <template_id>
+            <value>Vital signs</value>
+        </template_id>
+        <rm_version>1.0.2</rm_version>
+    </archetype_details>
+    <language>
+        <terminology_id>
+            <value>ISO_639-1</value>
+        </terminology_id>
+        <code_string>en</code_string>
+    </language>
+    <territory>
+        <terminology_id>
+            <value>ISO_3166-1</value>
+        </terminology_id>
+        <code_string>UY</code_string>
+    </territory>
+    <category>
+        <value>event</value>
+        <defining_code>
+            <terminology_id>
+                <value>openehr</value>
+            </terminology_id>
+            <code_string>433</code_string>
+        </defining_code>
+    </category>
+    <composer xsi:type="PARTY_IDENTIFIED">
+        <external_ref>
+            <id xsi:type="HIER_OBJECT_ID">
+                <value>08310000-b9f0-4b35-b73c-13b46bd82a10</value>
+            </id>
+            <namespace>DEMOGRAPHIC</namespace>
+            <type>PERSON</type>
+        </external_ref>
+        <name>Dr. Yamamoto</name>
+    </composer>
+    <context>
+        <start_time>
+            <value>2023-09-18T09:31:24.407Z</value>
+        </start_time>
+        <setting>
+            <value>emergency care</value>
+            <defining_code>
+                <terminology_id>
+                    <value>openehr</value>
+                </terminology_id>
+                <code_string>227</code_string>
+            </defining_code>
+        </setting>
+    </context>
+    <content xsi:type="OBSERVATION" archetype_node_id="openEHR-EHR-OBSERVATION.body_temperature.v2">
+        <name xsi:type="DV_TEXT">
+            <value>Body temperature</value>
+        </name>
+        <archetype_details>
+            <archetype_id>
+                <value>openEHR-EHR-OBSERVATION.body_temperature.v2</value>
+            </archetype_id>
+            <template_id>
+                <value>Vital signs</value>
+            </template_id>
+            <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+            <terminology_id>
+                <value>ISO_639-1</value>
+            </terminology_id>
+            <code_string>en</code_string>
+        </language>
+        <encoding>
+            <terminology_id>
+                <value>IANA_character-sets</value>
+            </terminology_id>
+            <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0020">
+            <name xsi:type="DV_TEXT">
+                <value>Protocol</value>
+            </name>
+        </protocol>
+        <data archetype_node_id="at0002">
+            <name xsi:type="DV_TEXT">
+                <value>History</value>
+            </name>
+            <origin>
+                <value>2023-09-18T09:31:24.416Z</value>
+            </origin>
+            <events xsi:type="POINT_EVENT" archetype_node_id="at0003">
+                <name xsi:type="DV_TEXT">
+                    <value>Any event</value>
+                </name>
+                <time>
+                    <value>2023-09-18T09:31:24.416Z</value>
+                </time>
+                <data xsi:type="ITEM_TREE" archetype_node_id="at0001">
+                    <name xsi:type="DV_TEXT">
+                        <value>Tree</value>
+                    </name>
+                    <items xsi:type="ELEMENT" archetype_node_id="at0004">
+                        <name xsi:type="DV_TEXT">
+                            <value>Temperature</value>
+                        </name>
+                        <value xsi:type="DV_QUANTITY">
+                            <magnitude>48.5</magnitude>
+                            <units>Cel</units>
+                        </value>
+                    </items>
+                </data>
+                <state xsi:type="ITEM_TREE" archetype_node_id="at0029">
+                    <name xsi:type="DV_TEXT">
+                        <value>State</value>
+                    </name>
+                </state>
+            </events>
+        </data>
+    </content>
+    <content xsi:type="OBSERVATION" archetype_node_id="openEHR-EHR-OBSERVATION.blood_pressure.v2">
+        <name xsi:type="DV_TEXT">
+            <value>Blood pressure</value>
+        </name>
+        <archetype_details>
+            <archetype_id>
+                <value>openEHR-EHR-OBSERVATION.blood_pressure.v2</value>
+            </archetype_id>
+            <template_id>
+                <value>Vital signs</value>
+            </template_id>
+            <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+            <terminology_id>
+                <value>ISO_639-1</value>
+            </terminology_id>
+            <code_string>en</code_string>
+        </language>
+        <encoding>
+            <terminology_id>
+                <value>IANA_character-sets</value>
+            </terminology_id>
+            <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0011">
+            <name xsi:type="DV_TEXT">
+                <value>Tree</value>
+            </name>
+        </protocol>
+        <data archetype_node_id="at0001">
+            <name xsi:type="DV_TEXT">
+                <value>History</value>
+            </name>
+            <origin>
+                <value>2023-09-18T09:31:24.419Z</value>
+            </origin>
+            <events xsi:type="POINT_EVENT" archetype_node_id="at0006">
+                <name xsi:type="DV_TEXT">
+                    <value>Any event</value>
+                </name>
+                <time>
+                    <value>2023-09-18T09:31:24.419Z</value>
+                </time>
+                <data xsi:type="ITEM_TREE" archetype_node_id="at0003">
+                    <name xsi:type="DV_TEXT">
+                        <value>blood pressure</value>
+                    </name>
+                    <items xsi:type="ELEMENT" archetype_node_id="at0004">
+                        <name xsi:type="DV_TEXT">
+                            <value>Systolic</value>
+                        </name>
+                        <value xsi:type="DV_QUANTITY">
+                            <magnitude>937.5</magnitude>
+                            <units>mm[Hg]</units>
+                        </value>
+                    </items>
+                    <items xsi:type="ELEMENT" archetype_node_id="at0005">
+                        <name xsi:type="DV_TEXT">
+                            <value>Diastolic</value>
+                        </name>
+                        <value xsi:type="DV_QUANTITY">
+                            <magnitude>179.7</magnitude>
+                            <units>mm[Hg]</units>
+                        </value>
+                    </items>
+                </data>
+                <state xsi:type="ITEM_TREE" archetype_node_id="at0007">
+                    <name xsi:type="DV_TEXT">
+                        <value>state structure</value>
+                    </name>
+                </state>
+            </events>
+        </data>
+    </content>
+    <content xsi:type="OBSERVATION" archetype_node_id="openEHR-EHR-OBSERVATION.body_mass_index.v2">
+        <name xsi:type="DV_TEXT">
+            <value>Body mass index</value>
+        </name>
+        <archetype_details>
+            <archetype_id>
+                <value>openEHR-EHR-OBSERVATION.body_mass_index.v2</value>
+            </archetype_id>
+            <template_id>
+                <value>Vital signs</value>
+            </template_id>
+            <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+            <terminology_id>
+                <value>ISO_639-1</value>
+            </terminology_id>
+            <code_string>en</code_string>
+        </language>
+        <encoding>
+            <terminology_id>
+                <value>IANA_character-sets</value>
+            </terminology_id>
+            <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0005">
+            <name xsi:type="DV_TEXT">
+                <value>Tree</value>
+            </name>
+        </protocol>
+        <data archetype_node_id="at0001">
+            <name xsi:type="DV_TEXT">
+                <value>history</value>
+            </name>
+            <origin>
+                <value>2023-09-18T09:31:24.438Z</value>
+            </origin>
+            <events xsi:type="POINT_EVENT" archetype_node_id="at0002">
+                <name xsi:type="DV_TEXT">
+                    <value>Any event</value>
+                </name>
+                <time>
+                    <value>2023-09-18T09:31:24.438Z</value>
+                </time>
+                <data xsi:type="ITEM_TREE" archetype_node_id="at0003">
+                    <name xsi:type="DV_TEXT">
+                        <value>Single</value>
+                    </name>
+                    <items xsi:type="ELEMENT" archetype_node_id="at0004">
+                        <name xsi:type="DV_TEXT">
+                            <value>Body mass index</value>
+                        </name>
+                        <value xsi:type="DV_QUANTITY">
+                            <magnitude>239.7</magnitude>
+                            <units>kg/m2</units>
+                        </value>
+                    </items>
+                </data>
+                <state xsi:type="ITEM_TREE" archetype_node_id="at0014">
+                    <name xsi:type="DV_TEXT">
+                        <value>Tree</value>
+                    </name>
+                </state>
+            </events>
+        </data>
+    </content>
+    <content xsi:type="OBSERVATION" archetype_node_id="openEHR-EHR-OBSERVATION.height.v2">
+        <name xsi:type="DV_TEXT">
+            <value>Height/Length</value>
+        </name>
+        <archetype_details>
+            <archetype_id>
+                <value>openEHR-EHR-OBSERVATION.height.v2</value>
+            </archetype_id>
+            <template_id>
+                <value>Vital signs</value>
+            </template_id>
+            <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+            <terminology_id>
+                <value>ISO_639-1</value>
+            </terminology_id>
+            <code_string>en</code_string>
+        </language>
+        <encoding>
+            <terminology_id>
+                <value>IANA_character-sets</value>
+            </terminology_id>
+            <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0007">
+            <name xsi:type="DV_TEXT">
+                <value>List</value>
+            </name>
+        </protocol>
+        <data archetype_node_id="at0001">
+            <name xsi:type="DV_TEXT">
+                <value>history</value>
+            </name>
+            <origin>
+                <value>2023-09-18T09:31:24.443Z</value>
+            </origin>
+            <events xsi:type="POINT_EVENT" archetype_node_id="at0002">
+                <name xsi:type="DV_TEXT">
+                    <value>Any event</value>
+                </name>
+                <time>
+                    <value>2023-09-18T09:31:24.447Z</value>
+                </time>
+                <data xsi:type="ITEM_TREE" archetype_node_id="at0003">
+                    <name xsi:type="DV_TEXT">
+                        <value>Simple</value>
+                    </name>
+                    <items xsi:type="ELEMENT" archetype_node_id="at0004">
+                        <name xsi:type="DV_TEXT">
+                            <value>Height/Length</value>
+                        </name>
+                        <value xsi:type="DV_QUANTITY">
+                            <magnitude>31.6</magnitude>
+                            <units>cm</units>
+                        </value>
+                    </items>
+                </data>
+                <state xsi:type="ITEM_TREE" archetype_node_id="at0013">
+                    <name xsi:type="DV_TEXT">
+                        <value>Tree</value>
+                    </name>
+                </state>
+            </events>
+        </data>
+    </content>
+    <content xsi:type="OBSERVATION" archetype_node_id="openEHR-EHR-OBSERVATION.body_weight.v2">
+        <name xsi:type="DV_TEXT">
+            <value>Body weight</value>
+        </name>
+        <archetype_details>
+            <archetype_id>
+                <value>openEHR-EHR-OBSERVATION.body_weight.v2</value>
+            </archetype_id>
+            <template_id>
+                <value>Vital signs</value>
+            </template_id>
+            <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+            <terminology_id>
+                <value>ISO_639-1</value>
+            </terminology_id>
+            <code_string>en</code_string>
+        </language>
+        <encoding>
+            <terminology_id>
+                <value>IANA_character-sets</value>
+            </terminology_id>
+            <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0015">
+            <name xsi:type="DV_TEXT">
+                <value>protocol structure</value>
+            </name>
+        </protocol>
+        <data archetype_node_id="at0002">
+            <name xsi:type="DV_TEXT">
+                <value>history</value>
+            </name>
+            <origin>
+                <value>2023-09-18T09:31:24.456Z</value>
+            </origin>
+            <events xsi:type="POINT_EVENT" archetype_node_id="at0003">
+                <name xsi:type="DV_TEXT">
+                    <value>Any event</value>
+                </name>
+                <time>
+                    <value>2023-09-18T09:31:24.457Z</value>
+                </time>
+                <data xsi:type="ITEM_TREE" archetype_node_id="at0001">
+                    <name xsi:type="DV_TEXT">
+                        <value>Simple</value>
+                    </name>
+                    <items xsi:type="ELEMENT" archetype_node_id="at0004">
+                        <name xsi:type="DV_TEXT">
+                            <value>Weight</value>
+                        </name>
+                        <value xsi:type="DV_QUANTITY">
+                            <magnitude>100.4</magnitude>
+                            <units>kg</units>
+                        </value>
+                    </items>
+                </data>
+                <state xsi:type="ITEM_TREE" archetype_node_id="at0008">
+                    <name xsi:type="DV_TEXT">
+                        <value>state structure</value>
+                    </name>
+                </state>
+            </events>
+        </data>
+    </content>
+    <content xsi:type="OBSERVATION" archetype_node_id="openEHR-EHR-OBSERVATION.pulse.v2">
+        <name xsi:type="DV_TEXT">
+            <value>Pulse/Heart beat</value>
+        </name>
+        <archetype_details>
+            <archetype_id>
+                <value>openEHR-EHR-OBSERVATION.pulse.v2</value>
+            </archetype_id>
+            <template_id>
+                <value>Vital signs</value>
+            </template_id>
+            <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+            <terminology_id>
+                <value>ISO_639-1</value>
+            </terminology_id>
+            <code_string>en</code_string>
+        </language>
+        <encoding>
+            <terminology_id>
+                <value>IANA_character-sets</value>
+            </terminology_id>
+            <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0010">
+            <name xsi:type="DV_TEXT">
+                <value>List</value>
+            </name>
+        </protocol>
+        <data archetype_node_id="at0002">
+            <name xsi:type="DV_TEXT">
+                <value>history</value>
+            </name>
+            <origin>
+                <value>2023-09-18T09:31:24.476Z</value>
+            </origin>
+            <events xsi:type="POINT_EVENT" archetype_node_id="at0003">
+                <name xsi:type="DV_TEXT">
+                    <value>Any event</value>
+                </name>
+                <time>
+                    <value>2023-09-18T09:31:24.481Z</value>
+                </time>
+                <data xsi:type="ITEM_TREE" archetype_node_id="at0001">
+                    <name xsi:type="DV_TEXT">
+                        <value>structure</value>
+                    </name>
+                    <items xsi:type="ELEMENT" archetype_node_id="at0004">
+                        <name xsi:type="DV_TEXT">
+                            <value>Rate</value>
+                        </name>
+                        <value xsi:type="DV_QUANTITY">
+                            <magnitude>92.7</magnitude>
+                            <units>/min</units>
+                        </value>
+                    </items>
+                </data>
+                <state xsi:type="ITEM_TREE" archetype_node_id="at0012">
+                    <name xsi:type="DV_TEXT">
+                        <value>List</value>
+                    </name>
+                </state>
+            </events>
+        </data>
+    </content>
+    <content xsi:type="OBSERVATION" archetype_node_id="openEHR-EHR-OBSERVATION.respiration.v2">
+        <name xsi:type="DV_TEXT">
+            <value>Respiration</value>
+        </name>
+        <archetype_details>
+            <archetype_id>
+                <value>openEHR-EHR-OBSERVATION.respiration.v2</value>
+            </archetype_id>
+            <template_id>
+                <value>Vital signs</value>
+            </template_id>
+            <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+            <terminology_id>
+                <value>ISO_639-1</value>
+            </terminology_id>
+            <code_string>en</code_string>
+        </language>
+        <encoding>
+            <terminology_id>
+                <value>IANA_character-sets</value>
+            </terminology_id>
+            <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0057">
+            <name xsi:type="DV_TEXT">
+                <value>Tree</value>
+            </name>
+        </protocol>
+        <data archetype_node_id="at0001">
+            <name xsi:type="DV_TEXT">
+                <value>history</value>
+            </name>
+            <origin>
+                <value>2023-09-18T09:31:24.501Z</value>
+            </origin>
+            <events xsi:type="POINT_EVENT" archetype_node_id="at0002">
+                <name xsi:type="DV_TEXT">
+                    <value>Any event</value>
+                </name>
+                <time>
+                    <value>2023-09-18T09:31:24.502Z</value>
+                </time>
+                <data xsi:type="ITEM_TREE" archetype_node_id="at0003">
+                    <name xsi:type="DV_TEXT">
+                        <value>List</value>
+                    </name>
+                    <items xsi:type="ELEMENT" archetype_node_id="at0004">
+                        <name xsi:type="DV_TEXT">
+                            <value>Rate</value>
+                        </name>
+                        <value xsi:type="DV_QUANTITY">
+                            <magnitude>137.9</magnitude>
+                            <units>/min</units>
+                        </value>
+                    </items>
+                </data>
+                <state xsi:type="ITEM_TREE" archetype_node_id="at0022">
+                    <name xsi:type="DV_TEXT">
+                        <value>List</value>
+                    </name>
+                </state>
+            </events>
+        </data>
+    </content>
+    <content xsi:type="OBSERVATION" archetype_node_id="openEHR-EHR-OBSERVATION.pulse_oximetry.v1">
+        <name xsi:type="DV_TEXT">
+            <value>Pulse oximetry</value>
+        </name>
+        <archetype_details>
+            <archetype_id>
+                <value>openEHR-EHR-OBSERVATION.pulse_oximetry.v1</value>
+            </archetype_id>
+            <template_id>
+                <value>Vital signs</value>
+            </template_id>
+            <rm_version>1.0.2</rm_version>
+        </archetype_details>
+        <language>
+            <terminology_id>
+                <value>ISO_639-1</value>
+            </terminology_id>
+            <code_string>en</code_string>
+        </language>
+        <encoding>
+            <terminology_id>
+                <value>IANA_character-sets</value>
+            </terminology_id>
+            <code_string>UTF-8</code_string>
+        </encoding>
+        <subject xsi:type="PARTY_SELF" />
+        <protocol xsi:type="ITEM_TREE" archetype_node_id="at0007">
+            <name xsi:type="DV_TEXT">
+                <value>List</value>
+            </name>
+        </protocol>
+        <data archetype_node_id="at0001">
+            <name xsi:type="DV_TEXT">
+                <value>Event Series</value>
+            </name>
+            <origin>
+                <value>2023-09-18T09:31:24.525Z</value>
+            </origin>
+            <events xsi:type="POINT_EVENT" archetype_node_id="at0002">
+                <name xsi:type="DV_TEXT">
+                    <value>Any event</value>
+                </name>
+                <time>
+                    <value>2023-09-18T09:31:24.525Z</value>
+                </time>
+                <data xsi:type="ITEM_TREE" archetype_node_id="at0003">
+                    <name xsi:type="DV_TEXT">
+                        <value>Tree</value>
+                    </name>
+                    <items xsi:type="ELEMENT" archetype_node_id="at0006">
+                        <name xsi:type="DV_TEXT">
+                            <value>SpO₂</value>
+                        </name>
+                        <value xsi:type="DV_PROPORTION">
+                            <numerator>65.7</numerator>
+                            <denominator>100.0</denominator>
+                            <type>2</type>
+                        </value>
+                    </items>
+                </data>
+                <state xsi:type="ITEM_TREE" archetype_node_id="at0014">
+                    <name xsi:type="DV_TEXT">
+                        <value>Tree</value>
+                    </name>
+                </state>
+            </events>
+        </data>
+    </content>
+</composition>

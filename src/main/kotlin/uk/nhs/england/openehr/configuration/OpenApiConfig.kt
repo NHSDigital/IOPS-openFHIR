@@ -125,6 +125,9 @@ class OpenApiConfig(@Qualifier("R4") val ctx : FhirContext) {
         // QuestionnaireResponse
 
         val examplesQuestionnaireResponse = LinkedHashMap<String,Example?>()
+        examplesQuestionnaireResponse.put("Vital Signs",
+            Example().value(OpenAPIExample().loadJSONExample("FHIR/QuestionnaireResponse/Vitalsigns.json"))
+        )
         examplesQuestionnaireResponse.put("UCLH Foot and ankle PROMs",
             Example().value(OpenAPIExample().loadJSONExample("FHIR/QuestionnaireResponse/UCLH Foot and ankle PROMs.json"))
         )
