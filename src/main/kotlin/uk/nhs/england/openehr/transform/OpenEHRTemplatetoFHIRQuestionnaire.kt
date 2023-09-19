@@ -32,18 +32,19 @@ class openEHRtoFHIR {
         if (template.uid !== null) {
             questionnaire.identifier.add(Identifier().setValue(template.uid.value))
         }
-
+        if (template.concept !== null) questionnaire.title = template.concept
         if (template.description !== null) {
             if (template.description.detailsArray !== null) {
                 for (details in template.description.detailsArray) {
                     if (details.language === null || (details.language.codeString.equals("en"))) {
-                        questionnaire.purpose = details.purpose
-                        questionnaire.description = details.use
+                        if (details.purpose != null) questionnaire.purpose = details.purpose
+                        questionnaire.description = ""
+                        if (details.use != null) questionnaire.description = details.use
 
                         if (details.misuse !== null) {
                             questionnaire.description = questionnaire.description + "\n\n#####Misuse\n\n"+details.misuse
                         }
-                        if (details.keywordsArray !== null) {
+                        if (details.keywordsArray !== null && details.keywordsArray.size >0) {
                             questionnaire.description = questionnaire.description + "\n\n#####Keywords\n\n"
                             var keywords = ""
                             for(txt in details.keywordsArray) {
@@ -73,9 +74,21 @@ class openEHRtoFHIR {
                 rootArchetype = template.definition as CARCHETYPEROOTImpl
                 questionnaire.derivedFrom.add(CanonicalType(OPENEHR_QUESTIONNAIRE_ARCHETYPE + rootArchetype.archetypeId.value))
             }
+            if (rootArchetype != null) {
+                val archetypeExt = Extension(OPENEHR_TEMPLATE_EXT)
+                val code = getCoding(rootArchetype.nodeId,rootArchetype)
+                if (code.size>0) archetypeExt.extension.add(Extension("code").setValue(code[0]))
+                archetypeExt.extension.add(Extension("title").setValue(StringType(getDisplay(rootArchetype.nodeId,rootArchetype))))
+                archetypeExt.extension.add(Extension("rmTypeName").setValue(Coding().setCode(template.definition.rmTypeName)))
+                if (rootArchetype.archetypeId.value.startsWith("openEHR-EHR-EVALUATION.problem_diagnosis")) {
+                    archetypeExt.extension.add(Extension("definition").setValue(StringType( "Condition")))
+                }
+                questionnaire.extension.add(archetypeExt)
+            }
+            /*
             when (template.definition.rmTypeName) {
                 "EVALUATION" ,"COMPOSITION" -> {
-                    // do nothing
+
                     System.out.println(template.definition.rmTypeName)
                         if (rootArchetype !== null) {
                             var itemId = rootArchetype.nodeId
@@ -105,15 +118,17 @@ class openEHRtoFHIR {
                     throw UnprocessableEntityException("Unexpected definition type "+template.definition.rmTypeName)
                 }
             }
+
+             */
             if (template.definition.attributesArray !== null) {
                 for (attribute in template.definition.attributesArray) {
                     if (attribute.rmAttributeName !== null) {
-                        if (attribute.rmAttributeName.equals("content")) {
-                            processAttribute(item, questionnaire.item, attribute, rootArchetype)
-                        } else if (rootArchetype !== null) {
-                            processAttribute(item, questionnaire.item, attribute, rootArchetype)
-                        } else
-                            if (attribute.rmAttributeName.equals("context")) {
+                        when (attribute.rmAttributeName) {
+                            "content" -> {
+                                processAttribute(item, questionnaire.item, attribute, rootArchetype)
+                            }
+                            "context" -> {
+
                                 val contextItem = QuestionnaireItemComponent().setLinkId("context")
                                     .setType(Questionnaire.QuestionnaireItemType.GROUP)
                                     .setText("Other context")
@@ -121,13 +136,37 @@ class openEHRtoFHIR {
 
                                 processAttribute(contextItem, questionnaire.item, attribute, rootArchetype)
                                 // if no context then don't include
-                                if (contextItem.item.size > 0) questionnaire.item.add(contextItem)
-                            } else
-                                if (attribute.rmAttributeName.equals("name")) {
-                                    processName(attribute)
-                                } else {
-                                    System.out.println(attribute.rmAttributeName)
+                                if (contextItem.item.size > 0) {
+                                   // questionnaire.item.add(contextItem)
                                 }
+
+                            }
+                            "name" -> {
+                                processName(attribute)
+                            }
+                            "category" -> {
+                                val contextItem = QuestionnaireItemComponent().setLinkId("context")
+                                    .setType(Questionnaire.QuestionnaireItemType.GROUP)
+                                    .setText("Catengory")
+                                    .setRequired(false)
+
+                                processAttribute(contextItem, questionnaire.item, attribute, rootArchetype)
+                                // if no context then don't include
+
+                                if (contextItem.hasExtension()) {
+                                    for (extension in contextItem.extension) {
+                                        questionnaire.extension.add(extension)
+                                    }
+                                }
+
+                            }
+                            "other-context" -> {
+                                //processName(attribute)
+                            }
+                            else ->{
+                                throw UnprocessableEntityException("Unexpect attribute " +  attribute.rmAttributeName)
+                            }
+                        }
                     }
                     //            processAttribute(questionnaire.item,attribute)
                 }

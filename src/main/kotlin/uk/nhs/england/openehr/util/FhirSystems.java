@@ -67,6 +67,7 @@ public final class FhirSystems {
     public static final String OPENEHR_COMPOSITION_CATEGORY = "https://specifications.openehr.org/fhir/codesystem-composition_category";
 
    // public static final String OPENEHR_VALUESET = "http://fhir.openehr.example.org/ValueSet";
+   public static final String OPENEHR_TEMPLATE_EXT =  "http://openehr.example.org/Ext-Template";
     public static final String OPENEHR_COMPOSITION_CATEGORY_EXT = "https://specifications.openehr.org/fhir/extension-composition_category";
     public static final String OPENEHR_ARCHETYPE_EXT = "http://fhir.openehr.example.org/derivedFrom";
 
