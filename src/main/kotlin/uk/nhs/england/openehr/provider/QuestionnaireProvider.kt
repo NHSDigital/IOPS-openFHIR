@@ -117,6 +117,7 @@ class QuestionnaireProvider (@Qualifier("R4") private val fhirContext: FhirConte
         if (document.template !== null) {
             val template = document.template
             val openEHRtoFHIR = openEHRtoFHIR(document.template, this.codeSystem)
+
             return openEHRtoFHIR.questionnaire
         }
         return null

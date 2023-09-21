@@ -17,6 +17,7 @@ class openEHRtoFHIR {
     //var rootArchetype : CARCHETYPEROOTImpl? = null;
     val questionnaire = Questionnaire()
     var codeSystems : List<CodeSystem> = ArrayList()
+    var linkIdMap = LinkedHashMap<String, QuestionnaireItemComponent>()
     init {
         questionnaire.status= Enumerations.PublicationStatus.DRAFT
     }
@@ -217,6 +218,10 @@ class openEHRtoFHIR {
             item.linkId = archetype.archetypeId.value
             item.type = Questionnaire.QuestionnaireItemType.GROUP
             questionnaire.item.add(item)
+            if (linkIdMap[item.linkId] != null) {
+                throw UnprocessableEntityException("Entry already exists " + item.linkId)
+            }
+            linkIdMap[item.linkId] = item
 
             if (archetype.definition.attributesArray !== null) {
                 for (attribute in archetype.definition.attributesArray) {
